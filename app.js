@@ -5,15 +5,14 @@ const http = require("http");
 const socketIo = require("socket.io");
 const axios = require("axios");
 const port = process.env.PORT || 4001;
-const index = require("./routes/index");
+//const index = require("./routes/index");
+const path = require('path')
 const app = express();
-app.use(index);
+//app.use(index);
 const server = http.createServer(app);
 const io = socketIo(server);
-const path = require('path')
 
-//app.use(express.static(path.join(__dirname, 'client/build')))
-//app.use(express.static(path.join(__dirname, 'client/build/')))
+app.use(express.static(path.join(__dirname, 'client/build/index.html')))
 
 io.on("connection", socket => {
   console.log("New client connected"), setInterval(
@@ -32,8 +31,4 @@ const getApiAndEmit = async socket => {
     console.error(`Error: ${error.code}`);
   }
 };
-
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname + '/client/build/index.html'))
-})
 server.listen(port, () => console.log(`Listening on port ${port}`));
