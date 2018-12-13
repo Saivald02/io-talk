@@ -10,6 +10,11 @@ const app = express();
 app.use(index);
 const server = http.createServer(app);
 const io = socketIo(server);
+const path = require('path')
+
+//app.use(express.static(path.join(__dirname, 'client/build')))
+//app.use(express.static(path.join(__dirname, 'client/build/')))
+
 io.on("connection", socket => {
   console.log("New client connected"), setInterval(
     () => getApiAndEmit(socket),
@@ -27,4 +32,8 @@ const getApiAndEmit = async socket => {
     console.error(`Error: ${error.code}`);
   }
 };
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname + '/client/build/index.html'))
+})
 server.listen(port, () => console.log(`Listening on port ${port}`));
