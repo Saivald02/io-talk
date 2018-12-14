@@ -30,6 +30,7 @@ io.on("connection", socket => {
   );
   socket.on("disconnect", () => console.log("Client disconnected"));
 });
+
 const getApiAndEmit = async socket => {
   try {
     const res = await axios.get(
