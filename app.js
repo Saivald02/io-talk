@@ -1,18 +1,27 @@
 // https://github.com/amkurian/simple-chat
 
+// https://medium.com/@eugrdn/deploy-create-react-app-with-sockets-io-to-heroku-1def8d53b976
 const express = require("express");
 const http = require("http");
 const socketIo = require("socket.io");
 const axios = require("axios");
 const port = process.env.PORT || 4001;
-//const index = require("./routes/index");
+const index = require("./routes/index");
 const path = require('path')
-const app = express();
+//const app = express();
 //app.use(index);
 const server = http.createServer(app);
 const io = socketIo(server);
 
 app.use(express.static(path.join(__dirname, 'client/build/index.html')))
+
+
+//app.get('/', (req, res, next) => {
+	//var list = ["item1", "item2", "item3"];
+	//res.json(list);
+	//console.log('Sent list of items');
+  //res.sendFile(__dirname + './');
+//});
 
 io.on("connection", socket => {
   console.log("New client connected"), setInterval(
