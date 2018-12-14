@@ -5,8 +5,8 @@ class App extends Component {
     super();
     this.state = {
       response: false,
-      endpoint: "http://127.0.0.1:4001"
-      //endpoint: "https://io-talk.herokuapp.com/"
+      //endpoint: "http://127.0.0.1:4001"
+      endpoint: "https://io-talk.herokuapp.com/"
     };
   }
   componentDidMount() {
