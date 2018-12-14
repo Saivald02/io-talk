@@ -13,7 +13,7 @@ const app = express();
 const server = http.createServer(app);
 const io = socketIo(server);
 
-app.use(express.static(path.join(__dirname, 'client/build/index.html')))
+app.use(express.static(path.join(__dirname, 'client/build')))
 
 
 //app.get('/', (req, res, next) => {
