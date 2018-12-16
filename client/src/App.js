@@ -31,29 +31,38 @@ class App extends Component {
 
   }
   render() {
-    const { forecast, newUser } = this.state;
+    const { forecast, newUser, response } = this.state;
     console.log('render');
     //console.log(response);
     //console.log(selfoss);
     //console.log(hvols);
     //console.log(forecast[0]);
     console.log(newUser);
-    return (
-      <div style={{ textAlign: "center" }}>
-        {forecast[0]
-          ? <div>
-              <p>
-                {forecast[0].title}: {forecast[0].content}
-              </p>
-              <p>
-                {forecast[1].title}: {forecast[1].content}
-              </p>
-            </div>
-          : <p>Loading...</p>}
-      </div>
-    );
+    if(forecast !== false && response !== false) {
+      return (
+        <div>
+            <p>
+              {forecast[0].title}: {forecast[0].content}
+            </p>
+            <p>
+              {forecast[1].title}: {forecast[1].content}
+            </p>
+            <p>
+              Öldusel: hiti {response.temperature} °C vindur: {response.windSpeed} m/s
+
+            </p>
+          </div>
+        );
+      } else {
+        return (
+          <div>
+            <p> Loading </p>
+          </div>
+        );
+      }
+    }
   }
-}
+
 export default App;
 
 /*

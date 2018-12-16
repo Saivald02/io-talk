@@ -37,7 +37,7 @@ io.on("connection", socket => {
 
   console.log('new client connection');
 
-  /*
+
   var interval = setInterval(function () {
       //previous = update(previous);
       getApiAndEmit(socket)
@@ -47,7 +47,7 @@ io.on("connection", socket => {
       console.log('client disconnect');
       clearInterval(interval);
   });
-  */
+
   io.sockets.emit('newUser', 'new socket');
 
   socket.on('clientRender', function () {
@@ -55,6 +55,7 @@ io.on("connection", socket => {
       // emit that someone disconnected
   });
 
+  /*
   socket.on('disconnect', function () {
       console.log('client disconnect');
       socket.on('disconnect', function () {
@@ -63,8 +64,9 @@ io.on("connection", socket => {
       });
         // emit that someone disconnected
   });
+  */
 
-  getApiAndEmit(socket)
+  //getApiAndEmit(socket)
   //socket.on("disconnect", () => console.log("Client disconnected"));
 });
 
@@ -93,17 +95,26 @@ const getApiAndEmit = async socket => {
     //console.log(forecast.data.results);
     //console.log(quake.data.results);
     console.log('---------------------------------------');
-    /*
-    const res = await axios.get(
-        "https://api.darksky.net/forecast/e3b1e048dd74c7ca5d0a5263e2ca792d/37.8267,-122.4233"
+
+    // öldusel 63.824410, -20.128533
+    const oldusel = await axios.get(
+      "https://api.darksky.net/forecast/e3b1e048dd74c7ca5d0a5263e2ca792d/63.824410,-20.128533?lang=is&units=si"
     );
-    socket.emit("FromAPI", res.data.currently.temperature);
-    */
+    // KELDUR
+    const res = await axios.get(
+      "https://api.darksky.net/forecast/e3b1e048dd74c7ca5d0a5263e2ca792d/63.816667,-20.083333?lang=is&units=si"
+    );
+    // longitude: -20.083333
+    // lati: 63.816667
+    //console.log(res.data.currently.temperature);
+    //console.log(oldusel.data.currently.temperature);
+    socket.emit("FromAPI", oldusel.data.currently);
+
 
     var d = new Date();
     var t = d.toLocaleTimeString();
 
-    //socket.emit("FromAPI", t);
+    //socket.emit("FromAPI", res);
 
     //socket.emit("FromAPIHvols", hvols.data.results[0]);
 
