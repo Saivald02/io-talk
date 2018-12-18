@@ -8,7 +8,7 @@
 // https://io-talk.herokuapp.com/
 // https://medium.com/@eugrdn/deploy-create-react-app-with-sockets-io-to-heroku-1def8d53b976
 
-// að fá stöðvar
+
 
 const express = require("express");
 const http = require("http");
@@ -100,20 +100,22 @@ const getApiAndEmit = async socket => {
     const oldusel = await axios.get(
       "https://api.darksky.net/forecast/e3b1e048dd74c7ca5d0a5263e2ca792d/63.824410,-20.128533?lang=is&units=si"
     );
+    /*
     // KELDUR
     const res = await axios.get(
       "https://api.darksky.net/forecast/e3b1e048dd74c7ca5d0a5263e2ca792d/63.816667,-20.083333?lang=is&units=si"
     );
+    */
     // longitude: -20.083333
     // lati: 63.816667
     //console.log(res.data.currently.temperature);
     //console.log(oldusel.data.currently.temperature);
     socket.emit("FromAPI", oldusel.data.currently);
 
-
+    /*
     var d = new Date();
     var t = d.toLocaleTimeString();
-
+    */
     //socket.emit("FromAPI", res);
 
     //socket.emit("FromAPIHvols", hvols.data.results[0]);
