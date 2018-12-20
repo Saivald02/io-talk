@@ -1,22 +1,19 @@
 import React, { Component } from "react";
-import socketIOClient from "socket.io-client";
+
+//import socketIOClient from "socket.io-client";
+
+import './App.css';
 
 import Iceland from './components/Iceland/Iceland';
 import Oldusel from './components/Oldusel/Oldusel';
+import MessageHistory from './components/MessageHistory/MessageHistory';
+import Messages from './components/Messages/Messages';
 
-class App extends Component {
+export class App extends Component {
   constructor() {
     super();
     this.state = {
-      /*
-      response: false,
-      selfoss: false,
-      hvols: false,
 
-      newUser: false,
-      endpoint: "http://127.0.0.1:4001"
-      */
-      //endpoint: "/"
     };
   }
   componentDidMount() {
@@ -45,10 +42,13 @@ class App extends Component {
     //console.log(hvols);
     //console.log(forecast[0]);
     //console.log(newUser);
+    // <Messages />
       return (
-        <div>
+        <div className="main">
             <Iceland />
             <Oldusel />
+            <MessageHistory />
+            <Messages />
           </div>
         );
     }

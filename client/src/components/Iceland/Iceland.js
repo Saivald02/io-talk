@@ -2,6 +2,7 @@ import React from 'react';
 
 import socketIOClient from "socket.io-client";
 
+import Loading from '../Loading/Loading';
 
 export class Iceland extends React.Component {
     constructor() {
@@ -57,9 +58,7 @@ export class Iceland extends React.Component {
               );
         } else {
             return (
-                <div>
-                    <p> Loading </p>
-                </div>
+                <Loading />
             );
         }
       }

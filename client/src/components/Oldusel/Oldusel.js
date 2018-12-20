@@ -2,6 +2,7 @@ import React from 'react';
 
 import socketIOClient from "socket.io-client";
 
+import Loading from '../Loading/Loading';
 
 
 export class Oldusel extends React.Component {
@@ -54,9 +55,7 @@ export class Oldusel extends React.Component {
         );
       } else {
         return (
-          <div>
-            <p> Loading </p>
-          </div>
+          <Loading />
         );
       }
     }
