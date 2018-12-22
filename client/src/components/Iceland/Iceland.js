@@ -12,6 +12,8 @@ export class Iceland extends React.Component {
             //selfoss: false,
             //hvols: false,
             forecast: false,
+            hvolsvollur: false,
+            selfoss: false,
             //newUser: false,
             //endpoint: "http://127.0.0.1:4001"
             endpoint: "/"
@@ -31,13 +33,17 @@ export class Iceland extends React.Component {
 
         socket.on("weatherForecast", data => this.setState({ forecast: data }));
 
+        socket.on("FromAPIHvols", data => this.setState({ hvolsvollur: data}));
+
+        socket.on("FromAPISelfoss", data => this.setState({ selfoss: data}));
+
         //socket.on("newUser", data => this.setState({ newUser: data }));
 
         //socket.emit("clientRender", "hello server");
     }
 
     render() {
-        const { forecast } = this.state;
+        const { forecast, hvolsvollur, selfoss } = this.state;
         console.log('render iceland');
         //console.log(response);
         //console.log(selfoss);
@@ -45,7 +51,7 @@ export class Iceland extends React.Component {
         //console.log(forecast[0]);
         //console.log(newUser);
 
-        if(forecast !== false) {
+        if(forecast !== false && hvolsvollur !== false && selfoss !== false) {
             return (
                 <div>
                     <p>
@@ -54,6 +60,8 @@ export class Iceland extends React.Component {
                     <p>
                       {forecast[1].title}: {forecast[1].content}
                     </p>
+                    <p> Hvolsvöllur: hiti: {hvolsvollur.T}°, vindur: {hvolsvollur.F}, hviður: {hvolsvollur.FG}</p>
+                    <p> Selfoss: hiti: {selfoss.T}°, vindur: {selfoss.F}, hviður: {selfoss.FG}</p>
                   </div>
               );
         } else {

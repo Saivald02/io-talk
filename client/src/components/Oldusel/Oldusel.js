@@ -39,6 +39,7 @@ export class Oldusel extends React.Component {
 
   render() {
     const { response } = this.state;
+    console.log(response);
     console.log('render oldusel');
     //console.log(response);
     //console.log(selfoss);
@@ -49,7 +50,7 @@ export class Oldusel extends React.Component {
       return (
         <div>
             <p>
-              Öldusel: hiti {response.temperature} °C vindur: {response.windSpeed} m/s
+              Öldusel: {response.summary}, hiti {response.temperature}, °C vindur: {response.windSpeed} m/s.
             </p>
           </div>
         );
