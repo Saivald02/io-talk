@@ -63,14 +63,16 @@ const getApiAndEmit = async socket => {
 
   socket.emit("FromAPISelfoss", selfoss.data.results[0]);
 
-
+	/*
   // öldusel 63.824410, -20.128533
   const oldusel = await axios.get(
     "https://api.darksky.net/forecast/e3b1e048dd74c7ca5d0a5263e2ca792d/63.824410,-20.128533?lang=is&units=si"
   );
 
   socket.emit("FromAPI", oldusel.data.currently);
-  /*
+	*/
+	
+	/*
   // KELDUR
   const res = await axios.get(
     "https://api.darksky.net/forecast/e3b1e048dd74c7ca5d0a5263e2ca792d/63.816667,-20.083333?lang=is&units=si"
@@ -80,9 +82,6 @@ const getApiAndEmit = async socket => {
   // lati: 63.816667
   //console.log(res.data.currently.temperature);
   //console.log(oldusel.data.currently.temperature);
-
-
-
 };
 
 //}

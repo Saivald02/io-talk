@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 //import socketIOClient from "socket.io-client";
-
+import Temp from './components/Temp/Temp';
+import Weather from './components/Weather/Weather';
 import './App.css';
 
-import Iceland from './components/Iceland/Iceland';
-import Oldusel from './components/Oldusel/Oldusel';
-import MessageHistory from './components/MessageHistory/MessageHistory';
-import Messages from './components/Messages/Messages';
+
+import Register from './components/Register/Register';
 
 export class App extends Component {
   constructor() {
@@ -17,7 +17,7 @@ export class App extends Component {
     };
   }
   componentDidMount() {
-    console.log('i did mount');
+      console.log('app mount');
     //const { endpoint } = this.state;
     //const socket = socketIOClient(endpoint);
 
@@ -44,12 +44,14 @@ export class App extends Component {
     //console.log(newUser);
     // <Messages />
       return (
-        <div className="main">
-            <Iceland />
-            <Oldusel />
-            <MessageHistory />
-            <Messages />
-          </div>
+        <Router basename={process.env.PUBLIC_URL}>
+            <div>
+
+                <Route path="/" component={Register} />
+                <Route exact path="/temp" component={Temp} />
+                <Route exact path="/weather" component={Weather} />
+            </div>
+        </Router>
         );
     }
   }
