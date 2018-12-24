@@ -1,12 +1,16 @@
 import React, { Component } from "react";
 
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 //import socketIOClient from "socket.io-client";
 import Temp from './components/Temp/Temp';
 import Weather from './components/Weather/Weather';
 import './App.css';
 
-
+/*
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
+*/
 import Register from './components/Register/Register';
 
 export class App extends Component {
@@ -46,10 +50,24 @@ export class App extends Component {
       return (
         <Router basename={process.env.PUBLIC_URL}>
             <div>
-
-                <Route path="/" component={Register} />
-                <Route exact path="/temp" component={Temp} />
-                <Route exact path="/weather" component={Weather} />
+                <nav>
+                <ul>
+                  <li>
+                    <Link to="/">Home</Link>
+                  </li>
+                  <li>
+                    <Link to="/temp">database</Link>
+                  </li>
+                  <li>
+                    <Link to="/weather">weather</Link>
+                  </li>
+                </ul>
+                </nav>
+                <Switch>
+                    <Route exact path="/" component={Register} />
+                    <Route path="/temp" component={Temp} />
+                    <Route path="/weather" component={Weather} />
+                </Switch>
             </div>
         </Router>
         );
@@ -58,6 +76,7 @@ export class App extends Component {
 
 export default App;
 
+//ReactDOM.render(<Provider store={createStore(reducers, applyMiddleware(thunk))}><Router><App /></Router></Provider>, document.getElementById('app'));
 /*
 axios.all([
     axios.get('https://apis.is/weather/observations/is?stations=6310,6310?time=1h'),

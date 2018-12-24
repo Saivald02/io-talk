@@ -2,22 +2,25 @@ import React from 'react';
 
 import socketIOClient from "socket.io-client";
 
+import { connect } from 'react-redux';
+import { weatherIceland } from '../../actions/weatherIcelandActions';
+import { weatherHvolsvollur } from '../../actions/weatherHvolsvollurActions';
+import { weatherSelfoss } from '../../actions/weatherSelfossActions';
+
 import Loading from '../Loading/Loading';
 
 export class Iceland extends React.Component {
     constructor() {
         super();
         this.state = {
-            //response: false,
-            //selfoss: false,
-            //hvols: false,
-            forecast: false,
-            hvolsvollur: false,
-            selfoss: false,
-            //newUser: false,
-            //endpoint: "http://127.0.0.1:4001"
-            endpoint: "/"
+            endpoint: "http://127.0.0.1:4001"
+            //endpoint: "/"
         };
+    }
+
+    componentWillUnmount() {
+        //this.socket.close();
+        console.log('---------------------- i did unmount -----------------------');
     }
 
     componentDidMount() {
@@ -31,25 +34,45 @@ export class Iceland extends React.Component {
 
         //socket.on("FromAPISelf", data => this.setState({ selfoss: data }));
 
-        socket.on("weatherForecast", data => this.setState({ forecast: data }));
+        //socket.on("weatherForecast", data => this.setState({ forecast: data }));
 
-        socket.on("FromAPIHvols", data => this.setState({ hvolsvollur: data}));
+        //socket.on("FromAPIHvols", data => this.setState({ hvolsvollur: data}));
 
-        socket.on("FromAPISelfoss", data => this.setState({ selfoss: data}));
+        //socket.on("FromAPISelfoss", data => this.setState({ selfoss: data}));
 
+        socket.on('weatherForecast', (data) => {
+            console.log('iceland weather update');
+            //console.log(userlist);
+            this.props.weatherIceland(data);
+            //this.setState({ allUsers: userlist });
+
+        });
+
+        socket.on('FromAPIHvols', (data) => {
+            console.log('hvolsvollur weather update');
+            //console.log(userlist);
+            this.props.weatherHvolsvollur(data);
+            //this.setState({ allUsers: userlist });
+
+        });
+
+        socket.on('FromAPISelfoss', (data) => {
+            console.log('selfoss weather update');
+            //console.log(userlist);
+            this.props.weatherSelfoss(data);
+            //this.setState({ allUsers: userlist });
+
+        });
         //socket.on("newUser", data => this.setState({ newUser: data }));
 
         //socket.emit("clientRender", "hello server");
     }
 
     render() {
-        const { forecast, hvolsvollur, selfoss } = this.state;
-        console.log('render iceland');
-        //console.log(response);
-        //console.log(selfoss);
-        //console.log(hvols);
-        //console.log(forecast[0]);
-        //console.log(newUser);
+
+        const forecast = this.props.iceland;
+        const hvolsvollur = this.props.hvolsvollur;
+        const selfoss = this.props.selfoss;
 
         if(forecast !== false && hvolsvollur !== false && selfoss !== false) {
             return (
@@ -72,14 +95,10 @@ export class Iceland extends React.Component {
       }
 }
 
-export default Iceland;
+const mapStateToProps = ({ iceland, selfoss, hvolsvollur }) => {
+    //console.log('--- iceland weather to props ---');
+    return { iceland, selfoss, hvolsvollur };
+}
 
-/*
-axios.all([
-    axios.get('https://apis.is/weather/observations/is?stations=6310,6310?time=1h'),
-    axios.get('https://apis.is/weather/observations/is?stations=6222,6222?time=1h')
-])
-.then(axios.spread((selfoss, hvolsollur) => {
-    // do something with both responses
-}));
-*/
+//export default Iceland;
+export default connect(mapStateToProps,{ weatherIceland, weatherSelfoss, weatherHvolsvollur })(Iceland);

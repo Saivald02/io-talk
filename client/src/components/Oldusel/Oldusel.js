@@ -4,7 +4,6 @@ import socketIOClient from "socket.io-client";
 
 import Loading from '../Loading/Loading';
 
-
 export class Oldusel extends React.Component {
   constructor() {
     super();
@@ -14,27 +13,27 @@ export class Oldusel extends React.Component {
       //hvols: false,
 
       //newUser: false,
-      //endpoint: "http://127.0.0.1:4001"
-      endpoint: "/"
+      endpoint: "http://127.0.0.1:4001"
+      //endpoint: "/"
     };
   }
   componentDidMount() {
-    console.log('i did mount');
-    const { endpoint } = this.state;
-    const socket = socketIOClient(endpoint);
-    socket.on("FromAPI", data => this.setState({ response: data }));
+      console.log('i did mount');
+      const { endpoint } = this.state;
+      const socket = socketIOClient(endpoint);
+      socket.on("FromAPI", data => this.setState({ response: data }));
 
-    /*
-    socket.on("FromAPIHvols", data => this.setState({ hvols: data }));
+      /*
+      socket.on("FromAPIHvols", data => this.setState({ hvols: data }));
 
-    socket.on("FromAPISelf", data => this.setState({ selfoss: data }));
+      socket.on("FromAPISelf", data => this.setState({ selfoss: data }));
 
-    socket.on("weatherForecast", data => this.setState({ forecast: data }));
+      socket.on("weatherForecast", data => this.setState({ forecast: data }));
 
-    socket.on("newUser", data => this.setState({ newUser: data }));
+      socket.on("newUser", data => this.setState({ newUser: data }));
 
-    socket.emit("clientRender", "hello server");
-    */
+      socket.emit("clientRender", "hello server");
+      */
   }
 
   render() {

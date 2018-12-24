@@ -1,0 +1,1 @@
+export const ICELAND_wEATHER = 'ICELAND_wEATHER';

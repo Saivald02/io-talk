@@ -1,0 +1,1 @@
+export const SELFOSS_WEATHER = 'SELFOSS_WEATHER';

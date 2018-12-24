@@ -1,10 +1,14 @@
 
 import React from 'react';
 import axios from "axios";
-import { Link } from 'react-router-dom';
-import { Redirect } from 'react-router';
-//import socketIOClient from "socket.io-client";
+import { connect } from 'react-redux';
+import { login } from '../../actions/logActions';
+//import { Link } from 'react-router-dom';
+//import { Redirect } from 'react-router';
 
+import Loading from '../Loading/Loading';
+import Logout from '../Logout/Logout';
+//import socketIOClient from "socket.io-client";
 
 export class Register extends React.Component {
     constructor() {
@@ -64,7 +68,9 @@ export class Register extends React.Component {
           .then((response) => {
                     if (!response.data.error) {
                         console.log('successful signup')
-                        this.setState({ fireRedirect: true });
+                        console.log(response.data);
+                        //this.setState({ fireRedirect: true });
+                        this.props.login(true);
                     } else {
                         console.log('username already taken')
                     }
@@ -75,58 +81,70 @@ export class Register extends React.Component {
                 })
   };
 
-
-  // here is our UI
-  // it is easy to understand their functions when you
-  // see them render into our screen
     render() {
-        return (
-            <div>
-                <div style={{ padding: "10px" }}>
-                    <input
-                        type="text"
-                        onChange={e => this.setState({ email: e.target.value })}
-                        placeholder="email"
-                        style={{ width: "200px" }}
-                    />
-                </div>
-                <div style={{ padding: "10px" }}>
-                    <input
-                        type="text"
-                        style={{ width: "200px" }}
-                        onChange={e => this.setState({ username: e.target.value })}
-                        placeholder="username"
-                    />
-                </div>
-                <div style={{ padding: "10px" }}>
-                    <input
-                        type="text"
-                        style={{ width: "200px" }}
-                        onChange={e => this.setState({ password: e.target.value })}
-                        placeholder="password"
-                    />
-                </div>
-                <div style={{ padding: "10px" }}>
-                    <input
-                        type="text"
-                        style={{ width: "200px" }}
-                        onChange={e => this.setState({ passwordConfirm: e.target.value })}
-                        placeholder="confirm password"
-                    />
-                </div>
+        const log = this.props.log;
+        console.log('render register');
+        console.log(log);
+        if(log) {
+            return (
                 <div>
-                    <button
-                        onClick={() =>
-                            this.registerPost()
-                        }
-                    >
-                          register
-                    </button>
+                    <Loading />
+                    <Logout />
                 </div>
-                {this.state.fireRedirect && <Redirect to='/dashboard' push={true} />}
-            </div>
-        );
+            );
+        } else {
+            return (
+                <div>
+                    <div style={{ padding: "10px" }}>
+                        <input
+                            type="text"
+                            onChange={e => this.setState({ email: e.target.value })}
+                            placeholder="email"
+                            style={{ width: "200px" }}
+                        />
+                    </div>
+                    <div style={{ padding: "10px" }}>
+                        <input
+                            type="text"
+                            style={{ width: "200px" }}
+                            onChange={e => this.setState({ username: e.target.value })}
+                            placeholder="username"
+                        />
+                    </div>
+                    <div style={{ padding: "10px" }}>
+                        <input
+                            type="text"
+                            style={{ width: "200px" }}
+                            onChange={e => this.setState({ password: e.target.value })}
+                            placeholder="password"
+                        />
+                    </div>
+                    <div style={{ padding: "10px" }}>
+                        <input
+                            type="text"
+                            style={{ width: "200px" }}
+                            onChange={e => this.setState({ passwordConfirm: e.target.value })}
+                            placeholder="confirm password"
+                        />
+                    </div>
+                    <div>
+                        <button
+                            onClick={() =>
+                                this.registerPost()
+                            }
+                        >
+                              register
+                        </button>
+                    </div>
+                </div>
+            );
+        }
     }
 }
 
-export default Register;
+const mapStateToProps = ({ log }) => {
+    //console.log('--- iceland weather to props ---');
+    return { log };
+}
+
+export default connect(mapStateToProps, { login })(Register);

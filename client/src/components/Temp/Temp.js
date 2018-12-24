@@ -3,21 +3,19 @@ import React from 'react';
 import MessageHistory from '../MessageHistory/MessageHistory';
 import Messages from '../Messages/Messages';
 
-export class Temp extends React.Component {
-    constructor() {
-        super();
-        this.state = {
 
-        };
-    }
+//import socketIOClient from "socket.io-client";
+
+export class Temp extends React.Component {
 
     componentDidMount() {
 
-
+        //socket.emit("FromAPISelfoss", data => this.setState({ selfoss: data}));
         //socket.on("newUser", data => this.setState({ newUser: data }));
 
         //socket.emit("clientRender", "hello server");
     }
+
 
     render() {
         return (

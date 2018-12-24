@@ -28,6 +28,11 @@ router.post('/register', function (req, res, next) {
       password: req.body.password,
       passwordConf: req.body.passwordConf,
     }
+
+    var userInfo = {
+        email: req.body.email,
+        username: req.body.username,
+    }
     //console.log(userData);
 
     User.create(userData, function (error, user) {
@@ -36,7 +41,8 @@ router.post('/register', function (req, res, next) {
       } else {
         req.session.userId = user._id;
         console.log('user create');
-        return res.json({ success: true });
+        //console.log(user);
+        return res.json({ success: userInfo });
         //return res.redirect('/profile');
       }
     });
@@ -73,7 +79,8 @@ router.get('/profile', function (req, res, next) {
           err.status = 400;
           return next(err);
         } else {
-          return res.send('<h1>Name: </h1>' + user.username + '<h2>Mail: </h2>' + user.email + '<br><a type="button" href="/logout">Logout</a>')
+          //return res.send('<h1>Name: </h1>' + user.username + '<h2>Mail: </h2>' + user.email + '<br><a type="button" href="/logout">Logout</a>')
+          return res.json({ success: true });
         }
       }
     });
@@ -81,13 +88,15 @@ router.get('/profile', function (req, res, next) {
 
 // GET for logout logout
 router.get('/logout', function (req, res, next) {
+  console.log('logging out');
   if (req.session) {
     // delete session object
     req.session.destroy(function (err) {
       if (err) {
         return next(err);
       } else {
-        return res.redirect('/');
+        //return res.redirect('/');
+        return res.json({ success: false });
       }
     });
   }

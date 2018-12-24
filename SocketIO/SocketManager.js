@@ -15,18 +15,24 @@ let connectedUsers = { }
 module.exports = function(socket){
 
   //console.log('im socket manager');
-
+	//console.log(socket);
   console.log('new client connection');
+	getApiAndEmit(socket);
 
+	/*
   // send weather report every 10 seconds
   var interval = setInterval(function () {
       //previous = update(previous);
       getApiAndEmit(socket)
   }, 10000);
-
+	*/
+	socket.on('try', function () {
+			console.log('trying to discon');
+			socket.disconnect(true);
+	})
   socket.on('disconnect', function () {
       console.log('client disconnect');
-      clearInterval(interval);
+      //clearInterval(interval);
   });
 
 
@@ -71,7 +77,7 @@ const getApiAndEmit = async socket => {
 
   socket.emit("FromAPI", oldusel.data.currently);
 	*/
-	
+
 	/*
   // KELDUR
   const res = await axios.get(
