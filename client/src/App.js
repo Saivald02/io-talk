@@ -11,7 +11,8 @@ import SocketContext from './socket-context';
 //import * as io from 'socket.io-client';
 import socketIOClient from "socket.io-client";
 
-import Register from './components/Register/Register';
+import SignInUpContainer from './components/SignInUpContainer/SignInUpContainer';
+
 
 //const socket = io();
 const endpoint = "http://127.0.0.1:4001";
@@ -69,7 +70,7 @@ export class App extends Component {
                     </ul>
                     </nav>
                     <Switch>
-                        <Route exact path="/" component={Register} />
+                        <Route exact path="/" component={SignInUpContainer} />
                         <Route path="/temp" component={Temp} />
                         <Route path="/weather" component={Weather} />
                     </Switch>

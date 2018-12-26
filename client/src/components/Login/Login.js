@@ -1,67 +1,96 @@
 import React from 'react';
 
 import { connect } from 'react-redux';
+
 import SocketContext from '../../socket-context';
+
+import { login } from '../../actions/logActions';
+import axios from "axios";
+
+import Logout from '../Logout/Logout';
 
 export class Login extends React.Component {
     constructor() {
         super();
         this.state = {
-            username: ''
+            email: '',
+            password: ''
         };
-  }
-  componentDidMount() {
-      console.log('mount login');
-  }
-
-  userLogin() {
-      console.log('user login');
+    }
 
 
-      // 1 axios login
-      // 2 get axios response
-      // 3 if axios success -> this.props.socket.emit add user
-      /*
-      this.props.socket.emit('adduser', this.state.username, (available) => {
-                if (available) {
-                    console.log('add user success');
-                    console.log(this.state.username);
-                    //this.setState({ userStatus: true });
+    componentDidMount() {
+        console.log('mount login');
+    }
 
+    userLogin = e => {
+        e.stopPropagation();
+        e.preventDefault();
+        //preventDefault();
+        const { email, password } = this.state;
+        //console.log(this.state);
+        axios.post("/api/login", {
+            email: email,
+            password: password,
+            })
+            .then((response) => {
+                      if (!response.data.error) {
+                          console.log('successful sign in')
+                          console.log(response.data);
+                          //this.setState({ fireRedirect: true });
+                          this.props.login(true);
 
-                    const username = this.state.username;
-                    //console.log(username);
+                          this.props.socket.emit('adduser', email, (available) => {
+                                    if (available) {
+                                        console.log('add user success');
+                                    } else {
+                                        console.log('add user fail');
+                                    }
+                                });
+                      } else {
+                          console.log('email or password is incorrect')
+                      }
+                  })
+              .catch(error => {
+                      console.log('sign in error: ')
+                      console.log(error)
+                  })
+    };
 
-                    // action functions
-                    //this.props.username(username);
-                    //this.props.logIn(true);
-                    /*
-                    socket.on('userlist', (userlist) => {
-                        console.log('userlist was updated');
-                        console.log(userlist);
-                        //this.setState({ allUsers: userlist });
-
-                    });
-                    
-                } else {
-                    console.log('add user fail');
-                }
-            });
-        */
-  }
-  render() {
-      return (
-            <div>
-              <h3>Login</h3>
-              <div className="input-box">
-                  <input
-                      type="text"
-                      className="input input-big"
-                      onInput={(e) => this.setState({ username: e.target.value })} />
-                  <button type="button" className="btn pull-left" onClick={() => this.userLogin()}>Login</button>
+    render() {
+        const log = this.props.log;
+        //console.log('render register');
+        //console.log(log);
+        if(log) {
+            return (
+                <div>
+                    <Logout />
                 </div>
-            </div>
-        );
+            );
+        } else {
+            return (
+                <div>
+                    <h3>Login</h3>
+                    <div className="input-box">
+                        <div style={{ padding: "10px" }}>
+                            <input
+                                type="text"
+                                style={{ width: "200px" }}
+                                onChange={e => this.setState({ email: e.target.value })}
+                                placeholder="username" />
+                        </div>
+                        <div style={{ padding: "10px" }}>
+                            <input
+                                type="text"
+                                style={{ width: "200px" }}
+                                onChange={e => this.setState({ password: e.target.value })}
+                                placeholder="password" />
+                        </div>
+                        <button type="button" className="btn pull-left" onClick={this.userLogin}>Login</button>
+                    </div>
+                </div>
+            );
+        }
     }
 }
 
@@ -71,10 +100,10 @@ const ChatWithSocket = props => (
   </SocketContext.Consumer>
 )
 
-const mapStateToProps = ({ message }) => {
+const mapStateToProps = ({ log }) => {
     //console.log('--- iceland weather to props ---');
-    return { message };
+    return { log };
 }
 
 //export default Iceland;
-export default connect(mapStateToProps,{ })(ChatWithSocket);
+export default connect(mapStateToProps,{ login })(ChatWithSocket);

@@ -2,15 +2,20 @@ import React from 'react';
 
 //import socketIOClient from "socket.io-client";
 
+import { allUsers } from '../../actions/allUsersActions';
+
 import SocketContext from '../../socket-context';
 import { connect } from 'react-redux';
 //import Loading from '../Loading/Loading';
+
+import GetAll from '../GetAll/GetAll';
+import GetAllItem from '../GetAllItem/GetAllItem';
 
 export class Users extends React.Component {
   constructor() {
     super();
     this.state = {
-      response: false,
+      //response: false,
       //selfoss: false,
       //hvols: false,
 
@@ -27,24 +32,33 @@ export class Users extends React.Component {
       //this.props.socket.on("FromAPI", data => this.setState({ response: data }));
 
       this.props.socket.on('userlist', (userlist) => {
-                  console.log('userlist was updated');
-                  console.log(userlist);
-                  //this.props.allUsers(userlist);
-                  this.setState({ allUsers: userlist });
+          console.log('userlist was updated');
+          console.log(userlist);
+          this.props.allUsers(userlist);
+          /*
+          // https://stackoverflow.com/questions/23092624/socket-io-removing-specific-listener
+          //To unsubscribe all listeners of an event
+          socket.off('event-name');
+
+          //to unsubscribe a certain listener
+          socket.off('event-name', listener);
+          */
+
+          //this.props.socket.off('userlist');
+          //this.setState({ allUsers: userlist });
 
       });
   }
 
     render() {
-        const { allUsers } = this.state;
-        console.log(allUsers);
+        //const { allUsers } = this.props;
+        //console.log(allUsers);
+        const { users } = this.props;
         return (
-            <div>
-                <p>
-                  users
-                </p>
-              </div>
-            );
+            <GetAll>
+                    { users.map((one, i) => (<GetAllItem key={i} all={one} />)) }
+            </GetAll>
+        );
       }
   }
 
@@ -54,10 +68,10 @@ const ChatWithSocket = props => (
     </SocketContext.Consumer>
 )
 
-const mapStateToProps = ({ iceland, selfoss, hvolsvollur }) => {
+const mapStateToProps = ({ users }) => {
     //console.log('--- iceland weather to props ---');
-    return { iceland, selfoss, hvolsvollur };
+    return { users };
 }
 
   //export default Iceland;
-export default connect(mapStateToProps,{ })(ChatWithSocket);
+export default connect(mapStateToProps,{ allUsers })(ChatWithSocket);

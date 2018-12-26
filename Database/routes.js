@@ -5,10 +5,38 @@ var User = require('./models/user');
 
 const Data = require("./data");
 
+//POST route for log in
+router.post('/login', function (req, res, next) {
+    console.log('log me in');
+
+    if (req.body.email && req.body.password) {
+        var loginData = {
+            email: req.body.email,
+            password: req.body.password,
+        }
+    }
+    console.log(loginData);
+    console.log(req.body.email);
+    if (req.body.email && req.body.password) {
+        User.authenticate(req.body.email, req.body.password, function (error, user) {
+            if (error || !user) {
+                //var err = new Error('Wrong email or password.');
+                //err.status = 401;
+                //return next(err);
+                return res.json({ error: 'Wrong email or password' });
+            } else {
+                req.session.userId = user._id;
+                //return res.redirect('/profile');
+                console.log('user auth');
+                return res.json({ success: loginData });
+            }
+        });
+    }
+})
 //POST route for updating data
 router.post('/register', function (req, res, next) {
   console.log('register me');
-
+  console.log(req.body);
   // confirm that user typed same password twice
   if (req.body.password !== req.body.passwordConf) {
     var err = new Error('Passwords do not match.');
@@ -47,8 +75,8 @@ router.post('/register', function (req, res, next) {
       }
     });
 
-  } else if (req.body.logemail && req.body.logpassword) {
-    User.authenticate(req.body.logemail, req.body.logpassword, function (error, user) {
+  } else if (req.body.email && req.body.password) {
+    User.authenticate(req.body.email, req.body.password, function (error, user) {
       if (error || !user) {
         var err = new Error('Wrong email or password.');
         err.status = 401;

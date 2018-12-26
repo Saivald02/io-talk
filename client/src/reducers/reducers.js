@@ -21,8 +21,10 @@ import iceland from './icelandReducer';
 import message from './messageReducer';
 import log from './logReducer';
 
+import users from './allUsersReducer';
+
 export default combineReducers({
-    counter, hvolsvollur, selfoss, iceland, log, message
+    counter, hvolsvollur, selfoss, iceland, log, message, users
 });
 /*
 export default combineReducers({

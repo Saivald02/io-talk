@@ -19,8 +19,10 @@ let connectedUsers = { }
 exports = module.exports = function (io) {
   	// Set socket.io listeners.
   	io.on('connection', (socket) => {
+				//socket.removeAllListeners();
 
-
+				//console.log(io.sockets.sockets.length)
+				console.log(Object.keys(io.sockets.connected).length);
 				socket.on('disconnect', function () {
 						console.log('client disconnect');
 						//clearInterval(interval);
@@ -29,33 +31,42 @@ exports = module.exports = function (io) {
 
 				socket.on('adduser', function(username, fn){
 
-					//Check if username is avaliable.
-					if (users[username] === undefined && username.toLowerCase != "server" && username.length < 21) {
-							socket.username = username;
-							allUsers.push(username);
-							io.sockets.emit('userlist', allUsers);
-							//Store user object in global user roster.
-							users[username] = { username: socket.username, channels: {}, socket: this };
+						//Check if username is avaliable.
+						if (username.toLowerCase !== "server" && username.length < 21) {
+								socket.username = username;
+								//console.log('process socket io user');
+								console.log(username);
+								//console.log(allUsers);
+								var contains = allUsers.includes(username);
+								if(allUsers === undefined || allUsers.length === 0 || !contains) {
+										console.log('pushing ' + username);
+										users[username] = { username: socket.username, channels: {}, socket: this };
+										allUsers.push(username);
+								}
 
-							/*
-							// ----------------------
-							var userlist = [];
+								io.sockets.emit('userlist', allUsers);
+								//Store user object in global user roster.
 
-							//We need to construct the list since the users in the global user roster have a reference to socket, which has a reference
-							//back to users so the JSON serializer can't serialize them.
-							for(var user in users) {
-								userlist.push(user);
-							}
 
-							socket.emit('userlist', userlist); // I added this
-							// ---------------------
-							*/
-							console.log('added ' + socket.username);
-							fn(true); // Callback, user name was available
-					}
-					else {
-							fn(false); // Callback, it wasn't available
-					}
+								/*
+								// ----------------------
+								var userlist = [];
+
+								//We need to construct the list since the users in the global user roster have a reference to socket, which has a reference
+								//back to users so the JSON serializer can't serialize them.
+								for(var user in users) {
+									userlist.push(user);
+								}
+
+								socket.emit('userlist', userlist); // I added this
+								// ---------------------
+								*/
+								console.log('added ' + socket.username);
+								fn(true); // Callback, user name was available
+						}
+						else {
+								fn(false); // Callback, it wasn't available
+						}
 			});
 
 			getApiAndEmit(socket);
