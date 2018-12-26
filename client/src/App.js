@@ -14,8 +14,9 @@ import socketIOClient from "socket.io-client";
 import SignInUpContainer from './components/SignInUpContainer/SignInUpContainer';
 
 
-//const socket = io();
-const endpoint = "http://127.0.0.1:4001";
+
+//const endpoint = "http://127.0.0.1:4001";
+const endpoint = "/";
 const socket = socketIOClient(endpoint);
 
 export class App extends Component {
