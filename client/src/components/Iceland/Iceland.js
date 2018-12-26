@@ -1,15 +1,19 @@
 import React from 'react';
 
-import socketIOClient from "socket.io-client";
+//import socketIOClient from "socket.io-client";
 
 import { connect } from 'react-redux';
 import { weatherIceland } from '../../actions/weatherIcelandActions';
 import { weatherHvolsvollur } from '../../actions/weatherHvolsvollurActions';
 import { weatherSelfoss } from '../../actions/weatherSelfossActions';
 
+import SocketContext from '../../socket-context';
+
 import Loading from '../Loading/Loading';
 
 export class Iceland extends React.Component {
+
+    /*
     constructor() {
         super();
         this.state = {
@@ -17,16 +21,19 @@ export class Iceland extends React.Component {
             //endpoint: "/"
         };
     }
-
+    */
     componentWillUnmount() {
-        //this.socket.close();
+
+        //this.props.socket.close();
         console.log('---------------------- i did unmount -----------------------');
     }
 
     componentDidMount() {
-        console.log('Iceland forecast');
-        const { endpoint } = this.state;
-        const socket = socketIOClient(endpoint);
+        console.log('Iceland forecast MOUNT ----------------------');
+
+
+        //const { endpoint } = this.state;
+        //const socket = socketIOClient(endpoint);
 
         //socket.on("FromAPI", data => this.setState({ response: data }));
 
@@ -39,8 +46,8 @@ export class Iceland extends React.Component {
         //socket.on("FromAPIHvols", data => this.setState({ hvolsvollur: data}));
 
         //socket.on("FromAPISelfoss", data => this.setState({ selfoss: data}));
-
-        socket.on('weatherForecast', (data) => {
+        //this.props.socket.open();
+        this.props.socket.on('weatherForecast', (data) => {
             console.log('iceland weather update');
             //console.log(userlist);
             this.props.weatherIceland(data);
@@ -48,7 +55,7 @@ export class Iceland extends React.Component {
 
         });
 
-        socket.on('FromAPIHvols', (data) => {
+        this.props.socket.on('FromAPIHvols', (data) => {
             console.log('hvolsvollur weather update');
             //console.log(userlist);
             this.props.weatherHvolsvollur(data);
@@ -56,7 +63,7 @@ export class Iceland extends React.Component {
 
         });
 
-        socket.on('FromAPISelfoss', (data) => {
+        this.props.socket.on('FromAPISelfoss', (data) => {
             console.log('selfoss weather update');
             //console.log(userlist);
             this.props.weatherSelfoss(data);
@@ -95,10 +102,16 @@ export class Iceland extends React.Component {
       }
 }
 
+const ChatWithSocket = props => (
+  <SocketContext.Consumer>
+    {socket => <Iceland {...props} socket={socket} />}
+  </SocketContext.Consumer>
+)
+
 const mapStateToProps = ({ iceland, selfoss, hvolsvollur }) => {
     //console.log('--- iceland weather to props ---');
     return { iceland, selfoss, hvolsvollur };
 }
 
 //export default Iceland;
-export default connect(mapStateToProps,{ weatherIceland, weatherSelfoss, weatherHvolsvollur })(Iceland);
+export default connect(mapStateToProps,{ weatherIceland, weatherSelfoss, weatherHvolsvollur })(ChatWithSocket);

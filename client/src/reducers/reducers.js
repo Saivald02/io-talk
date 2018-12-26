@@ -18,11 +18,11 @@ import counter from './counterReducer';
 import hvolsvollur from './hvolsvollurReducer';
 import selfoss from './selfossReducer';
 import iceland from './icelandReducer';
-
+import message from './messageReducer';
 import log from './logReducer';
 
 export default combineReducers({
-    counter, hvolsvollur, selfoss, iceland, log
+    counter, hvolsvollur, selfoss, iceland, log, message
 });
 /*
 export default combineReducers({

@@ -8,41 +8,82 @@ const { VERIFY_USER, USER_CONNECTED, USER_DISCONNECTED,
 
 //const { createUser, createMessage, createChat } = require('./Factories')
 
+var users = {};
+var allUsers = [];
+
 let connectedUsers = { }
 
 //let communityChat = createChat()
 
-module.exports = function(socket){
+//module.exports = function(socket){
+exports = module.exports = function (io) {
+  	// Set socket.io listeners.
+  	io.on('connection', (socket) => {
 
-  //console.log('im socket manager');
-	//console.log(socket);
-  console.log('new client connection');
-	getApiAndEmit(socket);
 
-	/*
+				socket.on('disconnect', function () {
+						console.log('client disconnect');
+						//clearInterval(interval);
+				});
+				console.log('new client connection');
+
+				socket.on('adduser', function(username, fn){
+
+					//Check if username is avaliable.
+					if (users[username] === undefined && username.toLowerCase != "server" && username.length < 21) {
+							socket.username = username;
+							allUsers.push(username);
+							io.sockets.emit('userlist', allUsers);
+							//Store user object in global user roster.
+							users[username] = { username: socket.username, channels: {}, socket: this };
+
+							/*
+							// ----------------------
+							var userlist = [];
+
+							//We need to construct the list since the users in the global user roster have a reference to socket, which has a reference
+							//back to users so the JSON serializer can't serialize them.
+							for(var user in users) {
+								userlist.push(user);
+							}
+
+							socket.emit('userlist', userlist); // I added this
+							// ---------------------
+							*/
+							console.log('added ' + socket.username);
+							fn(true); // Callback, user name was available
+					}
+					else {
+							fn(false); // Callback, it wasn't available
+					}
+			});
+
+			getApiAndEmit(socket);
+});
+}
+/*
   // send weather report every 10 seconds
   var interval = setInterval(function () {
+			console.log('interval started');
       //previous = update(previous);
       getApiAndEmit(socket)
   }, 10000);
-	*/
+*/
+
+/*
 	socket.on('try', function () {
 			console.log('trying to discon');
 			socket.disconnect(true);
 	})
-  socket.on('disconnect', function () {
-      console.log('client disconnect');
-      //clearInterval(interval);
-  });
+*/
 
-
-};
 
 
 // hella 6315
 // selfoss 6310
 // 6222 hvolsvöllur
 const getApiAndEmit = async socket => {
+	//console.log('nothing going on?');
   try {
 
     const forecast = await axios.get(

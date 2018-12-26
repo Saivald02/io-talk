@@ -1,7 +1,9 @@
 import React from 'react';
 
-import socketIOClient from "socket.io-client";
+//import socketIOClient from "socket.io-client";
 
+import SocketContext from '../../socket-context';
+import { connect } from 'react-redux';
 import Loading from '../Loading/Loading';
 
 export class Oldusel extends React.Component {
@@ -13,15 +15,16 @@ export class Oldusel extends React.Component {
       //hvols: false,
 
       //newUser: false,
-      endpoint: "http://127.0.0.1:4001"
+      //endpoint: "http://127.0.0.1:4001"
       //endpoint: "/"
     };
   }
   componentDidMount() {
       console.log('i did mount');
-      const { endpoint } = this.state;
-      const socket = socketIOClient(endpoint);
-      socket.on("FromAPI", data => this.setState({ response: data }));
+      //this.props.socket.open();
+      //const { endpoint } = this.state;
+      //const socket = socketIOClient(endpoint);
+      this.props.socket.on("FromAPI", data => this.setState({ response: data }));
 
       /*
       socket.on("FromAPIHvols", data => this.setState({ hvols: data }));
@@ -61,7 +64,19 @@ export class Oldusel extends React.Component {
     }
   }
 
-export default Oldusel;
+  const ChatWithSocketx = props => (
+    <SocketContext.Consumer>
+      {socket => <Oldusel {...props} socket={socket} />}
+    </SocketContext.Consumer>
+  )
+
+  const mapStateToProps = ({ iceland, selfoss, hvolsvollur }) => {
+      //console.log('--- iceland weather to props ---');
+      return { iceland, selfoss, hvolsvollur };
+  }
+
+  //export default Iceland;
+  export default connect(mapStateToProps,{ })(ChatWithSocketx);
 
 /*
 axios.all([

@@ -6,12 +6,16 @@ import Temp from './components/Temp/Temp';
 import Weather from './components/Weather/Weather';
 import './App.css';
 
-/*
-import { Provider } from 'react-redux';
-import { createStore, applyMiddleware } from 'redux';
-import thunk from 'redux-thunk';
-*/
+
+import SocketContext from './socket-context';
+//import * as io from 'socket.io-client';
+import socketIOClient from "socket.io-client";
+
 import Register from './components/Register/Register';
+
+//const socket = io();
+const endpoint = "http://127.0.0.1:4001";
+const socket = socketIOClient(endpoint);
 
 export class App extends Component {
   constructor() {
@@ -48,28 +52,30 @@ export class App extends Component {
     //console.log(newUser);
     // <Messages />
       return (
-        <Router basename={process.env.PUBLIC_URL}>
-            <div>
-                <nav>
-                <ul>
-                  <li>
-                    <Link to="/">Home</Link>
-                  </li>
-                  <li>
-                    <Link to="/temp">database</Link>
-                  </li>
-                  <li>
-                    <Link to="/weather">weather</Link>
-                  </li>
-                </ul>
-                </nav>
-                <Switch>
-                    <Route exact path="/" component={Register} />
-                    <Route path="/temp" component={Temp} />
-                    <Route path="/weather" component={Weather} />
-                </Switch>
-            </div>
-        </Router>
+        <SocketContext.Provider value={socket}>
+            <Router basename={process.env.PUBLIC_URL}>
+                <div>
+                    <nav>
+                    <ul>
+                      <li>
+                        <Link to="/">Home</Link>
+                      </li>
+                      <li>
+                        <Link to="/temp">database</Link>
+                      </li>
+                      <li>
+                        <Link to="/weather">weather</Link>
+                      </li>
+                    </ul>
+                    </nav>
+                    <Switch>
+                        <Route exact path="/" component={Register} />
+                        <Route path="/temp" component={Temp} />
+                        <Route path="/weather" component={Weather} />
+                    </Switch>
+                </div>
+            </Router>
+        </SocketContext.Provider>
         );
     }
   }

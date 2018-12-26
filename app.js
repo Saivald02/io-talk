@@ -5,8 +5,11 @@ const socketIo = require("socket.io");
 const port = process.env.PORT || 4001;
 const path = require('path')
 const app = express();
+
+
 const server = http.createServer(app);
-const io = socketIo(server);
+
+//const io = socketIo(server);
 
 // ----------------- database -----------
 var bodyParser = require("body-parser");
@@ -66,8 +69,16 @@ if (process.env.NODE_ENV === "production") {
 
 //app.use(express.static(path.join(__dirname, 'client/build')))
 
+
 const SocketManager = require('./SocketIO/SocketManager')
-io.on('connection', SocketManager)
+//io.on('connection', SocketManager)
+
+
+const io = require('socket.io').listen(server);
+
+SocketManager(io);
+
+
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
