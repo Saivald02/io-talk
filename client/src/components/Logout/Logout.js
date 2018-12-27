@@ -12,7 +12,7 @@ export class Logout extends React.Component {
 
     componentWillUnmount() {
         console.log('i did unmuont -------------------');
-        
+
         this.props.socket.off('userlist');
     }
     userLogout() {
@@ -23,7 +23,8 @@ export class Logout extends React.Component {
 
         axios.get('/api/logout')
             .then(response => {
-                this.props.logout(response.data.success)
+                var userInfo = { email: '', log: response.data.success };
+                this.props.logout(userInfo);
 
             })
             .catch(error => {

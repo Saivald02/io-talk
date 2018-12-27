@@ -3,10 +3,12 @@ import React from 'react';
 import Login from '../Login/Login';
 import Register from '../Register/Register';
 
+import PrivateMessageContainer from '../PrivateMessageContainer/PrivateMessageContainer';
 import { connect } from 'react-redux';
 
 import Logout from '../Logout/Logout';
 import Users from '../Users/Users';
+import ThisUser from '../ThisUser/ThisUser';
 
 export class SignInUpContainer extends React.Component {
 
@@ -18,11 +20,14 @@ export class SignInUpContainer extends React.Component {
         const log = this.props.log;
         //console.log('render register');
         console.log(log);
-        if(log) {
+        console.log(log.log);
+        if(log.log === true) {
             return (
                 <div>
                     <Logout />
+                    <ThisUser />
                     <Users />
+                    <PrivateMessageContainer />
                 </div>
             );
         } else {

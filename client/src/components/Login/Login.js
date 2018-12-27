@@ -38,7 +38,8 @@ export class Login extends React.Component {
                           console.log('successful sign in')
                           console.log(response.data);
                           //this.setState({ fireRedirect: true });
-                          this.props.login(true);
+                          var userInfo = { email: email, log: true };
+                          this.props.login(userInfo);
 
                           this.props.socket.emit('adduser', email, (available) => {
                                     if (available) {
@@ -61,7 +62,7 @@ export class Login extends React.Component {
         const log = this.props.log;
         //console.log('render register');
         //console.log(log);
-        if(log) {
+        if(log.log) {
             return (
                 <div>
                     <Logout />

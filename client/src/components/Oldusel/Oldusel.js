@@ -64,19 +64,19 @@ export class Oldusel extends React.Component {
     }
   }
 
-  const ChatWithSocketx = props => (
+const ChatWithSocket = props => (
     <SocketContext.Consumer>
-      {socket => <Oldusel {...props} socket={socket} />}
+        {socket => <Oldusel {...props} socket={socket} />}
     </SocketContext.Consumer>
-  )
+)
 
-  const mapStateToProps = ({ iceland, selfoss, hvolsvollur }) => {
-      //console.log('--- iceland weather to props ---');
-      return { iceland, selfoss, hvolsvollur };
-  }
+const mapStateToProps = ({ iceland, selfoss, hvolsvollur }) => {
+    //console.log('--- iceland weather to props ---');
+    return { iceland, selfoss, hvolsvollur };
+}
 
-  //export default Iceland;
-  export default connect(mapStateToProps,{ })(ChatWithSocketx);
+//export default Iceland;
+export default connect(mapStateToProps,{ })(ChatWithSocket);
 
 /*
 axios.all([

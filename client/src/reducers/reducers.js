@@ -20,11 +20,13 @@ import selfoss from './selfossReducer';
 import iceland from './icelandReducer';
 import message from './messageReducer';
 import log from './logReducer';
+import currentPrivateChat from './currentPrivateChatReducer';
+import allPrivateMessages from './allPrivateMessagesReducer';
 
 import users from './allUsersReducer';
 
 export default combineReducers({
-    counter, hvolsvollur, selfoss, iceland, log, message, users
+    counter, hvolsvollur, selfoss, iceland, log, message, users, currentPrivateChat, allPrivateMessages
 });
 /*
 export default combineReducers({

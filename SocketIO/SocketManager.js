@@ -19,14 +19,17 @@ let connectedUsers = { }
 exports = module.exports = function (io) {
   	// Set socket.io listeners.
   	io.on('connection', (socket) => {
+
+				getApiAndEmit(socket);
 				//socket.removeAllListeners();
 
 				//console.log(io.sockets.sockets.length)
-				console.log(Object.keys(io.sockets.connected).length);
+				//console.log(Object.keys(io.sockets.connected).length);
 				socket.on('disconnect', function () {
 						console.log('client disconnect');
 						//clearInterval(interval);
 				});
+
 				console.log('new client connection');
 
 				socket.on('adduser', function(username, fn){
@@ -38,9 +41,10 @@ exports = module.exports = function (io) {
 								console.log(username);
 								//console.log(allUsers);
 								var contains = allUsers.includes(username);
+								users[username] = { username: socket.username, channels: {}, socket: this };
 								if(allUsers === undefined || allUsers.length === 0 || !contains) {
 										console.log('pushing ' + username);
-										users[username] = { username: socket.username, channels: {}, socket: this };
+
 										allUsers.push(username);
 								}
 
@@ -69,7 +73,20 @@ exports = module.exports = function (io) {
 						}
 			});
 
-			getApiAndEmit(socket);
+			socket.on('privatemsg', function (msgObj, fn) {
+					console.log('someone is trying to send private messagae');
+					console.log(msgObj);
+					//If user exists in global user list.
+					if(users[msgObj.nick] !== undefined) {
+							//Send the message only to this user.
+							users[msgObj.nick].socket.emit('recv_privatemsg', socket.username, msgObj.message);
+							//Callback recieves true.
+							fn(true);
+					}
+					fn(false);
+			});
+
+
 });
 }
 /*

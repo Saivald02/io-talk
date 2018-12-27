@@ -88,7 +88,7 @@ export class Register extends React.Component {
         const log = this.props.log;
         console.log('render register');
         //console.log(log);
-        if(log) {
+        if(log.log) {
             return (
                 <div>
                     <Logout />

@@ -8,8 +8,8 @@ import SocketContext from '../../socket-context';
 import { connect } from 'react-redux';
 //import Loading from '../Loading/Loading';
 
-import GetAll from '../GetAll/GetAll';
-import GetAllItem from '../GetAllItem/GetAllItem';
+//import GetAll from '../GetAll/GetAll';
+import User from '../User/User';
 
 export class Users extends React.Component {
   constructor() {
@@ -55,9 +55,9 @@ export class Users extends React.Component {
         //console.log(allUsers);
         const { users } = this.props;
         return (
-            <GetAll>
-                    { users.map((one, i) => (<GetAllItem key={i} all={one} />)) }
-            </GetAll>
+            <div>
+                    { users.map((one, i) => (<User key={i} user={one} />)) }
+            </div>
         );
       }
   }
