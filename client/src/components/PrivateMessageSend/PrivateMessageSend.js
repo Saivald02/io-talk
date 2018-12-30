@@ -101,7 +101,7 @@ class PrivateMessageSend extends React.Component {
 
 
                                   var msg = data.nick +': ' + data.message;
-                                  this.props.addPrivateMessage(sender, receiver, msg, 1);
+                                  this.props.addPrivateMessage(receiver, sender, msg, 1);
                                   //var msg = 'you sent private message to ' + data.nick + ': ' + data.message;
                                   //this.state.privateMsgHistory.push(msg);
                                   //this.setState({});

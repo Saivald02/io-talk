@@ -33,18 +33,74 @@ class PrivateMessageReceive extends React.Component {
         //let roomsList = null;
         //let showList = null;
         //const { privatemsg } = this.state;
-        console.log('render private msg');
-        const private_messages = this.props.allPrivateMessages;
-        console.log(private_messages);
+        //console.log('render private msg');
+        const { currentPrivateChat } = this.props;
+
+
+
+        //console.log(private_messages);
+        const private_messages = this.props.allPrivateMessages.byHash[currentPrivateChat];
+        var arr = [];
+        if(private_messages !== undefined) {
+
+            //const private_messages = this.props.allPrivateMessages.byHash[currentPrivateChat];
+            //console.log(private_messages.msg);
+            arr = private_messages.msg;
+            //console.log(arr);
+
+
+        }
 
         /*
         <div>
             { this.props.allPrivateMessages.filter((u=>u.sender===this.props.currentPrivateChat) || (u=>u.index===this.props.log.email)).map((u, i)=> <div key={ i }>{ u.msg }</div>) }
         </div>
+
+        { this.props.allPrivateMessages.currentPrivateChat.msg.map((u, i)=> <div key={ i }>{ u.msg }</div>) }
+
         */
-        return (
-            <div> testing </div>
-        );
+        //console.log();
+        /*
+        const display = Object.keys(private_messages).map((d, key) => {
+            return (
+                <div className="">
+                  <li key={key}>
+                      { d.msg }
+                  </li>
+                </div>
+                );
+            });
+        */
+        //console.log(display);
+        /*
+        const renObjData = this.props.data.map(function(data, idx) {
+          return <ul key={idx}>{$.map(data,(val,ind) => {
+              return (<li>{val}</li>);
+          }
+          }</ul>;
+      });
+
+      {Object.keys(private_messages.byHash).map((item, i) => (
+          <li className="" key={i}>
+              <span className="">key: {i} Name: </span>
+          </li>
+          ))}
+
+      </div>
+      */
+        if(arr.length !== 0) {
+            return (
+              <div>
+                { arr.map((u, i)=> <div key={ i }>{ u }</div>) }
+              </div>
+
+            );
+        } else {
+            return (
+              null
+            );
+        }
+
     }
         /*
         console.log(this.props.allPrivateMessages);
