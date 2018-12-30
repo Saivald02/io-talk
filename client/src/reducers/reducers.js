@@ -25,12 +25,12 @@ import allPrivateMessages from './allPrivateMessagesReducer';
 
 import databasePrivateMessages from './databasePrivateMessagesReducer';
 
-import allUnreadPrivateMessages from './unreadPrivateMessagesReducer';
+import unreadPrivateMsg from './unreadPrivateMessagesReducer';
 
 import users from './allUsersReducer';
 
 export default combineReducers({
-    hvolsvollur, selfoss, iceland, log, message, users, currentPrivateChat, allPrivateMessages, databasePrivateMessages, allUnreadPrivateMessages
+    hvolsvollur, selfoss, iceland, log, message, users, currentPrivateChat, allPrivateMessages, databasePrivateMessages, unreadPrivateMsg
 });
 /*
 export default combineReducers({

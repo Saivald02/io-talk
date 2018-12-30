@@ -23,8 +23,8 @@ const allPrivateMessagesReducer = ( state = initialState, action ) => {
     switch (action.type) {
         case ALL_PRIVATE_MESSAGES:
             console.log('--- PRIVATE MESSAGES REDUCER ---');
-            console.log(state);
-            console.log(action);
+            //console.log(state);
+            //console.log(action);
             var bool = false;
 
             for(var i = 0; i < state.byId.length; i++) {
@@ -35,9 +35,9 @@ const allPrivateMessagesReducer = ( state = initialState, action ) => {
             if(bool) {
 
                 let copy = Object.assign({}, state.byHash );
-                console.log('add message');
-                console.log(state);
-                console.log(action);
+                //console.log('add message');
+                //console.log(state);
+                //console.log(action);
                 /*
                 state.byHash[action.index].msg = [
                     ...state.byHash[action.index],
@@ -57,7 +57,7 @@ const allPrivateMessagesReducer = ( state = initialState, action ) => {
                 return Object.assign( {}, state, { byHash: copy } );
 
             } else {
-                console.log('no need for update');
+                //console.log('no need for update');
                 return {
                     byId: [ ...state.byId, action.index],
                     byHash: {

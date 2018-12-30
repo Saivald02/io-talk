@@ -11,7 +11,10 @@ export class ThisUser extends React.Component {
             var msg = from +': ' + recievedMsg;
 
             // this.props.addPrivateMessage(sender, receiver, msg, 1);
-            this.props.unreadPrivateMessages(from, 1);
+            if(this.props.currentPrivateChat !== from) {
+                console.log('adding to unread message from ' + from);
+                this.props.unreadPrivateMessages(from, 1);
+            }
             this.props.addPrivateMessage(from, this.props.log.email, msg, 1);
 
         });

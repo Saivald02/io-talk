@@ -6,12 +6,12 @@ const initialState = {
     byHash: {}
 }
 
-const allUnreadPrivateMessagesReducer = ( state = initialState, action ) => {
+const unreadPrivateMessagesReducer = ( state = initialState, action ) => {
 
     // búa til key/value object eða hash-table
     // key -> roomName
     // value -> allMsg
-    console.log('------- unread ------------------');
+    console.log('------- unread msg reducer ------------------');
     //console.log(state);
     //console.log(action);
     switch (action.type) {
@@ -49,16 +49,30 @@ const allUnreadPrivateMessagesReducer = ( state = initialState, action ) => {
                 }
             }
         case READ:
-            console.log('read all messages for this user');
-            console.log('clear the counter');
+            //console.log('read all messages for this user');
+            //console.log('clear the counter');
+            var contains = false;
+            for(var j = 0; j < state.byId.length; j++) {
+                if(state.byId[j] === action.id) {
+                    contains = true;
+                }
+            }
 
-            state.byHash[action.id] = {
-            ...state.byHash[action.id],
-            ...action.payload, counter: state.byHash[action.id].counter = 0
-          }
-          return { ...state }
+            if(contains) {
+                //console.log('contains');
+                state.byHash[action.id] = {
+                    ...state.byHash[action.id],
+                    ...action.payload, counter: state.byHash[action.id].counter = 0
+                }
+                return {
+                    ...state
+                }
+            } else {
+              return state;
+            }
+
         default: return state;
     }
 };
 
-export default allUnreadPrivateMessagesReducer;
+export default unreadPrivateMessagesReducer;

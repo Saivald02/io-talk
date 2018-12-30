@@ -7,6 +7,8 @@ import { connect } from 'react-redux';
 import { openPrivateChat } from '../../actions/privateChatActions';
 import { databasePrivateMessages } from '../../actions/databasePrivateMessagesActions';
 import { clearSocketPrivateMessages } from '../../actions/allPrivateMessagesActions';
+
+import { readPrivateMessages } from '../../actions/unreadPrivateMessagesActions';
 //import Loading from '../Loading/Loading';
 
 export class User extends React.Component {
@@ -36,6 +38,10 @@ export class User extends React.Component {
       e.preventDefault();
       //console.log(e.target.value);
       this.props.openPrivateChat(this.props.user);
+      if(this.props.unreadPrivateMsg !== undefined) {
+          this.props.readPrivateMessages(this.props.user, 0)
+      }
+
       console.log('clicking ' + this.props.user);
 
       const sender = this.props.log.email;
@@ -74,19 +80,40 @@ export class User extends React.Component {
       //
   }
   render() {
+      var counter = 0;
       const { user } = this.props;
       console.log('--------------------------- render users ---------------------------');
-
+      console.log(this.props.unreadPrivateMsg);
       //console.log(this.props.allUnreadPrivateMessages);
       //if()
+      if(this.props.unreadPrivateMsg !== undefined) {
+            console.log('not undefined');
+            //console.log(this.props.unreadPrivateMsg.byHash.user);
+            console.log(this.props.unreadPrivateMsg.byHash[user]);
+            if(this.props.unreadPrivateMsg.byHash[user] !== undefined) {
+                console.log('not undefined 2');
+                console.log(this.props.unreadPrivateMsg.byHash[user].counter);
+                counter = this.props.unreadPrivateMsg.byHash[user].counter
+            }
+      }
+      if(counter === 0) {
+          return (
+              <button
+                  type="button"
+                  className=""
+                  onClick={this.startPrivateChat}>{ user }
+              </button>
+          );
+      } else {
+        return (
+            <button
+                type="button"
+                className=""
+                onClick={this.startPrivateChat}>{ user } { counter }
+            </button>
+        );
+      }
 
-      return (
-          <button
-              type="button"
-              className=""
-              onClick={this.startPrivateChat}>{ user }
-          </button>
-      );
     }
   }
 
@@ -97,9 +124,9 @@ const ChatWithSocket = props => (
     </SocketContext.Consumer>
 )
 */
-const mapStateToProps = ({ currentPrivateChat, log, allUnreadPrivateMessages }) => {
+const mapStateToProps = ({ currentPrivateChat, log, unreadPrivateMsg }) => {
     //console.log('--- iceland weather to props ---');
-    return { currentPrivateChat, log };
+    return { currentPrivateChat, log, unreadPrivateMsg };
 }
 
-export default connect(mapStateToProps,{ openPrivateChat, databasePrivateMessages, clearSocketPrivateMessages })(User);
+export default connect(mapStateToProps,{ readPrivateMessages, openPrivateChat, databasePrivateMessages, clearSocketPrivateMessages })(User);
