@@ -9,7 +9,7 @@ import cart from './cartReducer';
 import checkout from './checkoutReducer';
 */
 //import logged from './loggedReducer';
-import counter from './counterReducer';
+//import counter from './counterReducer';
 //import username from './usernameReducer';
 //import rooms from './roomsReducer';
 //import chatroom from './chatRoomReducer';
@@ -23,10 +23,14 @@ import log from './logReducer';
 import currentPrivateChat from './currentPrivateChatReducer';
 import allPrivateMessages from './allPrivateMessagesReducer';
 
+import databasePrivateMessages from './databasePrivateMessagesReducer';
+
+import allUnreadPrivateMessages from './unreadPrivateMessagesReducer';
+
 import users from './allUsersReducer';
 
 export default combineReducers({
-    counter, hvolsvollur, selfoss, iceland, log, message, users, currentPrivateChat, allPrivateMessages
+    hvolsvollur, selfoss, iceland, log, message, users, currentPrivateChat, allPrivateMessages, databasePrivateMessages, allUnreadPrivateMessages
 });
 /*
 export default combineReducers({

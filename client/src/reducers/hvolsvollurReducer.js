@@ -1,4 +1,4 @@
-import { HVOLSVOLLUR_wEATHER } from '../constants/weatherHvolsvollurConstants';
+import { HVOLSVOLLUR_WEATHER } from '../constants/weatherHvolsvollurConstants';
 
 const hvolsollurReducer = ( state = false, action ) => {
 
@@ -7,7 +7,7 @@ const hvolsollurReducer = ( state = false, action ) => {
     //console.log(action);
     //console.log(state);
     switch (action.type) {
-        case HVOLSVOLLUR_wEATHER: return action.payload;
+        case HVOLSVOLLUR_WEATHER: return action.payload;
         default: return state;
     }
 };

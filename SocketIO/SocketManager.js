@@ -81,6 +81,7 @@ exports = module.exports = function (io) {
 							//Send the message only to this user.
 							users[msgObj.nick].socket.emit('recv_privatemsg', socket.username, msgObj.message);
 							//Callback recieves true.
+							socket.emit("user_received_msg", true);
 							fn(true);
 					}
 					fn(false);

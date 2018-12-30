@@ -2,22 +2,23 @@ import React from 'react';
 import SocketContext from '../../socket-context';
 import { connect } from 'react-redux';
 import { addPrivateMessage } from '../../actions/allPrivateMessagesActions';
-
+import { unreadPrivateMessages } from '../../actions/unreadPrivateMessagesActions';
 
 export class ThisUser extends React.Component {
 
     componentDidMount() {
         this.props.socket.on('recv_privatemsg', (from, recievedMsg) => {
-            var msg = 'private message received from ' + from +
-                ': ' + recievedMsg;
+            var msg = from +': ' + recievedMsg;
             //this.state.privateMsgHistory.push(msg);
-            console.log('did i receive msg??');
-            console.log(msg);
+            //console.log('did i receive msg??');
+            //console.log(msg);
             //this.setState({privatemsg: msg}); // to render again
-            console.log(this.props.allPrivateMessages);
+            //console.log(this.props.allPrivateMessages);
             //const arr = [];
 
-            this.props.addPrivateMessage(from, msg);
+
+            this.props.unreadPrivateMessages(from, 1);
+            this.props.addPrivateMessage(from, this.props.log.email, msg, 1);
 
         });
         //console.log('i did mount');
@@ -43,6 +44,8 @@ export class ThisUser extends React.Component {
         //console.log(this.props);
         //console.log('render user');
         const user = this.props.log.email;
+        //console.log(this.props);
+        //console.log(this.props.allUnreadPrivateMessages);
         //const { response } = this.state;
         //console.log(response);
         //console.log('render oldusel');
@@ -64,9 +67,9 @@ const ChatWithSocket = props => (
     </SocketContext.Consumer>
 )
 
-const mapStateToProps = ({ allPrivateMessages, log }) => {
+const mapStateToProps = ({ allPrivateMessages, log, allUnreadPrivateMessages, currentPrivateChat }) => {
     //console.log('--- iceland weather to props ---');
-    return { allPrivateMessages, log };
+    return { allPrivateMessages, log, allUnreadPrivateMessages, currentPrivateChat };
 }
 
-export default connect(mapStateToProps,{ addPrivateMessage })(ChatWithSocket);
+export default connect(mapStateToProps,{ addPrivateMessage, unreadPrivateMessages })(ChatWithSocket);

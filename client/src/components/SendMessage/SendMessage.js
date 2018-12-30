@@ -28,22 +28,28 @@ export class SendMessage extends React.Component {
 
     componentDidMount() {
         //this.props.sent('data');
-        this.props.socket.on('received', (data) => {
+        /*
+        this.props.socket.on('user_received_msg', (data) => {
             //console.log('iceland weather update');
             //console.log(userlist);
             this.props.sent(data);
             //this.setState({ allUsers: userlist });
+            console.log('he did receive');
+
+
+            // 1 senda með socket
+            // 2 fá svar um received
+            // 3 axios og vista í gagnagrunninum
 
         });
+        */
     }
 
     sendMessage() {
         console.log('sending this message');
         this.props.socket.emit('sendMessage', 'sending message from socket')
         //socket.emit("clientRender", "hello server");
-        // 1 senda með socket
-        // 2 fá svar um received
-        // 3 axios og vista í gagnagrunninum
+
     }
     render() {
         //this.props.sent('more data');

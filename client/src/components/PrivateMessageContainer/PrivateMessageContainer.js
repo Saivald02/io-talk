@@ -5,6 +5,8 @@ import { connect } from 'react-redux';
 import PrivateMessageReceive from '../PrivateMessageReceive/PrivateMessageReceive';
 import PrivateMessageSend from '../PrivateMessageSend/PrivateMessageSend';
 
+import PrivateMessageHistory from '../PrivateMessageHistory/PrivateMessageHistory';
+
 import { closePrivateChat } from '../../actions/privateChatActions';
 
 class PrivateMessageContainer extends React.Component {
@@ -14,17 +16,7 @@ class PrivateMessageContainer extends React.Component {
     }
 
     componentDidMount() {
-        /*
-        //const { socket } = this.context;
-        this.props.socket.on('recv_privatemsg', (from, recievedMsg) => {
-            var msg = 'private message received from ' + from +
-                ': ' + recievedMsg;
-            //this.state.privateMsgHistory.push(msg);
-            console.log('did i receive msg??');
-            this.setState({privatemsg: msg}); // to render again
 
-        });
-        */
     }
     /*
     constructor(props) {
@@ -49,10 +41,7 @@ class PrivateMessageContainer extends React.Component {
     }
 
     render() {
-        //let roomsList = null;
-        //let showList = null;
-        //const { privatemsg } = this.state;
-        //console.log(this.props);
+
         const { currentPrivateChat } = this.props;
         //console.log(currentPrivateChat);
         if(currentPrivateChat !== false) {
@@ -63,6 +52,8 @@ class PrivateMessageContainer extends React.Component {
                         className=""
                         onClick={this.closePrivateChatWindow}> close private chat
                     </button>
+                    <p> private chat with: { this.props.currentPrivateChat } </p>
+                    <PrivateMessageHistory />
                     <PrivateMessageReceive />
                     <PrivateMessageSend />
                 </div>
@@ -70,8 +61,7 @@ class PrivateMessageContainer extends React.Component {
         } else {
             return (
                 <div>
-                    <PrivateMessageReceive />
-                    <PrivateMessageSend />
+                    no private chat window open
                 </div>
             );
         }

@@ -20,12 +20,14 @@ export class MessageHistory extends React.Component {
     }
 
     componentDidMount() {
-        this.getDataFromDb();
-
+        //this.getDataFromDb();
+        this.getPrivateMessageHistory();
         if (!this.state.intervalIsSet) {
             let interval = setInterval(this.getDataFromDb, 1000);
             this.setState({ intervalIsSet: interval });
         }
+
+
     }
 
     componentWillUnmount() {
@@ -34,10 +36,35 @@ export class MessageHistory extends React.Component {
           this.setState({ intervalIsSet: null });
         }
     }
+    getPrivateMessageHistory = () => {
+
+      axios.get('/api/getPrivateMessageHistory', {
+          params: {
+            sender: 'dead',
+            receiver: 'new'
+          }
+      })
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+        /*
+        axios.get('/api/getPrivateMessageHistory?sender=dead?receiver=new')
+            .then(function (response) {
+              console.log(response);
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
+        */
+    }
 
     // our first get method that uses our backend api to
     // fetch data from our data base
     getDataFromDb = () => {
+
       fetch("/api/getData")
         .then(data => data.json())
         .then(res => this.setState({ data: res.data }));

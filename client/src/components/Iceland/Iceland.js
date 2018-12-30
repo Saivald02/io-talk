@@ -70,9 +70,6 @@ export class Iceland extends React.Component {
             //this.setState({ allUsers: userlist });
 
         });
-        //socket.on("newUser", data => this.setState({ newUser: data }));
-
-        //socket.emit("clientRender", "hello server");
     }
 
     render() {
@@ -80,8 +77,9 @@ export class Iceland extends React.Component {
         const forecast = this.props.iceland;
         const hvolsvollur = this.props.hvolsvollur;
         const selfoss = this.props.selfoss;
-
+        //console.log(forecast);
         if(forecast !== false && hvolsvollur !== false && selfoss !== false) {
+
             return (
                 <div>
                     <p>

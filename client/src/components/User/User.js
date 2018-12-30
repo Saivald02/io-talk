@@ -1,10 +1,12 @@
 import React from 'react';
 
 //import socketIOClient from "socket.io-client";
-
+import axios from "axios";
 //import SocketContext from '../../socket-context';
 import { connect } from 'react-redux';
 import { openPrivateChat } from '../../actions/privateChatActions';
+import { databasePrivateMessages } from '../../actions/databasePrivateMessagesActions';
+import { clearSocketPrivateMessages } from '../../actions/allPrivateMessagesActions';
 //import Loading from '../Loading/Loading';
 
 export class User extends React.Component {
@@ -33,23 +35,51 @@ export class User extends React.Component {
       e.stopPropagation();
       e.preventDefault();
       //console.log(e.target.value);
-      console.log('clicking ' + this.props.user);
       this.props.openPrivateChat(this.props.user);
+      console.log('clicking ' + this.props.user);
+
+      const sender = this.props.log.email;
+      const receiver = this.props.user;
+      //console.log('get private message history');
+
+      console.log('sender: ' + sender);
+      console.log('receiver: ' + receiver);
+      axios.get('/api/getPrivateMessageHistory', {
+          params: {
+            sender: sender,
+            receiver: receiver
+          }
+      })
+      .then((response) => {
+
+          var sorted = response.data.data.sort((a, b) => a.date > b.date);
+          console.log('sorted private messages from database');
+          //console.log(sorted);
+          this.props.databasePrivateMessages(sorted);
+          this.props.clearSocketPrivateMessages();
+          //this.props.
+          //this.setState({data: sorted});
+
+
+
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+
+
+
+
 
       //
   }
   render() {
-      //console.log(this.props);
-      //console.log('render user');
       const { user } = this.props;
-      //const { response } = this.state;
-      //console.log(response);
-      //console.log('render oldusel');
-      //console.log(response);
-      //console.log(selfoss);
-      //console.log(hvols);
-      //console.log(forecast[0]);
-      //console.log(newUser)
+      console.log('--------------------------- render users ---------------------------');
+
+      //console.log(this.props.allUnreadPrivateMessages);
+      //if()
+
       return (
           <button
               type="button"
@@ -57,7 +87,6 @@ export class User extends React.Component {
               onClick={this.startPrivateChat}>{ user }
           </button>
       );
-
     }
   }
 
@@ -68,10 +97,9 @@ const ChatWithSocket = props => (
     </SocketContext.Consumer>
 )
 */
-const mapStateToProps = ({ currentPrivateChat }) => {
+const mapStateToProps = ({ currentPrivateChat, log, allUnreadPrivateMessages }) => {
     //console.log('--- iceland weather to props ---');
-    return { currentPrivateChat };
+    return { currentPrivateChat, log };
 }
 
-//export default ChatWithSocket;
-export default connect(mapStateToProps,{ openPrivateChat })(User);
+export default connect(mapStateToProps,{ openPrivateChat, databasePrivateMessages, clearSocketPrivateMessages })(User);

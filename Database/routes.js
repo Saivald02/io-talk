@@ -4,6 +4,96 @@ var router = express.Router();
 var User = require('./models/user');
 
 const Data = require("./data");
+const PrivateMessage = require("./models/private_messages");
+
+
+// https://mongoosejs.com/docs/api.html#model_Model.find
+
+router.get("/getPrivateMessageHistory", (req, res) => {
+
+  User.findById(req.session.userId)
+    .exec(function (error, user) {
+      if (error) {
+        return next(error);
+      } else {
+        if (user === null) {
+          var err = new Error('Not authorized! Go back!');
+          err.status = 400;
+          return next(err);
+        } else {
+
+          let param = req.query;
+          const query = param.sender;
+          const rec = param.receiver;
+
+          PrivateMessage.find( {
+              $or: [
+                  { $and: [{sender: query}, {receiver: rec}] },
+                  { $and: [{sender: rec}, {receiver: query}] }
+              ],
+            }, function (err, results) {
+                    if (err) {
+                      return res.json({ data: err });
+                    } else {
+                      //console.log(results);
+                      return res.json({ data: results });
+                    }
+          });
+          /*
+          PrivateMessage.find({ sender: query || rec, receiver: rec || query }, 'sender receiver message', function (err, docs) {
+            if (error) {
+              return next(err);
+            } else {
+              console.log(docs);
+              return res.json({ data: docs });
+            }
+          })
+          */
+        }
+      }
+    });
+});
+
+//POST route for log in
+router.post('/privateMessageSend', function (req, res, next) {
+    console.log('sending private message');
+    //console.log(req);
+    User.findById(req.session.userId)
+      .exec(function (error, user) {
+        if (error) {
+          return next(error);
+        } else {
+          if (user === null) {
+            var err = new Error('Not authorized! Go back!');
+            err.status = 400;
+            return next(err);
+          } else {
+            //console.log('found you');
+            let data = new PrivateMessage();
+            const { sender, receiver, message } = req.body;
+            //console.log('cannot find req.body');
+            if (!sender && !receiver && !message && message !== '') {
+                return res.json({
+                    success: false,
+                    error: "INVALID INPUTS"
+                });
+            }
+
+            //console.log('here?');
+            data.sender = sender;
+            data.receiver = receiver;
+            data.message = message;
+            data.save(err => {
+                if (err) return res.json({ success: false, error: err });
+                //console.log('saving private message to database');
+                return res.json({ success: true });
+            });
+            //return res.send('<h1>Name: </h1>' + user.username + '<h2>Mail: </h2>' + user.email + '<br><a type="button" href="/logout">Logout</a>')
+            //return res.json({ success: 'success!' });
+          }
+        }
+      });
+});
 
 //POST route for log in
 router.post('/login', function (req, res, next) {

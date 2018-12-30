@@ -4,6 +4,8 @@ import React from 'react';
 
 import { allUsers } from '../../actions/allUsersActions';
 
+import PrivateMessageContainer from '../PrivateMessageContainer/PrivateMessageContainer';
+
 import SocketContext from '../../socket-context';
 import { connect } from 'react-redux';
 //import Loading from '../Loading/Loading';
@@ -56,7 +58,8 @@ export class Users extends React.Component {
         const { users } = this.props;
         return (
             <div>
-                    { users.map((one, i) => (<User key={i} user={one} />)) }
+                { users.map((one, i) => (<User key={i} user={one} />)) }
+                <PrivateMessageContainer />
             </div>
         );
       }

@@ -34,11 +34,16 @@ class PrivateMessageReceive extends React.Component {
         //let showList = null;
         //const { privatemsg } = this.state;
         console.log('render private msg');
+        const private_messages = this.props.allPrivateMessages;
+        console.log(private_messages);
 
+        /*
+        <div>
+            { this.props.allPrivateMessages.filter((u=>u.sender===this.props.currentPrivateChat) || (u=>u.index===this.props.log.email)).map((u, i)=> <div key={ i }>{ u.msg }</div>) }
+        </div>
+        */
         return (
-          <ul>
-              { this.props.allPrivateMessages.filter(u=>u.index===this.props.currentPrivateChat).map((u, i)=><li key={i}>{u.msg}</li>) }
-          </ul>
+            <div> testing </div>
         );
     }
         /*
@@ -92,9 +97,9 @@ const mapStateToProps = ({ allPrivateMessages, log }) => {
 }
 */
 
-const mapStateToProps = ({ allPrivateMessages, currentPrivateChat }) => {
+const mapStateToProps = ({ allPrivateMessages, currentPrivateChat, log }) => {
     //console.log('--- iceland weather to props ---');
-    return { allPrivateMessages, currentPrivateChat };
+    return { allPrivateMessages, currentPrivateChat, log };
 }
 
 //export default Iceland;
