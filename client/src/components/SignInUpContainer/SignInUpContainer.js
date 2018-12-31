@@ -32,7 +32,7 @@ export class SignInUpContainer extends React.Component {
             );
         } else {
             return (
-                <div>
+                <div className="signup">
                     <Register />
                     <Login />
                 </div>

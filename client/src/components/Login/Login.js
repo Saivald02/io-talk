@@ -8,6 +8,8 @@ import { login } from '../../actions/logActions';
 import axios from "axios";
 
 import Logout from '../Logout/Logout';
+import Users from '../Users/Users';
+import ThisUser from '../ThisUser/ThisUser';
 
 export class Login extends React.Component {
     constructor() {
@@ -66,28 +68,32 @@ export class Login extends React.Component {
             return (
                 <div>
                     <Logout />
+                    <ThisUser />
+                    <Users />
                 </div>
             );
         } else {
             return (
-                <div>
-                    <h3>Login</h3>
+                <div className="signup-child">
+                    <h2 className="signup-child-box">Login</h2>
                     <div className="input-box">
-                        <div style={{ padding: "10px" }}>
+                        <div className="signup-child-box">
                             <input
                                 type="text"
-                                style={{ width: "200px" }}
+                                className="input-box"
                                 onChange={e => this.setState({ email: e.target.value })}
                                 placeholder="username" />
                         </div>
-                        <div style={{ padding: "10px" }}>
+                        <div className="signup-child-box">
                             <input
                                 type="text"
-                                style={{ width: "200px" }}
+                                className="input-box"
                                 onChange={e => this.setState({ password: e.target.value })}
                                 placeholder="password" />
                         </div>
-                        <button type="button" className="btn pull-left" onClick={this.userLogin}>Login</button>
+                        <div className="signup-child-box">
+                            <button type="button" className="btn" onClick={this.userLogin}>Login</button>
+                        </div>
                     </div>
                 </div>
             );

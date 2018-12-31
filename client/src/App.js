@@ -12,7 +12,8 @@ import SocketContext from './socket-context';
 import socketIOClient from "socket.io-client";
 
 import SignInUpContainer from './components/SignInUpContainer/SignInUpContainer';
-
+import Login from './components/Login/Login';
+import Register from './components/Register/Register';
 
 
 const endpoint = "http://127.0.0.1:4001";
@@ -58,22 +59,30 @@ export class App extends Component {
             <Router basename={process.env.PUBLIC_URL}>
                 <div>
                     <nav>
-                    <ul>
-                      <li>
-                        <Link to="/">Home</Link>
-                      </li>
-                      <li>
-                        <Link to="/temp">database</Link>
-                      </li>
-                      <li>
-                        <Link to="/weather">weather</Link>
-                      </li>
-                    </ul>
+                        <ul>
+                          <li>
+                            <Link to="/">Home</Link>
+                          </li>
+                          <li>
+                            <Link to="/temp">database</Link>
+                          </li>
+                          <li>
+                            <Link to="/weather">weather</Link>
+                          </li>
+                          <li>
+                            <Link to="/login">login</Link>
+                          </li>
+                          <li>
+                            <Link to="/signup">sign-up</Link>
+                          </li>
+                        </ul>
                     </nav>
                     <Switch>
                         <Route exact path="/" component={SignInUpContainer} />
                         <Route path="/temp" component={Temp} />
                         <Route path="/weather" component={Weather} />
+                        <Route path="/login" component={Login} />
+                        <Route path="/signup" component={Register} />
                     </Switch>
                 </div>
             </Router>

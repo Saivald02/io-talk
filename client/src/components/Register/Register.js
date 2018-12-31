@@ -53,23 +53,6 @@ export class Register extends React.Component {
                                     if (available) {
                                         console.log('add user success');
                                         console.log(this.state.username);
-                                        //this.setState({ userStatus: true });
-
-
-                                        //const username = this.state.username;
-                                        //console.log(username);
-
-                                        // action functions
-                                        //this.props.username(username);
-                                        //this.props.logIn(true);
-                                        /*
-                                        socket.on('userlist', (userlist) => {
-                                            console.log('userlist was updated');
-                                            console.log(userlist);
-                                            //this.setState({ allUsers: userlist });
-
-                                        });
-                                        */
                                     } else {
                                         console.log('add user fail');
                                     }
@@ -96,41 +79,42 @@ export class Register extends React.Component {
             );
         } else {
             return (
-                <div>
-                    <div style={{ padding: "10px" }}>
+                <div className="signup-child">
+                    <h2 className="signup-child-box">Register</h2>
+                    <div className="signup-child-box">
                         <input
                             type="text"
+                            className="input-box"
                             onChange={e => this.setState({ email: e.target.value })}
                             placeholder="email"
-                            style={{ width: "200px" }}
                         />
                     </div>
-                    <div style={{ padding: "10px" }}>
+                    <div className="signup-child-box">
                         <input
                             type="text"
-                            style={{ width: "200px" }}
+                            className="input-box"
                             onChange={e => this.setState({ username: e.target.value })}
                             placeholder="username"
                         />
                     </div>
-                    <div style={{ padding: "10px" }}>
+                    <div className="signup-child-box">
                         <input
                             type="text"
-                            style={{ width: "200px" }}
+                            className="input-box"
                             onChange={e => this.setState({ password: e.target.value })}
                             placeholder="password"
                         />
                     </div>
-                    <div style={{ padding: "10px" }}>
+                    <div className="signup-child-box">
                         <input
                             type="text"
-                            style={{ width: "200px" }}
+                            className="input-box"
                             onChange={e => this.setState({ passwordConfirm: e.target.value })}
                             placeholder="confirm password"
                         />
                     </div>
-                    <div>
-                        <button
+                    <div className="signup-child-box">
+                        <button className="btn"
                             onClick={() =>
                                 this.registerPost()
                             }

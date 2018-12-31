@@ -52,9 +52,11 @@ class PrivateMessageContainer extends React.Component {
                         className=""
                         onClick={this.closePrivateChatWindow}> close private chat
                     </button>
-                    <p> private chat with: { this.props.currentPrivateChat } </p>
-                    <PrivateMessageHistory />
-                    <PrivateMessageReceive />
+                    <div className="">  { this.props.currentPrivateChat } </div>
+                    <div className="">
+                        <PrivateMessageHistory />
+                        <PrivateMessageReceive />
+                    </div>
                     <PrivateMessageSend />
                 </div>
             );
