@@ -64,12 +64,6 @@ export class App extends Component {
                             <Link to="/">Home</Link>
                           </li>
                           <li>
-                            <Link to="/temp">database</Link>
-                          </li>
-                          <li>
-                            <Link to="/weather">weather</Link>
-                          </li>
-                          <li>
                             <Link to="/login">login</Link>
                           </li>
                           <li>

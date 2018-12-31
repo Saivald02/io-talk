@@ -2,14 +2,14 @@ import React from 'react';
 
 import { connect } from 'react-redux';
 
-import PrivateMessageReceive from '../PrivateMessageReceive/PrivateMessageReceive';
-import PrivateMessageSend from '../PrivateMessageSend/PrivateMessageSend';
+import RoomMessageReceive from '../RoomMessageReceive/RoomMessageReceive';
+import RoomMessageSend from '../RoomMessageSend/RoomMessageSend';
 
-import PrivateMessageHistory from '../PrivateMessageHistory/PrivateMessageHistory';
+import RoomMessageHistory from '../RoomMessageHistory/RoomMessageHistory';
 
-import { closePrivateChat } from '../../actions/privateChatActions';
+import { closeRoomChat } from '../../actions/roomChatActions';
 
-class PrivateMessageContainer extends React.Component {
+class RoomMessageContainer extends React.Component {
 
     componentDidCatch(error, info) {
         console.log(error, info);
@@ -29,40 +29,38 @@ class PrivateMessageContainer extends React.Component {
     }
     */
 
-    closePrivateChatWindow = e => {
+    closeRoomChatWindow = e => {
         e.stopPropagation();
         e.preventDefault();
         //console.log(e.target.value);
         //console.log('clicking ' + this.props.user);
         //console.log('clikcing close chat');
         this.props.closePrivateChat(false);
-
-        //
     }
 
     render() {
 
-        const { currentPrivateChat } = this.props;
-        //console.log(currentPrivateChat);
-        if(currentPrivateChat !== false) {
+        const { currentRoomChat } = this.props;
+        console.log(currentRoomChat);
+        if(currentRoomChat !== false) {
             return (
                 <div className="private-chat-window">
                     <button
                         type="button"
                         className="btn private-chat-window-child"
-                        onClick={this.closePrivateChatWindow}> close private chat
+                        onClick={this.closeRoomChatWindow}> exit room
                     </button>
                     <div className="">  { this.props.currentPrivateChat } </div>
                     <div className=" private-chat-window-child">
-                        <PrivateMessageHistory />
-                        <PrivateMessageReceive />
+                        <RoomMessageHistory />
+                        <RoomMessageReceive />
                     </div>
-                    <PrivateMessageSend />
+                    <RoomMessageSend />
                 </div>
             );
         } else {
             return (
-                null
+                <div> no chatroom open </div>
             );
         }
     }
@@ -75,13 +73,13 @@ const ChatWithSocket = props => (
     </SocketContext.Consumer>
 )
 */
-const mapStateToProps = ({ currentPrivateChat }) => {
+const mapStateToProps = ({ currentRoomChat }) => {
     //console.log('--- iceland weather to props ---');
-    return { currentPrivateChat };
+    return { currentRoomChat };
 }
 
 //export default Iceland;
-export default connect(mapStateToProps,{ closePrivateChat })(PrivateMessageContainer);
+export default connect(mapStateToProps,{ closeRoomChat })(RoomMessageContainer);
 
 /*
 PrivateMessage.propTypes = {

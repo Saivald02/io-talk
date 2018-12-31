@@ -11,7 +11,9 @@ import SocketContext from '../../socket-context';
 //import Messages from '../Messages/Messages'
 //import Loading from '../Loading/Loading';
 import Logout from '../Logout/Logout';
-
+import Users from '../Users/Users';
+import ThisUser from '../ThisUser/ThisUser';
+import Rooms from '../Rooms/Rooms';
 //import socketIOClient from "socket.io-client";
 
 export class Register extends React.Component {
@@ -22,7 +24,6 @@ export class Register extends React.Component {
           username: null,
           password: null,
           passwordConfirm: null,
-          fireRedirect: false
         };
     }
 
@@ -47,12 +48,31 @@ export class Register extends React.Component {
                       if (!response.data.error) {
                           console.log('successful signup')
                           console.log(response.data);
-                          //this.setState({ fireRedirect: true });
-                          this.props.login(true);
+                          var userInfo = { email: email, log: true };
+                          this.props.login(userInfo);
                           this.props.socket.emit('adduser', this.state.username, (available) => {
                                     if (available) {
                                         console.log('add user success');
-                                        console.log(this.state.username);
+                                        //console.log(this.state.username);
+
+                                        var newRoom = { room: 'lobby'};
+                                        this.props.socket.emit('joinroom', newRoom, (available) => {
+                                            if(available) {
+                                                console.log('join room success ');
+                                                //var room = newRoom.room;
+
+                                                //var obj = { currRoom: room };
+                                                // ATH
+                                                // þarf að breyta þessu ATHUGA userInRoom og opInRoom
+
+                                                // this.props.usersInRoom(username);
+                                                //this.props.currentRoom(obj);
+                                                //this.props.myRooms(room);
+
+                                            } else {
+                                                console.log('join room fail');
+                                            }
+                                        });
                                     } else {
                                         console.log('add user fail');
                                     }
@@ -73,8 +93,11 @@ export class Register extends React.Component {
         //console.log(log);
         if(log.log) {
             return (
-                <div>
+                <div className="chatwindow">
+                    <ThisUser />
                     <Logout />
+                    <Users />
+                    <Rooms />
                 </div>
             );
         } else {

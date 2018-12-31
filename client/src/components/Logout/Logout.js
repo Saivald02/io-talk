@@ -36,11 +36,8 @@ export class Logout extends React.Component {
     render() {
         console.log(this.props);
         return (
-              <div>
-                  <h3>Logout</h3>
-                  <div>
-                      <button type="button" className="" onClick={() => this.userLogout()}>Logout</button>
-                  </div>
+              <div className="chatwindow-child chatwindow-child-logout">
+                    <button type="button" className="btn" onClick={() => this.userLogout()}>Logout</button>
               </div>
           );
       }

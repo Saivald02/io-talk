@@ -1,11 +1,11 @@
-import { ALL_PRIVATE_MESSAGES, CLEAR_SOCKET_PRIVATE_MESSAGES } from '../constants/allPrivateMessagesConstants';
+import { ALL_ROOM_MESSAGES, CLEAR_SOCKET_ROOM_MESSAGES } from '../constants/allRoomMessagesConstants';
 //import fetch from 'isomorphic-fetch';
 
-export const addPrivateMessage = ( sender, receiver, msgs, date) => {
+export const addRoomMessage = ( sender, receiver, msgs, date) => {
     //console.log('roomsAction rooms');
     //console.log(socket);
     //var allM = [];
-    //console.log('all messages action');
+    console.log('all room messages action');
     //console.log('to user: ' + user);
     //console.log(msg);
     //console.log(messageHistory);
@@ -15,16 +15,16 @@ export const addPrivateMessage = ( sender, receiver, msgs, date) => {
     var msg = []
     msg.push(msgs);
     return {
-        type: ALL_PRIVATE_MESSAGES,
+        type: ALL_ROOM_MESSAGES,
         index: sender,
         payload: { sender: sender, receiver: receiver, msg: msg, date: date, test: msgs }
     };
 };
 
-export const clearSocketPrivateMessages = () => {
+export const clearSocketRoomMessages = () => {
 
     return {
-        type: CLEAR_SOCKET_PRIVATE_MESSAGES,
+        type: CLEAR_SOCKET_ROOM_MESSAGES,
         payload: []
     }
 }

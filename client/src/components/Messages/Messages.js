@@ -3,9 +3,9 @@ import React from 'react';
 //import axios from "axios";
 
 //import socketIOClient from "socket.io-client";
-import SendMessage from '../SendMessage/SendMessage';
+//import SendMessage from '../SendMessage/SendMessage';
 
-import Users from '../Users/Users';
+//import Users from '../Users/Users';
 
 export class Messages extends React.Component {
     constructor() {
@@ -28,13 +28,16 @@ export class Messages extends React.Component {
     }
     */
 
+    /*
+    <div>
+        receive message
+        <Users />
+        <SendMessage />
+    </div>
+    */
     render() {
         return (
-            <div>
-                receive message
-                <Users />
-                <SendMessage />
-            </div>
+            null
         );
     }
 }

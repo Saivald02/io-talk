@@ -1,7 +1,7 @@
 import React from 'react';
 //import { PropTypes } from 'prop-types';
 
-import { addPrivateMessage } from '../../actions/allPrivateMessagesActions';
+import { addRoomMessage } from '../../actions/allRoomMessagesActions';
 
 import SocketContext from '../../socket-context';
 import { connect } from 'react-redux';
@@ -9,7 +9,7 @@ import { connect } from 'react-redux';
 
 import axios from "axios";
 
-class PrivateMessageSend extends React.Component {
+class RoomMessageSend extends React.Component {
 
     componentDidCatch(error, info) {
         console.log(error, info);
@@ -30,7 +30,7 @@ class PrivateMessageSend extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            privatemsg: '',
+            roommsg: '',
             //privateMsgHistory: [],
             //receiver: ''
         };
@@ -63,91 +63,79 @@ class PrivateMessageSend extends React.Component {
         }
     }
     */
-    sendPrivateMessage = e => {
+    sendRoomMessage = e => {
         e.stopPropagation();
         e.preventDefault();
-        console.log('e value is: ' + this.state.privatemsg);
+        console.log('sending message in room');
+        console.log('e value is: ' + this.state.roommsg);
 
-        const privatemsg = this.state.privatemsg;
 
-        const receiver = this.props.currentPrivateChat;
+
+
+        const room = this.props.currentRoomChat;
         const sender = this.props.log.email;
-        console.log('sending private message to ' + receiver + " the message: " + privatemsg);
+        const msg = this.state.roommsg;
+        console.log('sending room message to ' + room + " the message: " + msg);
         //console.log();
-        if(privatemsg !== '' && receiver !== '') {
+        if(msg !== '' && room !== '') {
             var data = {
-                nick: receiver,
-                message : privatemsg
+                room: room,
+                sender: sender,
+                message : sender + ': ' + msg
             };
 
 
-            axios.post("/api/privateMessageSend", {
+            axios.post("/api/roomMessageSend", {
+                room: room,
                 sender: sender,
-                receiver: receiver,
-                message: privatemsg
+                message: data.message
                 })
                 .then((response) => {
                       if (!response.data.error) {
-                          console.log('private message saved in database')
+                          console.log('room message saved in database')
                           console.log(response.data);
                           //this.setState({ fireRedirect: true });
                           //var userInfo = { email: email, log: true };
                           //this.props.login(userInfo);
 
-                          this.props.socket.emit('privatemsg', data, (success) => {
+                          this.props.socket.emit('sendmsg', data, (success) => {
                       		    if (success) {
                       			      console.log('--- private msg success ---');
                                   console.log(data);
 
 
-                                  var msg = sender +': ' + data.message;
-                                  this.props.addPrivateMessage(receiver, sender, msg, 1);
+                                  //var msg = data.nick +': ' + data.message;
+                                  this.props.addRoomMessage(room, sender, data.message, 1);
                                   //var msg = 'you sent private message to ' + data.nick + ': ' + data.message;
                                   //this.state.privateMsgHistory.push(msg);
                                   //this.setState({});
                       				} else {
-                                  console.log('--- private msg fail ---');
+                                  console.log('--- room msg fail ---');
                       				}
               			      });
                       } else {
-                          console.log('private message fail')
+                          console.log('room message fail')
                       }
                   })
                   .catch(error => {
                           console.log('sign in error: ')
                           console.log(error)
                       })
-
-
-
-
-
-            // 1 axios and log to database
-            // 2 socket io emit after success from database
-            // 3 show privte mesasge
-
         }
-        //console.log(e.target.value);
-        //console.log('clicking ' + this.props.user);
-        //console.log('clikcing close chat');
-        //this.props.closePrivateChat(false);
-
-        //
     }
 
     render() {
         //let roomsList = null;
         //let showList = null;
-
         return (
             <div>
-                <h2> Private message </h2>
+                <h2> Room message </h2>
                 <div className="inline private-input-box block">
                     <input
                         type="text"
                         className="private-input private-input-big"
-                        onInput={(e) => this.setState({ privatemsg: e.target.value })} />
-                    <button type="button" className="btn pull-left" onClick={this.sendPrivateMessage}>Send Private Message</button>
+                        onInput={(e) => this.setState({ roommsg: e.target.value })} />
+                    <button type="button" className="btn pull-left" onClick={this.sendRoomMessage}>Send Room Message</button>
                 </div>
             </div>
         );
@@ -156,17 +144,17 @@ class PrivateMessageSend extends React.Component {
 
 const ChatWithSocket = props => (
     <SocketContext.Consumer>
-        {socket => <PrivateMessageSend {...props} socket={socket} />}
+        {socket => <RoomMessageSend {...props} socket={socket} />}
     </SocketContext.Consumer>
 )
 
-const mapStateToProps = ({ currentPrivateChat, log }) => {
+const mapStateToProps = ({ currentRoomChat, log }) => {
     //console.log('--- iceland weather to props ---');
-    return { currentPrivateChat, log };
+    return { currentRoomChat, log };
 }
 
 //export default Iceland;
-export default connect(mapStateToProps,{ addPrivateMessage })(ChatWithSocket);
+export default connect(mapStateToProps,{ addRoomMessage })(ChatWithSocket);
 
 /*
 PrivateMessage.propTypes = {

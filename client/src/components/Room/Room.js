@@ -4,14 +4,14 @@ import React from 'react';
 import axios from "axios";
 //import SocketContext from '../../socket-context';
 import { connect } from 'react-redux';
-import { openPrivateChat } from '../../actions/privateChatActions';
-import { databasePrivateMessages } from '../../actions/databasePrivateMessagesActions';
-import { clearSocketPrivateMessages } from '../../actions/allPrivateMessagesActions';
+import { openRoomChat } from '../../actions/roomChatActions';
+import { databaseRoomMessages } from '../../actions/databaseRoomMessagesActions';
+import { clearSocketRoomMessages } from '../../actions/allRoomMessagesActions';
 
-import { readPrivateMessages } from '../../actions/unreadPrivateMessagesActions';
+import { readRoomMessages } from '../../actions/unreadRoomMessagesActions';
 //import Loading from '../Loading/Loading';
 
-export class User extends React.Component {
+export class Room extends React.Component {
 
   componentDidMount() {
       //console.log('i did mount');
@@ -33,17 +33,20 @@ export class User extends React.Component {
       */
   }
 
-  startPrivateChat = e => {
+  startRoomChat = e => {
       e.stopPropagation();
       e.preventDefault();
+
+
       //console.log(e.target.value);
-      this.props.openPrivateChat(this.props.user);
+      this.props.openRoomChat(this.props.room);
       if(this.props.unreadPrivateMsg !== undefined) {
-          this.props.readPrivateMessages(this.props.user, 0)
+          this.props.readRoomMessages(this.props.room, 0)
       }
 
-      console.log('clicking ' + this.props.user);
+      console.log('clicking ' + this.props.room);
 
+      /*
       const sender = this.props.log.email;
       const receiver = this.props.user;
       //console.log('get private message history');
@@ -73,19 +76,19 @@ export class User extends React.Component {
         console.log(error);
       });
 
-
-
-
-
-      //
+      */
   }
   render() {
       var counter = 0;
-      const { user } = this.props;
-      console.log('--------------------------- render users ---------------------------');
-      console.log(this.props.unreadPrivateMsg);
+      //const user = 'room name';
+      const { room } = this.props;
+      console.log('--------------------------- render room ---------------------------');
+      //console.log(this.props);
+      //console.log(this.props.unreadPrivateMsg);
       //console.log(this.props.allUnreadPrivateMessages);
       //if()
+
+      /*
       if(this.props.unreadPrivateMsg !== undefined) {
             console.log('not undefined');
             //console.log(this.props.unreadPrivateMsg.byHash.user);
@@ -96,13 +99,14 @@ export class User extends React.Component {
                 counter = this.props.unreadPrivateMsg.byHash[user].counter
             }
       }
+      */
       if(counter === 0) {
           return (
               <div className="">
                   <button
                       type="button"
                       className="btn"
-                      onClick={this.startPrivateChat}>{ user }
+                      onClick={this.startRoomChat}>{ room }
                   </button>
               </div>
           );
@@ -112,7 +116,7 @@ export class User extends React.Component {
                 <button
                     type="button"
                     className=""
-                    onClick={this.startPrivateChat}>{ user } { counter }
+                    onClick={this.startRoomChat}>{ room } { counter }
                 </button>
             </div>
         );
@@ -128,9 +132,9 @@ const ChatWithSocket = props => (
     </SocketContext.Consumer>
 )
 */
-const mapStateToProps = ({ currentPrivateChat, log, unreadPrivateMsg }) => {
+const mapStateToProps = ({ currentRoomChat, log, unreadRoomMsg }) => {
     //console.log('--- iceland weather to props ---');
-    return { currentPrivateChat, log, unreadPrivateMsg };
+    return { currentRoomChat, log, unreadRoomMsg };
 }
 
-export default connect(mapStateToProps,{ readPrivateMessages, openPrivateChat, databasePrivateMessages, clearSocketPrivateMessages })(User);
+export default connect(mapStateToProps,{ readRoomMessages, openRoomChat, databaseRoomMessages, clearSocketRoomMessages })(Room);

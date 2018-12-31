@@ -3,6 +3,8 @@ import SocketContext from '../../socket-context';
 import { connect } from 'react-redux';
 import { addPrivateMessage } from '../../actions/allPrivateMessagesActions';
 import { unreadPrivateMessages } from '../../actions/unreadPrivateMessagesActions';
+import { addRoomMessage } from '../../actions/allRoomMessagesActions';
+import { unreadRoomMessages } from '../../actions/unreadRoomMessagesActions';
 
 export class ThisUser extends React.Component {
 
@@ -18,6 +20,23 @@ export class ThisUser extends React.Component {
             this.props.addPrivateMessage(from, this.props.log.email, msg, 1);
 
         });
+
+        this.props.socket.on('updatechat', (data) => {
+            //var msg = from +': ' + recievedMsg;
+            console.log('room message received');
+
+            console.log(data);
+            this.props.addRoomMessage(data.sender, data.room, data.message, 1);
+
+            if(this.props.currentRoomChat !== data.room) {
+                console.log('adding to unread message from ' + data.room);
+                this.props.unreadRoomMessages(data.room, 1);
+            }
+
+            //this.props.addRoomMessage(from, this.props.log.email, msg, 1);
+
+        });
+
         //console.log('i did mount');
         //this.props.socket.open();
         //const { endpoint } = this.state;
@@ -43,7 +62,7 @@ export class ThisUser extends React.Component {
         const user = this.props.log.email;
 
         return (
-            <div> I'm logged in as { user } </div>
+            <div className="chatwindow-child chatwindow-child-userinfo"> I'm logged in as { user } </div>
         );
     }
 }
@@ -55,9 +74,9 @@ const ChatWithSocket = props => (
     </SocketContext.Consumer>
 )
 
-const mapStateToProps = ({ allPrivateMessages, log, allUnreadPrivateMessages, currentPrivateChat }) => {
+const mapStateToProps = ({ allPrivateMessages, allRoomMessages, log, allUnreadPrivateMessages, allUnreadRoomMessages, currentPrivateChat, currentRoomChat }) => {
     //console.log('--- iceland weather to props ---');
-    return { allPrivateMessages, log, allUnreadPrivateMessages, currentPrivateChat };
+    return { allPrivateMessages, allRoomMessages, log, allUnreadPrivateMessages, allUnreadRoomMessages, currentPrivateChat, currentRoomChat };
 }
 
-export default connect(mapStateToProps,{ addPrivateMessage, unreadPrivateMessages })(ChatWithSocket);
+export default connect(mapStateToProps,{ addPrivateMessage, unreadPrivateMessages, addRoomMessage, unreadRoomMessages })(ChatWithSocket);

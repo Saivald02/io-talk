@@ -10,7 +10,7 @@ import axios from "axios";
 import Logout from '../Logout/Logout';
 import Users from '../Users/Users';
 import ThisUser from '../ThisUser/ThisUser';
-
+import Rooms from '../Rooms/Rooms';
 export class Login extends React.Component {
     constructor() {
         super();
@@ -43,13 +43,32 @@ export class Login extends React.Component {
                           var userInfo = { email: email, log: true };
                           this.props.login(userInfo);
 
+
                           this.props.socket.emit('adduser', email, (available) => {
-                                    if (available) {
-                                        console.log('add user success');
-                                    } else {
-                                        console.log('add user fail');
-                                    }
-                                });
+                              if (available) {
+                                  console.log('add user success');
+                                  var newRoom = { room: 'lobby'};
+                                  this.props.socket.emit('joinroom', newRoom, (available) => {
+                                      if(available) {
+                                          console.log('join room success ');
+
+                                          //var room = newRoom.room;
+
+                                          //var obj = { currRoom: room };
+
+
+                                          // this.props.usersInRoom(username);
+                                          //this.props.currentRoom(obj);
+                                          //this.props.myRooms(room);
+
+                                      } else {
+                                          console.log('join room fail');
+                                      }
+                                  });
+                              } else {
+                                  console.log('add user fail');
+                              }
+                          });
                       } else {
                           console.log('email or password is incorrect')
                       }
@@ -66,10 +85,11 @@ export class Login extends React.Component {
         //console.log(log);
         if(log.log) {
             return (
-                <div>
-                    <Logout />
+                <div className="chatwindow">
                     <ThisUser />
+                    <Logout />
                     <Users />
+                    <Rooms />
                 </div>
             );
         } else {

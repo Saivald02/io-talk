@@ -5,9 +5,95 @@ var User = require('./models/user');
 
 const Data = require("./data");
 const PrivateMessage = require("./models/private_messages");
+const RoomMessage = require("./models/room_messages");
 
 
 // https://mongoosejs.com/docs/api.html#model_Model.find
+
+router.get("/getRoomMessageHistory", (req, res) => {
+
+  User.findById(req.session.userId)
+    .exec(function (error, user) {
+      if (error) {
+        return next(error);
+      } else {
+        if (user === null) {
+          var err = new Error('Not authorized! Go back!');
+          err.status = 400;
+          return next(err);
+        } else {
+
+          let param = req.query;
+          const query = param.sender;
+          const rec = param.receiver;
+
+          RoomMessage.find( {
+              $or: [
+                  { $and: [{sender: query}, {receiver: rec}] },
+                  { $and: [{sender: rec}, {receiver: query}] }
+              ],
+            }, function (err, results) {
+                    if (err) {
+                      return res.json({ data: err });
+                    } else {
+                      //console.log(results);
+                      return res.json({ data: results });
+                    }
+          });
+          /*
+          PrivateMessage.find({ sender: query || rec, receiver: rec || query }, 'sender receiver message', function (err, docs) {
+            if (error) {
+              return next(err);
+            } else {
+              console.log(docs);
+              return res.json({ data: docs });
+            }
+          })
+          */
+        }
+      }
+    });
+});
+
+router.post('/roomMessageSend', function (req, res, next) {
+    console.log('sending room message');
+    //console.log(req);
+    User.findById(req.session.userId)
+      .exec(function (error, user) {
+        if (error) {
+          return next(error);
+        } else {
+          if (user === null) {
+            var err = new Error('Not authorized! Go back!');
+            err.status = 400;
+            return next(err);
+          } else {
+            //console.log('found you');
+            let data = new RoomMessage();
+            const { room, sender, message } = req.body;
+            //console.log('cannot find req.body');
+            if (!sender && !room && !message && message !== '') {
+                return res.json({
+                    success: false,
+                    error: "INVALID INPUTS"
+                });
+            }
+
+            //console.log('here?');
+
+            data.room = room;
+            data.sender = sender;
+            data.message = message;
+            data.save(err => {
+                if (err) return res.json({ success: false, error: err });
+                console.log('saving room message to database');
+                return res.json({ success: true });
+            });
+
+          }
+        }
+      });
+});
 
 router.get("/getPrivateMessageHistory", (req, res) => {
 

@@ -9,6 +9,7 @@ import { connect } from 'react-redux';
 import Logout from '../Logout/Logout';
 import Users from '../Users/Users';
 import ThisUser from '../ThisUser/ThisUser';
+import Rooms from '../Rooms/Rooms';
 
 export class SignInUpContainer extends React.Component {
 
@@ -23,11 +24,11 @@ export class SignInUpContainer extends React.Component {
         console.log(log.log);
         if(log.log === true) {
             return (
-                <div>
-                    <Logout />
+                <div className="chatwindow">
                     <ThisUser />
+                    <Logout />
                     <Users />
-
+                    <Rooms />
                 </div>
             );
         } else {

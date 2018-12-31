@@ -45,6 +45,85 @@ nav ul li a:hover {
 
   color: black;
 }
+
+.btn {
+
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    background-color: #f9d5e5;
+    border: none;
+    border-radius: 5%;
+    color: grey;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+
+}
+
+.btn:hover {
+    background-color: #fffcdc;
+    color: black;
+}
+.input-box {
+    padding: 5px;
+
+}
+
+.chatwindow {
+    /*background-color: black;*/
+    margin: 10px;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-template-rows: auto;
+    grid-template-areas:
+              "user logout"
+              "users rooms";
+}
+
+.chatwindow-child.chatwindow-child-userinfo {
+    grid-area: user;
+    background-color: white;
+    padding: 10px;
+    border: 3px solid #f1e3dd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+
+}
+
+.chatwindow-child.chatwindow-child-logout {
+    grid-area: logout;
+    background-color: white;
+    padding: 10px;
+    border: 3px solid #f1e3dd;
+    display: flex;
+    justify-content: flex-end;
+
+}
+
+
+.chatwindow-child.chatwindow-child-users {
+    grid-area: users;
+    background-color: white;
+    padding: 10px;
+    border: 3px solid #f1e3dd;
+
+}
+
+.chatwindow-child.chatwindow-child-rooms {
+    grid-area: rooms;
+    background-color: white;
+    padding: 10px;
+    border: 3px solid #f1e3dd;
+
+}
+
 @media screen and (min-width: 825px) {
     .signup {
         padding: 20px;
@@ -76,32 +155,6 @@ nav ul li a:hover {
         display: grid;
 
         justify-content: center;
-    }
-
-    .btn {
-
-        -webkit-transition-duration: 0.4s; /* Safari */
-        transition-duration: 0.4s;
-        background-color: #f9d5e5;
-        border: none;
-        border-radius: 5%;
-        color: grey;
-        padding: 15px 32px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        font-size: 16px;
-        margin: 4px 2px;
-        cursor: pointer;
-    }
-
-    .btn:hover {
-        background-color: #fffcdc;
-        color: grey;
-    }
-    .input-box {
-        padding: 5px;
-
     }
 
 }
@@ -140,31 +193,6 @@ nav ul li a:hover {
       justify-content: center;
   }
 
-  .btn {
-
-      -webkit-transition-duration: 0.4s; /* Safari */
-      transition-duration: 0.4s;
-      background-color: #f9d5e5;
-      border: none;
-      border-radius: 5%;
-      color: grey;
-      padding: 15px 32px;
-      text-align: center;
-      text-decoration: none;
-      display: inline-block;
-      font-size: 16px;
-      margin: 4px 2px;
-      cursor: pointer;
-  }
-
-  .btn:hover {
-      background-color: #fffcdc;
-      color: grey;
-  }
-  .input-box {
-      padding: 5px;
-
-  }
 }
 
 @media screen and (max-width: 350px) {
