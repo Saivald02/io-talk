@@ -82,7 +82,7 @@ export class RoomMessageHistory extends React.Component {
               <div>
                   <div>
                       { databaseRoomMessages.map((item, i) => (
-                              <div key={i}>{item.sender}: { item.message}</div>
+                              <div key={i}>{ item.message }</div>
                         )) }
                   </div>
               </div>

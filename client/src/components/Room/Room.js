@@ -37,26 +37,26 @@ export class Room extends React.Component {
       e.stopPropagation();
       e.preventDefault();
 
-
+      //console.log(this.);
       //console.log(e.target.value);
       this.props.openRoomChat(this.props.room);
-      if(this.props.unreadPrivateMsg !== undefined) {
+      if(this.props.unreadRoomMsg !== undefined) {
           this.props.readRoomMessages(this.props.room, 0)
       }
 
       console.log('clicking ' + this.props.room);
 
-      /*
+
       const sender = this.props.log.email;
-      const receiver = this.props.user;
+      const currentRoomChat = this.props.room;
       //console.log('get private message history');
 
       console.log('sender: ' + sender);
-      console.log('receiver: ' + receiver);
-      axios.get('/api/getPrivateMessageHistory', {
+      console.log('room: ' + currentRoomChat);
+      axios.get('/api/getRoomMessageHistory', {
           params: {
             sender: sender,
-            receiver: receiver
+            room: currentRoomChat
           }
       })
       .then((response) => {
@@ -64,8 +64,8 @@ export class Room extends React.Component {
           var sorted = response.data.data.sort((a, b) => a.date > b.date);
           console.log('sorted private messages from database');
           //console.log(sorted);
-          this.props.databasePrivateMessages(sorted);
-          this.props.clearSocketPrivateMessages();
+          this.props.databaseRoomMessages(sorted);
+          this.props.clearSocketRoomMessages();
           //this.props.
           //this.setState({data: sorted});
 
@@ -76,7 +76,7 @@ export class Room extends React.Component {
         console.log(error);
       });
 
-      */
+
   }
   render() {
       var counter = 0;

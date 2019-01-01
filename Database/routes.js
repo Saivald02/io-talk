@@ -23,33 +23,24 @@ router.get("/getRoomMessageHistory", (req, res) => {
           return next(err);
         } else {
 
+
           let param = req.query;
           const query = param.sender;
-          const rec = param.receiver;
+          const room = param.room;
+          console.log('find room messages');
+          console.log(param);
+          RoomMessage.find({ room: room }, function(err, results){
+              if(err){
+                  return res.json({ data: err });
+              }
 
-          RoomMessage.find( {
-              $or: [
-                  { $and: [{sender: query}, {receiver: rec}] },
-                  { $and: [{sender: rec}, {receiver: query}] }
-              ],
-            }, function (err, results) {
-                    if (err) {
-                      return res.json({ data: err });
-                    } else {
-                      //console.log(results);
-                      return res.json({ data: results });
-                    }
+              if(results.length == 0) {
+                  console.log("No record found")
+                  return res.json({ success: false });
+              }
+              //console.log(results);
+              return res.json({ data: results });
           });
-          /*
-          PrivateMessage.find({ sender: query || rec, receiver: rec || query }, 'sender receiver message', function (err, docs) {
-            if (error) {
-              return next(err);
-            } else {
-              console.log(docs);
-              return res.json({ data: docs });
-            }
-          })
-          */
         }
       }
     });

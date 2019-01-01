@@ -15,6 +15,7 @@ class RoomMessageReceive extends React.Component {
     render() {
 
         const { currentRoomChat } = this.props;
+        console.log('render room message receive ' + currentRoomChat);
         const room_messages = this.props.allRoomMessages.byHash[currentRoomChat];
         var arr = [];
         if(room_messages !== undefined) {

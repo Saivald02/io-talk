@@ -26,8 +26,9 @@ export class ThisUser extends React.Component {
             console.log('room message received');
 
             console.log(data);
-            this.props.addRoomMessage(data.sender, data.room, data.message, 1);
 
+            this.props.addRoomMessage(data.sender, data.room, data.message, 1);
+            console.log('current room:' + data.room + ' ' + this.props.currentRoomChat);
             if(this.props.currentRoomChat !== data.room) {
                 console.log('adding to unread message from ' + data.room);
                 this.props.unreadRoomMessages(data.room, 1);

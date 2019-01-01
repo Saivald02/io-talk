@@ -35,7 +35,7 @@ class RoomMessageContainer extends React.Component {
         //console.log(e.target.value);
         //console.log('clicking ' + this.props.user);
         //console.log('clikcing close chat');
-        this.props.closePrivateChat(false);
+        this.props.closeRoomChat(false);
     }
 
     render() {

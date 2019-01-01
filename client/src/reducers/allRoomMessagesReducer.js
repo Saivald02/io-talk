@@ -22,7 +22,7 @@ const allPrivateMessagesReducer = ( state = initialState, action ) => {
 
     switch (action.type) {
         case ALL_ROOM_MESSAGES:
-            console.log('--- PRIVATE MESSAGES REDUCER ---');
+            console.log('--- ALL ROOM MESSAGES REDUCER ---');
             //console.log(state);
             //console.log(action);
             var bool = false;
