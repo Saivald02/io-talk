@@ -26,6 +26,8 @@ export class Logout extends React.Component {
                 var userInfo = { email: '', log: response.data.success };
                 this.props.logout(userInfo);
 
+                // close current private chat and current room 
+
             })
             .catch(error => {
                 console.log('log error');

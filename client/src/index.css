@@ -124,6 +124,10 @@ nav ul li a:hover {
 
 }
 
+.private-chat-window-child.scrollable {
+    height: 200px;
+    overflow-y: scroll;
+}
 @media screen and (min-width: 825px) {
     .signup {
         padding: 20px;

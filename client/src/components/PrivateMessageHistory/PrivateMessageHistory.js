@@ -9,12 +9,12 @@ import { connect } from 'react-redux';
 
 export class PrivateMessageHistory extends React.Component {
 
-    constructor() {
-        super();
-        this.state = {
-            data: []
-        };
+    constructor(props, context) {
+        super(props, context);
+
+        this.itemRefs = {};
     }
+    
     componentDidMount() {
         //this.getDataFromDb();
         console.log('--------------------- MOUNT PrivateMessageHistory MOUNT --------------------- ');
@@ -29,6 +29,25 @@ export class PrivateMessageHistory extends React.Component {
 
     }
 
+    componentDidUpdate() {
+        //const element = document.getElementById(this.state.media);
+        //this.props.
+        //const { currentRoomChat } = this.props;
+        const { databasePrivateMessages } = this.props;
+        if(databasePrivateMessages !== undefined) {
+            //console.log(private_messages.msg);
+            if(databasePrivateMessages.length > 0) {
+                //scrollTo(room_messages.msg.length-1);
+                console.log('--------------- scrolll sssssssssssssss');
+                const id = databasePrivateMessages.length-1;
+                this.itemRefs[id].scrollIntoView();
+            }
+
+            //console.log(arr);
+        }
+        //element.scrollIntoView({behavior: 'smooth'});
+    }
+
     componentWillUnmount() {
         /*
         if (this.state.intervalIsSet) {
@@ -37,35 +56,6 @@ export class PrivateMessageHistory extends React.Component {
         }
         */
         console.log('--------------------- UNMOUNT PrivateMessageHistory UNMOUNT --------------------- ');
-    }
-
-    getPrivateMessageHistory() {
-        /*
-        const sender = this.props.log.email;
-        const receiver = this.props.currentPrivateChat;
-        console.log('get private message history');
-
-        console.log('sender: ' + sender);
-        console.log('receiver: ' + receiver);
-        axios.get('/api/getPrivateMessageHistory', {
-            params: {
-              sender: sender,
-              receiver: receiver
-            }
-        })
-        .then((response) => {
-            console.log(response.data);
-            console.log(response.data.data);
-            var sorted = response.data.data.sort((a, b) => a.date > b.date);
-            //this.setState({data: sorted});
-
-
-
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-        */
     }
 
 
@@ -82,7 +72,7 @@ export class PrivateMessageHistory extends React.Component {
               <div>
                   <div>
                       { databasePrivateMessages.map((item, i) => (
-                              <div key={i}>{item.sender}: { item.message}</div>
+                              <div key={i} ref={el => (this.itemRefs[i] = el) }>{item.sender}: { item.message}</div>
                         )) }
                   </div>
               </div>

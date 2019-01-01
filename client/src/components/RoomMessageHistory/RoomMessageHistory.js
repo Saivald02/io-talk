@@ -9,11 +9,10 @@ import { connect } from 'react-redux';
 
 export class RoomMessageHistory extends React.Component {
 
-    constructor() {
-        super();
-        this.state = {
-            data: []
-        };
+    constructor(props, context) {
+        super(props, context);
+
+        this.itemRefs = {};
     }
     componentDidMount() {
         //this.getDataFromDb();
@@ -69,6 +68,25 @@ export class RoomMessageHistory extends React.Component {
     }
 
 
+    componentDidUpdate() {
+        //const element = document.getElementById(this.state.media);
+        //this.props.
+        //const { currentRoomChat } = this.props;
+        const { databaseRoomMessages } = this.props;
+        if(databaseRoomMessages !== undefined) {
+            //console.log(private_messages.msg);
+            if(databaseRoomMessages.length > 0) {
+                //scrollTo(room_messages.msg.length-1);
+                console.log('--------------- scrolll sssssssssssssss');
+                const id = databaseRoomMessages.length-1;
+                this.itemRefs[id].scrollIntoView();
+            }
+
+            //console.log(arr);
+        }
+        //element.scrollIntoView({behavior: 'smooth'});
+    }
+
     render() {
         const { databaseRoomMessages } = this.props;
         const { currentRoomChat } = this.props;
@@ -82,7 +100,7 @@ export class RoomMessageHistory extends React.Component {
               <div>
                   <div>
                       { databaseRoomMessages.map((item, i) => (
-                              <div key={i}>{ item.message }</div>
+                              <div key={ i } ref={el => (this.itemRefs[i] = el) }>{ item.message }</div>
                         )) }
                   </div>
               </div>

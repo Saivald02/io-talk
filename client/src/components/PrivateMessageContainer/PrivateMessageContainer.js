@@ -18,26 +18,13 @@ class PrivateMessageContainer extends React.Component {
     componentDidMount() {
 
     }
-    /*
-    constructor(props) {
-        super(props);
-        this.state = {
-            privatemsg: '',
-            //privateMsgHistory: [],
-            //receiver: ''
-        };
-    }
-    */
 
     closePrivateChatWindow = e => {
         e.stopPropagation();
         e.preventDefault();
-        //console.log(e.target.value);
-        //console.log('clicking ' + this.props.user);
-        //console.log('clikcing close chat');
+
         this.props.closePrivateChat(false);
 
-        //
     }
 
     render() {
@@ -53,7 +40,7 @@ class PrivateMessageContainer extends React.Component {
                         onClick={this.closePrivateChatWindow}> close private chat
                     </button>
                     <div className="">  { this.props.currentPrivateChat } </div>
-                    <div className=" private-chat-window-child">
+                    <div className=" private-chat-window-child scrollable">
                         <PrivateMessageHistory />
                         <PrivateMessageReceive />
                     </div>

@@ -111,7 +111,7 @@ export class User extends React.Component {
             <div className="">
                 <button
                     type="button"
-                    className=""
+                    className="btn"
                     onClick={this.startPrivateChat}>{ user } { counter }
                 </button>
             </div>
