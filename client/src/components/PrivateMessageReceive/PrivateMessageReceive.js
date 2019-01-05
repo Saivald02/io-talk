@@ -65,11 +65,11 @@ class PrivateMessageReceive extends React.Component {
                           // test
                           if(item.from === 1) {
                             return (
-                                <p className="sender" key={i} ref={el => (this.itemRefs[i] = el) }> { item.receiver } : { item.msg } </p>
+                                <p className="sender" key={i} ref={el => (this.itemRefs[i] = el) }> { item.receiver }: { item.msg } </p>
                             )
                           } else {
                               return (
-                                <p className="others" key={i} ref={el => (this.itemRefs[i] = el) }> { item.sender } : { item.msg } </p>
+                                <p className="others" key={i} ref={el => (this.itemRefs[i] = el) }> { item.sender }: { item.msg } </p>
                               )
                           }
                       }
