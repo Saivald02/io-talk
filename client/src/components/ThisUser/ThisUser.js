@@ -10,14 +10,15 @@ export class ThisUser extends React.Component {
 
     componentDidMount() {
         this.props.socket.on('recv_privatemsg', (from, recievedMsg) => {
-            var msg = from +': ' + recievedMsg;
+            //var msg = from +': ' + recievedMsg;
 
             // this.props.addPrivateMessage(sender, receiver, msg, 1);
             if(this.props.currentPrivateChat !== from) {
                 console.log('adding to unread message from ' + from);
                 this.props.unreadPrivateMessages(from, 1);
             }
-            this.props.addPrivateMessage(from, this.props.log.email, msg, 1);
+
+            this.props.addPrivateMessage(from, this.props.log.username, recievedMsg, 0);
 
         });
 
@@ -34,7 +35,7 @@ export class ThisUser extends React.Component {
                 this.props.unreadRoomMessages(data.room, 1);
             }
 
-            //this.props.addRoomMessage(from, this.props.log.email, msg, 1);
+            //this.props.addRoomMessage(from, this.props.log.username, msg, 1);
 
         });
 
@@ -60,7 +61,7 @@ export class ThisUser extends React.Component {
     render() {
         //console.log(this.props);
         //console.log('render user');
-        const user = this.props.log.email;
+        const user = this.props.log.username;
 
         return (
             <div className="chatwindow-child chatwindow-child-userinfo"> I'm logged in as { user } </div>

@@ -40,7 +40,7 @@ export class RoomMessageHistory extends React.Component {
 
     getPrivateMessageHistory() {
         /*
-        const sender = this.props.log.email;
+        const sender = this.props.log.username;
         const receiver = this.props.currentPrivateChat;
         console.log('get private message history');
 

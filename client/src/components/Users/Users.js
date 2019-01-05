@@ -58,12 +58,17 @@ export class Users extends React.Component {
         const { users } = this.props;
         console.log('------ render users -------');
         console.log(users);
-        return (
-            <div className="chatwindow-child chatwindow-child-users">
-                { users.map((one, i) => (<User key={i} user={one} />)) }
-                <PrivateMessageContainer />
-            </div>
-        );
+        if(users.arr.length !== 0) {
+            return (
+                <div className="chatwindow-child chatwindow-child-users">
+                    { users.arr.map((one, i) => (<User key={i} user={one} />)) }
+                    <PrivateMessageContainer />
+                </div>
+            );
+        } else {
+            return null;
+        }
+
       }
   }
 

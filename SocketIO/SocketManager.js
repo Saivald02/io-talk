@@ -25,7 +25,8 @@ exports = module.exports = function (io) {
   	// Set socket.io listeners.
   	io.on('connection', (socket) => {
 
-				getApiAndEmit(socket);
+				console.log('new client connection');
+				//getApiAndEmit(socket);
 
 				socket.on('joinroom', function (joinObj, fn) {
 					var room = joinObj.room;
@@ -93,23 +94,72 @@ exports = module.exports = function (io) {
 						fn(false, reason);
 					}
 				});
+
 				//socket.removeAllListeners();
 
 				//console.log(io.sockets.sockets.length)
 				//console.log(Object.keys(io.sockets.connected).length);
+
+				socket.on('logout', function () {
+						console.log('client logout');
+						console.log('remove user');
+						var index = 0;
+						for (var i = 0; i < allUsers.length; i++) {
+								if(allUsers[i] === socket.username) {
+										//delete allUsers[i];
+										index = i;
+								}
+						}
+						console.log(allUsers);
+						allUsers.splice( index, 1 );
+						console.log(allUsers);
+						//console.log(users);
+						io.sockets.emit('userlist', allUsers);
+
+				});
+
 				socket.on('disconnect', function () {
 						console.log('client disconnect');
 						//clearInterval(interval);
+
+						if(socket.username) {
+								//If the socket doesn't have a username the client joined and parted without
+								//chosing a username, so we just close the socket without any cleanup.
+								for(var room in users[socket.username].channels) {
+									//Remove the user from users/ops lists in the rooms he's currently in.
+									delete rooms[room].users[socket.username];
+									delete rooms[room].ops[socket.username];
+
+									//io.sockets.emit('updateusers', room, rooms[room].users, rooms[room].ops);
+								}
+
+								//delete allUsers[socket.username];
+								delete users[socket.username];
+								console.log('remove user');
+								var index = 0;
+								for (var i = 0; i < allUsers.length; i++) {
+										if(allUsers[i] === socket.username) {
+												//delete allUsers[i];
+												index = i;
+										}
+								}
+								console.log(allUsers);
+								allUsers.splice( index, 1 );
+								console.log(allUsers);
+								//console.log(users);
+								io.sockets.emit('userlist', allUsers);
+
+
+						}
 				});
 
-				console.log('new client connection');
-
-				socket.on('adduser', function(username, fn){
+				socket.on('adduser', function(username, fn) {
 
 						//Check if username is avaliable.
 						if (username.toLowerCase !== "server" && username.length < 21) {
 								socket.username = username;
 								//console.log('process socket io user');
+								console.log('socket: adding user');
 								console.log(username);
 								//console.log(allUsers);
 								var contains = allUsers.includes(username);
@@ -148,6 +198,7 @@ exports = module.exports = function (io) {
 			socket.on('privatemsg', function (msgObj, fn) {
 					console.log('someone is trying to send private messagae');
 					console.log(msgObj);
+
 					//If user exists in global user list.
 					if(users[msgObj.nick] !== undefined) {
 							//Send the message only to this user.

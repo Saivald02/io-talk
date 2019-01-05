@@ -47,7 +47,7 @@ export class Room extends React.Component {
       console.log('clicking ' + this.props.room);
 
 
-      const sender = this.props.log.email;
+      const sender = this.props.log.username;
       const currentRoomChat = this.props.room;
       //console.log('get private message history');
 

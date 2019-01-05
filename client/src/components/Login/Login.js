@@ -11,11 +11,12 @@ import Logout from '../Logout/Logout';
 import Users from '../Users/Users';
 import ThisUser from '../ThisUser/ThisUser';
 import Rooms from '../Rooms/Rooms';
+
 export class Login extends React.Component {
     constructor() {
         super();
         this.state = {
-            email: '',
+            username: '',
             password: ''
         };
     }
@@ -29,10 +30,10 @@ export class Login extends React.Component {
         e.stopPropagation();
         e.preventDefault();
         //preventDefault();
-        const { email, password } = this.state;
+        const { username, password } = this.state;
         //console.log(this.state);
         axios.post("/api/login", {
-            email: email,
+            username: username,
             password: password,
             })
             .then((response) => {
@@ -40,11 +41,12 @@ export class Login extends React.Component {
                           console.log('successful sign in')
                           console.log(response.data);
                           //this.setState({ fireRedirect: true });
-                          var userInfo = { email: email, log: true };
+                          var userInfo = { username: username, log: true };
+                          console.log(userInfo);
                           this.props.login(userInfo);
 
 
-                          this.props.socket.emit('adduser', email, (available) => {
+                          this.props.socket.emit('adduser', username, (available) => {
                               if (available) {
                                   console.log('add user success');
                                   var newRoom = { room: 'lobby'};
@@ -70,7 +72,7 @@ export class Login extends React.Component {
                               }
                           });
                       } else {
-                          console.log('email or password is incorrect')
+                          console.log('username or password is incorrect')
                       }
                   })
               .catch(error => {
@@ -101,7 +103,7 @@ export class Login extends React.Component {
                             <input
                                 type="text"
                                 className="input-box"
-                                onChange={e => this.setState({ email: e.target.value })}
+                                onChange={e => this.setState({ username: e.target.value })}
                                 placeholder="username" />
                         </div>
                         <div className="signup-child-box">

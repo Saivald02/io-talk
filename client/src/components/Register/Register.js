@@ -20,7 +20,6 @@ export class Register extends React.Component {
     constructor() {
         super();
         this.state = {
-          email: null,
           username: null,
           password: null,
           passwordConfirm: null,
@@ -36,19 +35,20 @@ export class Register extends React.Component {
     }
 
     registerPost = message => {
-        const { email, username, password, passwordConfirm } = this.state;
+        const { username, password, passwordConfirm } = this.state;
         console.log(this.state);
         axios.post("/api/register", {
-            email: email,
             username: username,
             password: password,
             passwordConf: passwordConfirm
             })
             .then((response) => {
+                      console.log(response);
+                      console.log(response.data.error);
                       if (!response.data.error) {
                           console.log('successful signup')
                           console.log(response.data);
-                          var userInfo = { email: email, log: true };
+                          var userInfo = { username: username, log: true };
                           this.props.login(userInfo);
                           this.props.socket.emit('adduser', this.state.username, (available) => {
                                     if (available) {
@@ -104,14 +104,6 @@ export class Register extends React.Component {
             return (
                 <div className="signup-child">
                     <h2 className="signup-child-box">Register</h2>
-                    <div className="signup-child-box">
-                        <input
-                            type="text"
-                            className="input-box"
-                            onChange={e => this.setState({ email: e.target.value })}
-                            placeholder="email"
-                        />
-                    </div>
                     <div className="signup-child-box">
                         <input
                             type="text"

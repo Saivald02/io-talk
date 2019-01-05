@@ -1,1 +1,2 @@
 export const ALL_USERS = 'ALL_USERS';
+export const ALL_USERS_REMOVE_ONE = 'ALL_USERS_REMOVE_ONE';

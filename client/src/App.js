@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 
-import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 //import socketIOClient from "socket.io-client";
-import Temp from './components/Temp/Temp';
-import Weather from './components/Weather/Weather';
+//import Temp from './components/Temp/Temp';
+//import Weather from './components/Weather/Weather';
 import './App.css';
 
 
@@ -12,12 +12,12 @@ import SocketContext from './socket-context';
 import socketIOClient from "socket.io-client";
 
 import SignInUpContainer from './components/SignInUpContainer/SignInUpContainer';
-import Login from './components/Login/Login';
-import Register from './components/Register/Register';
+//import Login from './components/Login/Login';
+//import Register from './components/Register/Register';
 
 
-//const endpoint = "http://127.0.0.1:4001";
-const endpoint = "/";
+const endpoint = "http://127.0.0.1:4001";
+//const endpoint = "/";
 const socket = socketIOClient(endpoint);
 
 export class App extends Component {
@@ -58,25 +58,8 @@ export class App extends Component {
         <SocketContext.Provider value={socket}>
             <Router basename={process.env.PUBLIC_URL}>
                 <div>
-                    <nav>
-                        <ul>
-                          <li>
-                            <Link to="/">Home</Link>
-                          </li>
-                          <li>
-                            <Link to="/login">login</Link>
-                          </li>
-                          <li>
-                            <Link to="/signup">sign-up</Link>
-                          </li>
-                        </ul>
-                    </nav>
                     <Switch>
                         <Route exact path="/" component={SignInUpContainer} />
-                        <Route path="/temp" component={Temp} />
-                        <Route path="/weather" component={Weather} />
-                        <Route path="/login" component={Login} />
-                        <Route path="/signup" component={Register} />
                     </Switch>
                 </div>
             </Router>

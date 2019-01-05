@@ -78,8 +78,6 @@ const io = require('socket.io').listen(server);
 
 SocketManager(io);
 
-
-
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   var err = new Error('File Not Found');

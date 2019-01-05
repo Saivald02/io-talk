@@ -1,6 +1,11 @@
-import { ALL_USERS } from '../constants/allUsersConstants';
+import { ALL_USERS, ALL_USERS_REMOVE_ONE } from '../constants/allUsersConstants';
 
-const allUsersReducer = ( state = [], action ) => {
+
+const initialUserState = {
+    arr:[]
+}
+
+const allUsersReducer = ( state = initialUserState, action ) => {
 
     //console.log('--- inside all users reducer ---');
     //console.log(action);
@@ -9,7 +14,12 @@ const allUsersReducer = ( state = [], action ) => {
     //console.log(state);
     //obj = { creator: '', chatroom: '', joinRoom: false };
     switch (action.type) {
-        case ALL_USERS: return action.payload;
+        case ALL_USERS: return { ...state, arr: action.payload }
+        case ALL_USERS_REMOVE_ONE:
+        return {
+                ...state,
+                arr: state.arr.filter(item => action.payload !== item)
+            }
         default: return state;
     }
 };

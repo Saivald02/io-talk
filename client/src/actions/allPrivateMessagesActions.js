@@ -1,7 +1,7 @@
 import { ALL_PRIVATE_MESSAGES, CLEAR_SOCKET_PRIVATE_MESSAGES } from '../constants/allPrivateMessagesConstants';
 //import fetch from 'isomorphic-fetch';
 
-export const addPrivateMessage = ( sender, receiver, msgs, date) => {
+export const addPrivateMessage = ( sender, receiver, msgs, from) => {
     //console.log('roomsAction rooms');
     //console.log(socket);
     //var allM = [];
@@ -13,11 +13,12 @@ export const addPrivateMessage = ( sender, receiver, msgs, date) => {
     //var key = sender+
 
     var msg = []
-    msg.push(msgs);
+    var obj = {sender: sender, receiver: receiver, msg: msgs, from: from};
+    msg.push(obj);
     return {
         type: ALL_PRIVATE_MESSAGES,
         index: sender,
-        payload: { sender: sender, receiver: receiver, msg: msg, date: date, test: msgs }
+        payload: { sender: sender, receiver: receiver, msg: msg, test: msgs, from: from }
     };
 };
 

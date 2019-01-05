@@ -45,6 +45,7 @@ class RoomMessageContainer extends React.Component {
         if(currentRoomChat !== false) {
             return (
                 <div className="private-chat-window">
+                    <div className="">  { this.props.currentRoomChat } </div>
                     <div className="private-chat-window-child">
                         <button
                             type="button"
@@ -52,17 +53,21 @@ class RoomMessageContainer extends React.Component {
                             onClick={this.closeRoomChatWindow}> exit room
                         </button>
                     </div>
-                    <div className="">  { this.props.currentPrivateChat } </div>
+
                     <div className="private-chat-window-child scrollable">
                         <RoomMessageHistory />
                         <RoomMessageReceive />
+
                     </div>
-                    <RoomMessageSend />
+                    <div className="private-chat-window-child">
+                        <RoomMessageSend />
+                    </div>
+
                 </div>
             );
         } else {
             return (
-                <div> no chatroom open </div>
+                null
             );
         }
     }

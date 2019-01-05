@@ -1,4 +1,4 @@
-import { UNREAD, READ } from '../constants/unreadRoomMessagesConstants';
+import { UNREAD, READ, CLEAR } from '../constants/unreadRoomMessagesConstants';
 //import fetch from 'isomorphic-fetch';
 
 export const unreadRoomMessages = ( from, number) => {
@@ -14,5 +14,13 @@ export const readRoomMessages = (from, number) => {
         type: READ,
         id: from,
         payload: { id: from, counter: number }
+    };
+};
+
+export const clearUnreadRoomMessages = () => {
+    return {
+        type: CLEAR,
+        id: null,
+        payload: null
     };
 };

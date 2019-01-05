@@ -107,7 +107,6 @@ nav ul li a:hover {
 
 }
 
-
 .chatwindow-child.chatwindow-child-users {
     grid-area: users;
     background-color: white;
@@ -121,13 +120,117 @@ nav ul li a:hover {
     background-color: white;
     padding: 10px;
     border: 3px solid #f1e3dd;
+}
 
+.private-chat-window {
+    border: 2px solid #f1e3dd;
+}
+
+.send-message {
+    display: grid;
+    grid-template-rows: auto auto;
+}
+
+.send-message > .send-message-child-1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
+}
+
+.send-message > .send-message-child-2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+}
+
+.send-message > .send-message-child-1 > .input-box {
+    flex: 0 0 100%;
+    /* border: none; /* removes input box border */
+}
+
+.send-message > .send-message-child-2 > button {
+    flex: 0 0 100%;
+}
+
+.input:focus {
+    outline:none;
+}
+
+.private-chat-window > .private-chat-window-child {
+    margin: 5px;
+}
+
+.private-chat-window > .private-chat-window-child > .chat-top {
+    display: grid;
+    grid-template-columns: auto auto;
+    background: #fffcdc;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to left, #d9a7c7, #fffcdc);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to left, #d9a7c7, #fffcdc); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    padding: 5px;
+    border: 2px solid #f1e3dd;
+}
+
+.private-chat-window > .private-chat-window-child > .chat-top > .chat-top-right {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+}
+
+.private-chat-window > .private-chat-window-child > .chat-top > .chat-top-left {
+    display: flex;
+    align-items: center;
+    justify-content: right;
+}
+
+.private-chat-window > .private-chat-window-child > .chat-top > .chat-top-left > button {
+    display: flex;
+    align-items: center;
+    justify-content: right;
+    font-size: 30px;
+}
+
+.private-chat-window-child > .private-chat-window-child-text > .sender {
+  padding: 5px;
+  background-color: #82b74b;
+  text-align: right;
+  border: 1px solid #82b74b;
+  border-radius: 5%;
+  margin: 5px;
+}
+
+.private-chat-window-child > .private-chat-window-child-text > .others {
+  background-color: #f1e3dd;
+  border: 1px solid #f1e3dd;
+  border-radius: 5%;
+  margin: 5px;
+  padding: 5px;
+}
+
+.private-chat-window-child > .private-chat-window-child-text > p {
+    margin: 0 auto;
+    padding: 3px;
+    /* reaks long words */
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    -ms-word-break: break-all;
+    word-break: break-all;
+    word-break: break-word;
+    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphens: auto;
 }
 
 .private-chat-window-child.scrollable {
     height: 200px;
     overflow-y: scroll;
+    border: 2px solid #f1e3dd;
+
 }
+
 @media screen and (min-width: 825px) {
     .signup {
         padding: 20px;

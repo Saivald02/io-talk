@@ -165,7 +165,7 @@ router.post('/privateMessageSend', function (req, res, next) {
                 //console.log('saving private message to database');
                 return res.json({ success: true });
             });
-            //return res.send('<h1>Name: </h1>' + user.username + '<h2>Mail: </h2>' + user.email + '<br><a type="button" href="/logout">Logout</a>')
+            //return res.send('<h1>Name: </h1>' + user.username + '<h2>Mail: </h2>' + user.username + '<br><a type="button" href="/logout">Logout</a>')
             //return res.json({ success: 'success!' });
           }
         }
@@ -176,25 +176,25 @@ router.post('/privateMessageSend', function (req, res, next) {
 router.post('/login', function (req, res, next) {
     console.log('log me in');
 
-    if (req.body.email && req.body.password) {
+    if (req.body.username && req.body.password) {
         var loginData = {
-            email: req.body.email,
+            username: req.body.username,
             password: req.body.password,
         }
     }
     console.log(loginData);
-    console.log(req.body.email);
-    if (req.body.email && req.body.password) {
-        User.authenticate(req.body.email, req.body.password, function (error, user) {
+    console.log(req.body.username);
+    if (req.body.username && req.body.password) {
+        User.authenticate(req.body.username, req.body.password, function (error, user) {
             if (error || !user) {
-                //var err = new Error('Wrong email or password.');
+                //var err = new Error('Wrong username or password.');
                 //err.status = 401;
                 //return next(err);
-                return res.json({ error: 'Wrong email or password' });
+                return res.json({ error: 'Wrong username or password' });
             } else {
                 req.session.userId = user._id;
                 //return res.redirect('/profile');
-                console.log('user auth');
+                console.log('user auth success');
                 return res.json({ success: loginData });
             }
         });
@@ -212,40 +212,54 @@ router.post('/register', function (req, res, next) {
     return next(err);
   }
 
-  if (req.body.email &&
-    req.body.username &&
+  if (req.body.username &&
     req.body.password &&
     req.body.passwordConf) {
 
     var userData = {
-      email: req.body.email,
       username: req.body.username,
       password: req.body.password,
       passwordConf: req.body.passwordConf,
     }
 
     var userInfo = {
-        email: req.body.email,
         username: req.body.username,
     }
     //console.log(userData);
 
-    User.create(userData, function (error, user) {
-      if (error) {
-        return next(error);
-      } else {
-        req.session.userId = user._id;
-        console.log('user create');
-        //console.log(user);
-        return res.json({ success: userInfo });
-        //return res.redirect('/profile');
-      }
+    User.find({ username: userInfo.username }, function(err, results){
+        if(err){
+            return res.json({ data: err });
+        }
+
+        if(results.length == 0) {
+            console.log("No record found");
+            User.create(userData, function (error, user) {
+              if (error) {
+                return next(error);
+              } else {
+                req.session.userId = user._id;
+                console.log('user create');
+                //console.log(user);
+                return res.json({ success: userInfo });
+                //return res.redirect('/profile');
+              }
+            });
+
+        } else {
+            console.log('username not available');
+            return res.json({ error: true });
+        }
+        //console.log(results);
+        //return res.json({ data: results });
     });
 
-  } else if (req.body.email && req.body.password) {
-    User.authenticate(req.body.email, req.body.password, function (error, user) {
+
+
+  } else if (req.body.username && req.body.password) {
+    User.authenticate(req.body.username, req.body.password, function (error, user) {
       if (error || !user) {
-        var err = new Error('Wrong email or password.');
+        var err = new Error('Wrong username or password.');
         err.status = 401;
         return next(err);
       } else {
@@ -274,7 +288,7 @@ router.get('/profile', function (req, res, next) {
           err.status = 400;
           return next(err);
         } else {
-          //return res.send('<h1>Name: </h1>' + user.username + '<h2>Mail: </h2>' + user.email + '<br><a type="button" href="/logout">Logout</a>')
+          //return res.send('<h1>Name: </h1>' + user.username + '<h2>Mail: </h2>' + user.username + '<br><a type="button" href="/logout">Logout</a>')
           return res.json({ success: true });
         }
       }

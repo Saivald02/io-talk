@@ -44,7 +44,7 @@ export class User extends React.Component {
 
       console.log('clicking ' + this.props.user);
 
-      const sender = this.props.log.email;
+      const sender = this.props.log.username;
       const receiver = this.props.user;
       //console.log('get private message history');
 

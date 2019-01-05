@@ -71,7 +71,7 @@ class PrivateMessageSend extends React.Component {
         const privatemsg = this.state.privatemsg;
 
         const receiver = this.props.currentPrivateChat;
-        const sender = this.props.log.email;
+        const sender = this.props.log.username;
         console.log('sending private message to ' + receiver + " the message: " + privatemsg);
         //console.log();
         if(privatemsg !== '' && receiver !== '') {
@@ -88,10 +88,10 @@ class PrivateMessageSend extends React.Component {
                 })
                 .then((response) => {
                       if (!response.data.error) {
-                          console.log('private message saved in database')
+                          console.log('private message saved in database');
                           console.log(response.data);
                           //this.setState({ fireRedirect: true });
-                          //var userInfo = { email: email, log: true };
+                          //var userInfo = { username: username, log: true };
                           //this.props.login(userInfo);
 
                           this.props.socket.emit('privatemsg', data, (success) => {
@@ -100,8 +100,8 @@ class PrivateMessageSend extends React.Component {
                                   console.log(data);
 
 
-                                  var msg = sender +': ' + data.message;
-                                  this.props.addPrivateMessage(receiver, sender, msg, 1);
+                                  //var msg = sender +': ' + data.message;
+                                  this.props.addPrivateMessage(receiver, sender, data.message, 1);
                                   //var msg = 'you sent private message to ' + data.nick + ': ' + data.message;
                                   //this.state.privateMsgHistory.push(msg);
                                   //this.setState({});
@@ -117,22 +117,7 @@ class PrivateMessageSend extends React.Component {
                           console.log('sign in error: ')
                           console.log(error)
                       })
-
-
-
-
-
-            // 1 axios and log to database
-            // 2 socket io emit after success from database
-            // 3 show privte mesasge
-
         }
-        //console.log(e.target.value);
-        //console.log('clicking ' + this.props.user);
-        //console.log('clikcing close chat');
-        //this.props.closePrivateChat(false);
-
-        //
     }
 
     render() {
@@ -140,14 +125,15 @@ class PrivateMessageSend extends React.Component {
         //let showList = null;
 
         return (
-            <div>
-                <h2> Private message </h2>
-                <div className="inline private-input-box block">
+            <div className="send-message">
+                <div className="send-message-child-1">
                     <input
                         type="text"
-                        className="private-input private-input-big"
+                        className="input-box"
                         onInput={(e) => this.setState({ privatemsg: e.target.value })} />
-                    <button type="button" className="btn pull-left" onClick={this.sendPrivateMessage}>Send Private Message</button>
+                </div>
+                <div className="send-message-child-2">
+                    <button type="button" className="btn" onClick={this.sendPrivateMessage}>Send Private Message</button>
                 </div>
             </div>
         );

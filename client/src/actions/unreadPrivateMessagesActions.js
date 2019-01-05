@@ -1,4 +1,4 @@
-import { UNREAD, READ } from '../constants/unreadPrivateMessagesConstants';
+import { UNREAD, READ, CLEAR } from '../constants/unreadPrivateMessagesConstants';
 //import fetch from 'isomorphic-fetch';
 
 export const unreadPrivateMessages = ( from, number) => {
@@ -15,4 +15,12 @@ export const readPrivateMessages = (from, number) => {
         id: from,
         payload: { id: from, counter: number }
     };
+};
+
+export const clearUnreadPrivateMessages = () => {
+        return {
+            type: CLEAR,
+            id: null,
+            payload: null
+        };
 };

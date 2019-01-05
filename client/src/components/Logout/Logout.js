@@ -4,6 +4,13 @@ import axios from "axios";
 import { connect } from 'react-redux';
 import { logout } from '../../actions/logActions';
 import SocketContext from '../../socket-context';
+
+import { clearUnreadPrivateMessages } from '../../actions/unreadPrivateMessagesActions';
+import { clearUnreadRoomMessages } from '../../actions/unreadRoomMessagesActions';
+
+import { closeRoomChat } from '../../actions/roomChatActions';
+import { closePrivateChat } from '../../actions/privateChatActions';
+
 export class Logout extends React.Component {
 
     componentDidMount() {
@@ -23,11 +30,15 @@ export class Logout extends React.Component {
 
         axios.get('/api/logout')
             .then(response => {
-                var userInfo = { email: '', log: response.data.success };
+                var userInfo = { username: '', log: response.data.success };
+
                 this.props.logout(userInfo);
+                this.props.closePrivateChat(false);
+                this.props.closeRoomChat(false);
+                this.props.clearUnreadPrivateMessages();
+                this.props.clearUnreadRoomMessages();
 
-                // close current private chat and current room 
-
+                this.props.socket.emit('logout');
             })
             .catch(error => {
                 console.log('log error');
@@ -51,9 +62,9 @@ const ChatWithSocket = props => (
     </SocketContext.Consumer>
 )
 
-const mapStateToProps = ({ log }) => {
+const mapStateToProps = ({ allPrivateMessages, allRoomMessages, log, allUnreadPrivateMessages, allUnreadRoomMessages, currentPrivateChat, currentRoomChat }) => {
     //console.log('--- iceland weather to props ---');
-    return { log };
+    return { allPrivateMessages, allRoomMessages, log, allUnreadPrivateMessages, allUnreadRoomMessages, currentPrivateChat, currentRoomChat };
 }
 
-export default connect(mapStateToProps,{ logout })(ChatWithSocket);
+export default connect(mapStateToProps,{ logout, clearUnreadPrivateMessages, clearUnreadRoomMessages, closeRoomChat, closePrivateChat })(ChatWithSocket);

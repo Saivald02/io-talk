@@ -34,17 +34,26 @@ class PrivateMessageContainer extends React.Component {
         if(currentPrivateChat !== false) {
             return (
                 <div className="private-chat-window">
-                    <button
-                        type="button"
-                        className="btn private-chat-window-child"
-                        onClick={this.closePrivateChatWindow}> close private chat
-                    </button>
-                    <div className="">  { this.props.currentPrivateChat } </div>
-                    <div className=" private-chat-window-child scrollable">
+                    <div className="private-chat-window-child">
+                        <div className="chat-top">
+                            <div className="chat-top-right"> { this.props.currentPrivateChat } </div>
+                            <div className="chat-top-left">
+                                <button
+                                    type="button"
+                                    className="btn"
+                                    onClick={this.closePrivateChatWindow}> X
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div className="private-chat-window-child scrollable">
                         <PrivateMessageHistory />
                         <PrivateMessageReceive />
                     </div>
-                    <PrivateMessageSend />
+                    <div className="private-chat-window-child">
+                        <PrivateMessageSend />
+                    </div>
                 </div>
             );
         } else {

@@ -1,4 +1,4 @@
-import { UNREAD, READ } from '../constants/unreadPrivateMessagesConstants';
+import { UNREAD, READ, CLEAR } from '../constants/unreadPrivateMessagesConstants';
 
 
 const initialState = {
@@ -15,6 +15,9 @@ const unreadPrivateMessagesReducer = ( state = initialState, action ) => {
     //console.log(state);
     //console.log(action);
     switch (action.type) {
+
+      case CLEAR:
+          return initialState
         case UNREAD:
             //console.log('--- UNREAD-MESSAGES REDUCER ---');
             //console.log(state);

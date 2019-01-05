@@ -73,7 +73,7 @@ class RoomMessageSend extends React.Component {
 
 
         const room = this.props.currentRoomChat;
-        const sender = this.props.log.email;
+        const sender = this.props.log.username;
         const msg = this.state.roommsg;
         console.log('sending room message to ' + room + " the message: " + msg);
         //console.log();
@@ -95,7 +95,7 @@ class RoomMessageSend extends React.Component {
                           console.log('room message saved in database')
                           console.log(response.data);
                           //this.setState({ fireRedirect: true });
-                          //var userInfo = { email: email, log: true };
+                          //var userInfo = { username: username, log: true };
                           //this.props.login(userInfo);
 
                           this.props.socket.emit('sendmsg', data, (success) => {
