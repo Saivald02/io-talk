@@ -310,7 +310,7 @@ nav ul li a:hover {
       justify-content: center;
   }
   .signup-child-box .input-box {
-      width: 300px;
+      width: 200px;
       height: 25px;
       display: grid;
 
@@ -360,8 +360,9 @@ nav ul li a:hover {
     }
 
     .signup-child-box .input-box {
-        width: 300px;
+        /*width: 200px;*/
         height: 25px;
+        padding: 10px;
         display: grid;
 
         justify-content: center;
