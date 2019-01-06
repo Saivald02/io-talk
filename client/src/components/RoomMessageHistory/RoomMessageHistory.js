@@ -77,7 +77,7 @@ export class RoomMessageHistory extends React.Component {
             //console.log(private_messages.msg);
             if(databaseRoomMessages.length > 0) {
                 //scrollTo(room_messages.msg.length-1);
-                console.log('--------------- scrolll sssssssssssssss');
+                //console.log('--------------- scrolll sssssssssssssss');
                 const id = databaseRoomMessages.length-1;
                 this.itemRefs[id].scrollIntoView();
             }
@@ -89,27 +89,62 @@ export class RoomMessageHistory extends React.Component {
 
     render() {
         const { databaseRoomMessages } = this.props;
-        const { currentRoomChat } = this.props;
+        //const { currentRoomChat } = this.props;
+        const { username } = this.props.log;
         //console.log(data);
         if(databaseRoomMessages.length <= 0) {
             return (
-                <div> send { currentRoomChat } a messsage </div>
+                null
             );
         } else {
           return (
-              <div>
-                  <div>
-                      { databaseRoomMessages.map((item, i) => (
-                              <div key={ i } ref={el => (this.itemRefs[i] = el) }>{ item.message }</div>
-                        )) }
-                  </div>
-              </div>
+            <div className="private-chat-window-child-text">
+                {
+                    databaseRoomMessages.map((item, i) => {
+                          if(item.sender === username) {
+                            return (
+                                <p className="sender" key={i} ref={el => (this.itemRefs[i] = el) }>{ item.sender }:{ item.message }</p>
+                            )
+                          } else {
+                              return (
+                                <p className="others" key={i} ref={el => (this.itemRefs[i] = el) }>{ item.sender }: { item.message }</p>
+                              )
+                          }
+                      }
+                  )
+            }
+            </div>
           );
         }
-
     }
 }
 
+/*
+if(databasePrivateMessages.length <= 0) {
+    return (
+        null
+    );
+} else {
+    return (
+        <div className="private-chat-window-child-text">
+            {
+                databasePrivateMessages.map((item, i) => {
+                    if(item.sender === username) {
+                      return (
+                          <p className="sender" key={i} ref={el => (this.itemRefs[i] = el) }>{item.sender}: { item.message}</p>
+                      )
+                    } else {
+                        return (
+                          <p className="others" key={i} ref={el => (this.itemRefs[i] = el) }>{item.sender}: { item.message}</p>
+                        )
+                    }
+                }
+              )
+            }
+        </div>
+    );
+}
+*/
 const mapStateToProps = ({ log, currentRoomChat, databaseRoomMessages }) => {
 
     return { log, currentRoomChat, databaseRoomMessages };

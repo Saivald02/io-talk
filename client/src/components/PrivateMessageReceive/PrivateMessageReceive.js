@@ -43,7 +43,7 @@ class PrivateMessageReceive extends React.Component {
         const { currentPrivateChat } = this.props;
         const private_messages = this.props.allPrivateMessages.byHash[currentPrivateChat];
         var arr = [];
-        const { username } = this.props.log;
+        //const { username } = this.props.log;
 
         if(private_messages !== undefined) {
             //console.log(private_messages.msg);

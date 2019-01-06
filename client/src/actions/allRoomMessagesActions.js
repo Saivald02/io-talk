@@ -1,7 +1,7 @@
 import { ALL_ROOM_MESSAGES, CLEAR_SOCKET_ROOM_MESSAGES } from '../constants/allRoomMessagesConstants';
 //import fetch from 'isomorphic-fetch';
 
-export const addRoomMessage = ( sender, room, msgs, date) => {
+export const addRoomMessage = ( sender, room, msgs, from) => {
     //console.log('roomsAction rooms');
     //console.log(socket);
     //var allM = [];
@@ -13,11 +13,12 @@ export const addRoomMessage = ( sender, room, msgs, date) => {
     //var key = sender+
 
     var msg = []
-    msg.push(msgs);
+    var obj = { sender: sender, room: room, msg: msgs, from: from };
+    msg.push(obj);
     return {
         type: ALL_ROOM_MESSAGES,
         index: room,
-        payload: { sender: sender, room: room, msg: msg, date: date, test: msgs }
+        payload: { sender: sender, room: room, msg: msg, test: msgs, from: from }
     };
 };
 

@@ -70,25 +70,25 @@ export class PrivateMessageHistory extends React.Component {
                 null
             );
         } else {
-          return (
-              <div className="private-chat-window-child-text">
-                  {
-                      databasePrivateMessages.map((item, i) => {
-                          // test
-                          if(item.sender === username) {
-                            return (
-                                <p className="sender" key={i} ref={el => (this.itemRefs[i] = el) }>{item.sender}: { item.message}</p>
-                            )
-                          } else {
+            return (
+                <div className="private-chat-window-child-text">
+                    {
+                        databasePrivateMessages.map((item, i) => {
+                            // test
+                            if(item.sender === username) {
                               return (
-                                <p className="others" key={i} ref={el => (this.itemRefs[i] = el) }>{item.sender}: { item.message}</p>
+                                  <p className="sender" key={i} ref={el => (this.itemRefs[i] = el) }>{item.sender}: { item.message}</p>
                               )
-                          }
-                      }
-                    )
-                  }
-              </div>
-          );
+                            } else {
+                                return (
+                                  <p className="others" key={i} ref={el => (this.itemRefs[i] = el) }>{item.sender}: { item.message}</p>
+                                )
+                            }
+                        }
+                      )
+                    }
+                </div>
+            );
         }
     }
 }

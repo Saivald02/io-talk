@@ -69,9 +69,6 @@ class RoomMessageSend extends React.Component {
         console.log('sending message in room');
         console.log('e value is: ' + this.state.roommsg);
 
-
-
-
         const room = this.props.currentRoomChat;
         const sender = this.props.log.username;
         const msg = this.state.roommsg;
@@ -81,7 +78,7 @@ class RoomMessageSend extends React.Component {
             var data = {
                 room: room,
                 sender: sender,
-                message : sender + ': ' + msg
+                message : msg
             };
 
 
@@ -126,16 +123,17 @@ class RoomMessageSend extends React.Component {
 
     render() {
         //let roomsList = null;
-        //let showList = null;
+        //let showList = null
         return (
-            <div>
-                <h2> Room message </h2>
-                <div className="inline private-input-box block">
+            <div className="send-message">
+                <div className="send-message-child-1">
                     <input
                         type="text"
-                        className="private-input private-input-big"
+                        className="input-box"
                         onInput={(e) => this.setState({ roommsg: e.target.value })} />
-                    <button type="button" className="btn pull-left" onClick={this.sendRoomMessage}>Send Room Message</button>
+                </div>
+                <div className="send-message-child-2">
+                    <button type="button" className="btn" onClick={ this.sendRoomMessage }>Send Room Message</button>
                 </div>
             </div>
         );

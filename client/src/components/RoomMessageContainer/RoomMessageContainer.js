@@ -45,15 +45,18 @@ class RoomMessageContainer extends React.Component {
         if(currentRoomChat !== false) {
             return (
                 <div className="private-chat-window">
-                    <div className="">  { this.props.currentRoomChat } </div>
                     <div className="private-chat-window-child">
-                        <button
-                            type="button"
-                            className="btn"
-                            onClick={this.closeRoomChatWindow}> exit room
-                        </button>
+                        <div className="chat-top">
+                            <div className="chat-top-right"> { this.props.currentRoomChat } </div>
+                            <div className="chat-top-left">
+                                <button
+                                    type="button"
+                                    className="btn"
+                                    onClick={this.closeRoomChatWindow}> X
+                                </button>
+                            </div>
+                        </div>
                     </div>
-
                     <div className="private-chat-window-child scrollable">
                         <RoomMessageHistory />
                         <RoomMessageReceive />

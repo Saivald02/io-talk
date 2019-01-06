@@ -18,6 +18,7 @@ code {
     monospace;
 }
 
+/*
 nav {
     padding: 10px;
     background-color: #f9d5e5;
@@ -45,6 +46,7 @@ nav ul li a:hover {
 
   color: black;
 }
+*/
 
 .btn {
 
@@ -71,18 +73,6 @@ nav ul li a:hover {
 .input-box {
     padding: 5px;
 
-}
-
-.chatwindow {
-    /*background-color: black;*/
-    margin: 10px;
-    padding: 20px;
-    display: grid;
-    grid-template-columns: auto auto;
-    grid-template-rows: auto;
-    grid-template-areas:
-              "user logout"
-              "users rooms";
 }
 
 .chatwindow-child.chatwindow-child-userinfo {
@@ -232,6 +222,19 @@ nav ul li a:hover {
 }
 
 @media screen and (min-width: 825px) {
+
+    .chatwindow {
+        /*background-color: black;*/
+        margin: 10px;
+        padding: 20px;
+        display: grid;
+        grid-template-columns: 50% 50%;
+        grid-template-rows: auto;
+        grid-template-areas:
+                  "user logout"
+                  "users rooms";
+    }
+
     .signup {
         padding: 20px;
         display: grid;
@@ -268,6 +271,20 @@ nav ul li a:hover {
 
 /* tablet */
 @media screen and (max-width: 825px) and (min-width: 351px) {
+
+  .chatwindow {
+      /*background-color: black;*/
+      margin: 10px;
+      padding: 20px;
+      display: grid;
+      grid-template-columns: 50% 50%;
+      grid-template-rows: auto;
+      grid-template-areas:
+                "user logout"
+                "users users"
+                "rooms rooms";
+  }
+
   .signup {
       padding: 20px;
       display: grid;
@@ -303,5 +320,50 @@ nav ul li a:hover {
 }
 
 @media screen and (max-width: 350px) {
+    .chatwindow {
+        /*background-color: black;*/
+        margin: 10px;
+        padding: 20px;
+        display: grid;
+        grid-template-columns: auto;
+        grid-template-rows: auto;
+        grid-template-areas:
+                  "logout"
+                  "user"
+                  "users"
+                  "rooms";
+    }
 
+    .signup {
+        padding: 20px;
+        display: grid;
+        grid-template-rows: auto auto;
+    }
+
+    .signup-child {
+        background-color: #d9a7c7;
+        margin: 25px;
+        padding: 10px;
+        border: 2px solid #f1e3dd;
+        border-radius: 5%;
+
+        display: grid;
+
+        justify-content: center;
+    }
+
+    .signup-child-box {
+        padding: 10px;
+        display: grid;
+
+        justify-content: center;
+    }
+
+    .signup-child-box .input-box {
+        width: 300px;
+        height: 25px;
+        display: grid;
+
+        justify-content: center;
+    }
 }

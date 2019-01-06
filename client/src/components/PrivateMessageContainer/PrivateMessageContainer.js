@@ -45,7 +45,6 @@ class PrivateMessageContainer extends React.Component {
                                 </button>
                             </div>
                         </div>
-
                     </div>
                     <div className="private-chat-window-child scrollable">
                         <PrivateMessageHistory />

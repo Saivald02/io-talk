@@ -28,7 +28,7 @@ export class ThisUser extends React.Component {
 
             console.log(data);
 
-            this.props.addRoomMessage(data.sender, data.room, data.message, 1);
+            this.props.addRoomMessage(data.sender, data.room, data.message, 0);
             console.log('current room:' + data.room + ' ' + this.props.currentRoomChat);
             if(this.props.currentRoomChat !== data.room) {
                 console.log('adding to unread message from ' + data.room);
@@ -64,7 +64,7 @@ export class ThisUser extends React.Component {
         const user = this.props.log.username;
 
         return (
-            <div className="chatwindow-child chatwindow-child-userinfo"> I'm logged in as { user } </div>
+            <div className="chatwindow-child chatwindow-child-userinfo"> { user } </div>
         );
     }
 }

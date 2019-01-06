@@ -43,10 +43,10 @@ const allPrivateMessagesReducer = ( state = initialState, action ) => {
                     ...state.byHash[action.index],
                     ...action.payload.msg
                     //msg: [state.byHash[action.index].msg, action.payload.msg]
-                */
+                */  var obj = {sender: action.payload.sender, room: action.payload.room, msg: action.payload.test, from: action.payload.from }
                     copy[
                       action.index ].msg = [
-                        ...copy[ action.index ].msg, action.payload.test];
+                        ...copy[ action.index ].msg, obj];
 
                 //state.arr
                 /*
