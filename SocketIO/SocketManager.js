@@ -141,11 +141,11 @@ exports = module.exports = function (io) {
 										}
 								}
 								*/
-								console.log(allUsers);
+								//console.log(allUsers);
 								//allUsers.splice( index, 1 );
-								console.log(allUsers);
+								//console.log(allUsers);
 								//console.log(users);
-								io.sockets.emit('userlist', allUsers);
+								//io.sockets.emit('userlist', allUsers);
 
 
 						}
@@ -159,7 +159,7 @@ exports = module.exports = function (io) {
 						//console.log(socket);
 						//console.log('-------------------------------------------');
 						//console.log(io.sockets);
-						socket.disconnect(true);
+						//socket.disconnect(true);
 						io.sockets.emit('userlist', allUsers);
 
 				});
@@ -212,7 +212,7 @@ exports = module.exports = function (io) {
 								socket.username = username;
 								//console.log('process socket io user');
 								console.log('socket: adding user');
-								console.log(username);
+								//console.log(username);
 								//console.log(allUsers);
 								var contains = allUsers.includes(username);
 								console.log(users);

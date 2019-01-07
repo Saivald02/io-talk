@@ -24,7 +24,7 @@ export class Logout extends React.Component {
 
         // hcað meir
     }
-    
+
     userLogout() {
         console.log('user logout');
         // destroy session
@@ -43,7 +43,7 @@ export class Logout extends React.Component {
 
                 this.props.socket.emit('logout');
                 //this.props.socket.close();
-                this.props.socket.disconnect();
+                //this.props.socket.disconnect();
             })
             .catch(error => {
                 console.log('log error');
