@@ -29,6 +29,17 @@ export class Rooms extends React.Component {
 
   }
   */
+
+  componentWillUnmount() {
+      //console.log('i did unmuont -------------------');
+
+
+      this.props.socket.off('roomlist');
+
+
+      // hcað meir
+  }
+
   componentDidMount() {
 
 

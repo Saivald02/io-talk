@@ -45,6 +45,13 @@ export class Login extends React.Component {
                           console.log(userInfo);
                           this.props.login(userInfo);
 
+                          if(this.props.socket.connected === true) {
+                              console.log('login: im connected');
+                          } else {
+                              console.log('login: i need to reconnect');
+                              this.props.socket.open();
+                          }
+
 
                           this.props.socket.emit('adduser', username, (available) => {
                               if (available) {

@@ -8,6 +8,18 @@ import { unreadRoomMessages } from '../../actions/unreadRoomMessagesActions';
 
 export class ThisUser extends React.Component {
 
+    componentWillUnmount() {
+        console.log('i did unmuont -------------------');
+
+        this.props.socket.off('userlist');
+        this.props.socket.off('recv_privatemsg');
+        this.props.socket.off('updatechat');
+        //this.props.socket.off('userlist');
+
+
+        // hcað meir
+    }
+
     componentDidMount() {
         this.props.socket.on('recv_privatemsg', (from, recievedMsg) => {
             //var msg = from +': ' + recievedMsg;

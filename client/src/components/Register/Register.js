@@ -50,6 +50,13 @@ export class Register extends React.Component {
                           console.log(response.data);
                           var userInfo = { username: username, log: true };
                           this.props.login(userInfo);
+
+                          if(this.props.socket.connected === true) {
+                              console.log('register: im connected');
+                          } else {
+                              console.log('register: i need to reconnect');
+                              this.props.socket.open();
+                          }
                           this.props.socket.emit('adduser', this.state.username, (available) => {
                                     if (available) {
                                         console.log('add user success');

@@ -15,12 +15,13 @@ router.get("/getRoomMessageHistory", (req, res) => {
   User.findById(req.session.userId)
     .exec(function (error, user) {
       if (error) {
-        return next(error);
+        return res.json({ error: error});
       } else {
         if (user === null) {
           var err = new Error('Not authorized! Go back!');
           err.status = 400;
-          return next(err);
+          return res.json({ error: err});
+          //return()
         } else {
 
 
@@ -52,12 +53,12 @@ router.post('/roomMessageSend', function (req, res, next) {
     User.findById(req.session.userId)
       .exec(function (error, user) {
         if (error) {
-          return next(error);
+          return res.json({ error: error});
         } else {
           if (user === null) {
             var err = new Error('Not authorized! Go back!');
             err.status = 400;
-            return next(err);
+            return res.json({ error: err});
           } else {
             //console.log('found you');
             let data = new RoomMessage();
@@ -91,12 +92,12 @@ router.get("/getPrivateMessageHistory", (req, res) => {
   User.findById(req.session.userId)
     .exec(function (error, user) {
       if (error) {
-        return next(error);
+        return res.json({ error: error});
       } else {
         if (user === null) {
           var err = new Error('Not authorized! Go back!');
           err.status = 400;
-          return next(err);
+          return res.json({ err: err});
         } else {
 
           let param = req.query;
@@ -138,12 +139,12 @@ router.post('/privateMessageSend', function (req, res, next) {
     User.findById(req.session.userId)
       .exec(function (error, user) {
         if (error) {
-          return next(error);
+          return res.json({ err: error});
         } else {
           if (user === null) {
             var err = new Error('Not authorized! Go back!');
             err.status = 400;
-            return next(err);
+            return res.json({ error: err});
           } else {
             //console.log('found you');
             let data = new PrivateMessage();
@@ -209,7 +210,7 @@ router.post('/register', function (req, res, next) {
     var err = new Error('Passwords do not match.');
     err.status = 400;
     res.send("passwords dont match");
-    return next(err);
+    return res.json({ error: err});
   }
 
   if (req.body.username &&
@@ -236,7 +237,7 @@ router.post('/register', function (req, res, next) {
             console.log("No record found");
             User.create(userData, function (error, user) {
               if (error) {
-                return next(error);
+                return res.json({ error: error});
               } else {
                 req.session.userId = user._id;
                 console.log('user create');
@@ -261,7 +262,7 @@ router.post('/register', function (req, res, next) {
       if (error || !user) {
         var err = new Error('Wrong username or password.');
         err.status = 401;
-        return next(err);
+        return res.json({ error: err});
       } else {
         req.session.userId = user._id;
         //return res.redirect('/profile');
@@ -272,7 +273,7 @@ router.post('/register', function (req, res, next) {
   } else {
     var err = new Error('All fields required.');
     err.status = 400;
-    return next(err);
+    return res.json({ error: err});
   }
 })
 
@@ -281,12 +282,12 @@ router.get('/profile', function (req, res, next) {
   User.findById(req.session.userId)
     .exec(function (error, user) {
       if (error) {
-        return next(error);
+        return res.json({ error: error});
       } else {
         if (user === null) {
           var err = new Error('Not authorized! Go back!');
           err.status = 400;
-          return next(err);
+          return res.json({ error: err});
         } else {
           //return res.send('<h1>Name: </h1>' + user.username + '<h2>Mail: </h2>' + user.username + '<br><a type="button" href="/logout">Logout</a>')
           return res.json({ success: true });
@@ -302,7 +303,7 @@ router.get('/logout', function (req, res, next) {
     // delete session object
     req.session.destroy(function (err) {
       if (err) {
-        return next(err);
+        return res.json({ error: err});
       } else {
         //return res.redirect('/');
         return res.json({ success: false });

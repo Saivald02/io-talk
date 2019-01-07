@@ -26,6 +26,17 @@ export class Users extends React.Component {
       //endpoint: "/"
     };
   }
+
+  componentWillUnmount() {
+      //console.log('i did unmuont -------------------');
+
+
+      this.props.socket.off('userlist');
+
+
+      // hcað meir
+  }
+
   componentDidMount() {
       console.log('i did mount');
       //this.props.socket.open();

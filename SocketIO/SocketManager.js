@@ -1,6 +1,6 @@
 
 const io = require('../app.js').io_chat
-const axios = require("axios");
+//const axios = require("axios");
 
 const { VERIFY_USER, USER_CONNECTED, USER_DISCONNECTED,
 		LOGOUT, COMMUNITY_CHAT, MESSAGE_RECIEVED, MESSAGE_SENT,
@@ -36,23 +36,23 @@ exports = module.exports = function (io) {
 
 					//If the room does not exist
 					if(rooms[room] === undefined) {
-						rooms[room] = new Room();
-						//Op the user if he creates the room.
-						rooms[room].ops[socket.username] = socket.username;
-						//If the user wants to password protect the room we set the password.
-						if(pass !== undefined) {
-							rooms[room].setPassword(pass);
-						}
-						//Keep track of the room in the user object.
-						users[socket.username].channels[room] = room;
-						//Send the room information to the client.
-						fn(true);
-						//io.sockets.emit('updateusers', room, rooms[room].users, rooms[room].ops);
-						//Update topic
-						//socket.emit('updatetopic', room, rooms[room].topic, socket.username);
-						//io.sockets.emit('servermessage', "join", room, socket.username);
+							rooms[room] = new Room();
+							//Op the user if he creates the room.
+							rooms[room].ops[socket.username] = socket.username;
+							//If the user wants to password protect the room we set the password.
+							if(pass !== undefined) {
+								rooms[room].setPassword(pass);
+							}
+							//Keep track of the room in the user object.
+							users[socket.username].channels[room] = room;
+							//Send the room information to the client.
+							fn(true);
+							//io.sockets.emit('updateusers', room, rooms[room].users, rooms[room].ops);
+							//Update topic
+							//socket.emit('updatetopic', room, rooms[room].topic, socket.username);
+							//io.sockets.emit('servermessage', "join", room, socket.username);
 
-						io.sockets.emit('roomlist', rooms);
+							io.sockets.emit('roomlist', rooms);
 
 					}
 					else {
@@ -102,7 +102,7 @@ exports = module.exports = function (io) {
 
 				socket.on('logout', function () {
 						console.log('client logout');
-						console.log('remove user');
+						//console.log('remove user');
 						var index = 0;
 						for (var i = 0; i < allUsers.length; i++) {
 								if(allUsers[i] === socket.username) {
@@ -110,31 +110,28 @@ exports = module.exports = function (io) {
 										index = i;
 								}
 						}
+						//console.log(socket);
 						console.log(allUsers);
 						allUsers.splice( index, 1 );
-						console.log(allUsers);
-						//console.log(users);
-						io.sockets.emit('userlist', allUsers);
-
-				});
-
-				socket.on('disconnect', function () {
-						console.log('client disconnect');
-						//clearInterval(interval);
 
 						if(socket.username) {
 								//If the socket doesn't have a username the client joined and parted without
 								//chosing a username, so we just close the socket without any cleanup.
-								for(var room in users[socket.username].channels) {
-									//Remove the user from users/ops lists in the rooms he's currently in.
-									delete rooms[room].users[socket.username];
-									delete rooms[room].ops[socket.username];
 
-									//io.sockets.emit('updateusers', room, rooms[room].users, rooms[room].ops);
+								if(users[socket.username.channels !== undefined]) {
+										for(var room in users[socket.username].channels) {
+											//Remove the user from users/ops lists in the rooms he's currently in.
+											delete rooms[room].users[socket.username];
+											delete rooms[room].ops[socket.username];
+
+											//io.sockets.emit('updateusers', room, rooms[room].users, rooms[room].ops);
+										}
 								}
-
 								//delete allUsers[socket.username];
+								//console.log('socke');
 								delete users[socket.username];
+
+								/*
 								console.log('remove user');
 								var index = 0;
 								for (var i = 0; i < allUsers.length; i++) {
@@ -143,12 +140,67 @@ exports = module.exports = function (io) {
 												index = i;
 										}
 								}
+								*/
+								console.log(allUsers);
+								//allUsers.splice( index, 1 );
+								console.log(allUsers);
+								//console.log(users);
+								io.sockets.emit('userlist', allUsers);
+
+
+						}
+						console.log(allUsers);
+						//console.log(users);
+						//console.log('trying to remove user ---------');
+						//console.log(Object.keys(io.sockets.connected).length);
+						//console.log(this.socket);
+						//this.socket.disconnect(true);
+						//console.log('-----------------------------------------------');
+						//console.log(socket);
+						//console.log('-------------------------------------------');
+						//console.log(io.sockets);
+						socket.disconnect(true);
+						io.sockets.emit('userlist', allUsers);
+
+				});
+
+				socket.on('disconnect', function () {
+						console.log('socket client disconnect');
+						//clearInterval(interval);
+
+						if(socket.username) {
+								//If the socket doesn't have a username the client joined and parted without
+								//chosing a username, so we just close the socket without any cleanup.
+
+								if(users[socket.username.channels !== undefined]) {
+										for(var room in users[socket.username].channels) {
+											//Remove the user from users/ops lists in the rooms he's currently in.
+											delete rooms[room].users[socket.username];
+											delete rooms[room].ops[socket.username];
+
+											//io.sockets.emit('updateusers', room, rooms[room].users, rooms[room].ops);
+										}
+								}
+								//delete allUsers[socket.username];
+								//console.log('socke');
+								delete users[socket.username];
+
+								console.log('remove user');
+								var index = 0;
+								for (var i = 0; i < allUsers.length; i++) {
+										if(allUsers[i] === socket.username) {
+												//delete allUsers[i];
+												index = i;
+										}
+								}
+
 								console.log(allUsers);
 								allUsers.splice( index, 1 );
 								console.log(allUsers);
 								//console.log(users);
 								io.sockets.emit('userlist', allUsers);
 
+								//socket.close();
 
 						}
 				});
@@ -163,8 +215,10 @@ exports = module.exports = function (io) {
 								console.log(username);
 								//console.log(allUsers);
 								var contains = allUsers.includes(username);
-								users[username] = { username: socket.username, channels: {}, socket: this };
+								console.log(users);
+								console.log(users[username]);
 								if(allUsers === undefined || allUsers.length === 0 || !contains) {
+										users[username] = { username: socket.username, channels: {}, socket: this };
 										console.log('pushing ' + username);
 
 										allUsers.push(username);
@@ -173,20 +227,6 @@ exports = module.exports = function (io) {
 								io.sockets.emit('userlist', allUsers);
 								//Store user object in global user roster.
 
-
-								/*
-								// ----------------------
-								var userlist = [];
-
-								//We need to construct the list since the users in the global user roster have a reference to socket, which has a reference
-								//back to users so the JSON serializer can't serialize them.
-								for(var user in users) {
-									userlist.push(user);
-								}
-
-								socket.emit('userlist', userlist); // I added this
-								// ---------------------
-								*/
 								console.log('added ' + socket.username);
 								fn(true); // Callback, user name was available
 						}
@@ -236,6 +276,7 @@ exports = module.exports = function (io) {
 						};
 						*/
 						//rooms[data.room].addMessage(messageObj);
+						console.log('sending message');
 						io.sockets.emit('updatechat', data);
 						fn(true);
 					}
@@ -265,6 +306,8 @@ exports = module.exports = function (io) {
 // hella 6315
 // selfoss 6310
 // 6222 hvolsvöllur
+
+/*
 const getApiAndEmit = async socket => {
 	//console.log('nothing going on?');
   try {
@@ -312,7 +355,7 @@ const getApiAndEmit = async socket => {
   // lati: 63.816667
   //console.log(res.data.currently.temperature);
   //console.log(oldusel.data.currently.temperature);
-};
+//};
 
 function Room() {
 	this.users = {},
