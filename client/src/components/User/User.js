@@ -98,24 +98,24 @@ export class User extends React.Component {
       }
       if(counter === 0) {
           return (
-              <div className="">
-                  <button
-                      type="button"
-                      className="btn"
-                      onClick={this.startPrivateChat}>{ user }
-                  </button>
+              <div className="counter-container"
+                  onClick={ this.startPrivateChat }>
+                  <div
+                      className="counter-user"> { user }
+                  </div>
               </div>
           );
       } else {
-        return (
-            <div className="">
-                <button
-                    type="button"
-                    className="btn"
-                    onClick={this.startPrivateChat}>{ user } { counter }
-                </button>
-            </div>
-        );
+          return (
+              <div
+                  className="counter-container"
+                  onClick={ this.startPrivateChat } >
+                  <div className="counter-grid">
+                      <div className="counter-user"> { user } </div>
+                      <div className="counter"> { counter } </div>
+                  </div>
+              </div>
+          );
       }
 
     }

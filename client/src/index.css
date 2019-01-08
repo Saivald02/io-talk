@@ -48,8 +48,7 @@ nav ul li a:hover {
 }
 */
 
-.btn {
-
+.counter-container {
     -webkit-transition-duration: 0.4s; /* Safari */
     transition-duration: 0.4s;
     background-color: #f9d5e5;
@@ -63,7 +62,54 @@ nav ul li a:hover {
     font-size: 16px;
     margin: 4px 2px;
     cursor: pointer;
+}
 
+
+.counter-container:hover {
+    background-color: #fffcdc;
+    color: black;
+}
+
+.counter-container > .counter-user {
+  padding: 1px;
+  height: 25px;
+  width: 25px;
+}
+.counter-container > .counter-grid {
+    display: flex;
+    justify-content: space-between;
+}
+
+.counter-grid > .counter-user {
+    padding: 1px;
+    height: 25px;
+    width: 25px;
+}
+
+.counter-grid > .counter {
+    padding: 1px;
+    background-color: #d64161;
+    color: white;
+    border: 0px solid white;
+    height: 25px;
+    width: 25px;
+    border-radius: 25px;
+}
+
+.btn {
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    background-color: #f9d5e5;
+    border: none;
+    border-radius: 5%;
+    color: grey;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
 }
 
 .btn:hover {
@@ -72,7 +118,6 @@ nav ul li a:hover {
 }
 .input-box {
     padding: 5px;
-
 }
 
 .chatwindow-child.chatwindow-child-userinfo {
@@ -84,7 +129,6 @@ nav ul li a:hover {
     align-items: center;
     justify-content: center;
     font-size: 30px;
-
 }
 
 .chatwindow-child.chatwindow-child-logout {
@@ -102,7 +146,6 @@ nav ul li a:hover {
     background-color: white;
     padding: 10px;
     border: 3px solid #f1e3dd;
-
 }
 
 .chatwindow-child.chatwindow-child-rooms {
@@ -183,20 +226,20 @@ nav ul li a:hover {
 }
 
 .private-chat-window-child > .private-chat-window-child-text > .sender {
-  padding: 5px;
-  background-color: #82b74b;
-  text-align: right;
-  border: 1px solid #82b74b;
-  border-radius: 5%;
-  margin: 5px;
+    padding: 5px;
+    background-color: #f9ccac;
+    text-align: right;
+    border: 1px solid #f9ccac;
+    border-radius: 5%;
+    margin: 5px;
 }
 
 .private-chat-window-child > .private-chat-window-child-text > .others {
-  background-color: #f1e3dd;
-  border: 1px solid #f1e3dd;
-  border-radius: 5%;
-  margin: 5px;
-  padding: 5px;
+    background-color: #f1e3dd;
+    border: 1px solid #f1e3dd;
+    border-radius: 5%;
+    margin: 5px;
+    padding: 5px;
 }
 
 .private-chat-window-child > .private-chat-window-child-text > p {

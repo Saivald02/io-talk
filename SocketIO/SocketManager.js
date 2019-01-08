@@ -215,8 +215,8 @@ exports = module.exports = function (io) {
 								//console.log(username);
 								//console.log(allUsers);
 								var contains = allUsers.includes(username);
-								console.log(users);
-								console.log(users[username]);
+								//console.log(users);
+								//console.log(users[username]);
 								if(allUsers === undefined || allUsers.length === 0 || !contains) {
 										users[username] = { username: socket.username, channels: {}, socket: this };
 										console.log('pushing ' + username);
