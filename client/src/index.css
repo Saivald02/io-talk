@@ -73,7 +73,7 @@ nav ul li a:hover {
 .counter-container > .counter-user {
   padding: 1px;
   height: 25px;
-  width: 25px;
+  /*width: 25px; */
 }
 .counter-container > .counter-grid {
     display: flex;
@@ -83,7 +83,7 @@ nav ul li a:hover {
 .counter-grid > .counter-user {
     padding: 1px;
     height: 25px;
-    width: 25px;
+    /*width: 25px; */
 }
 
 .counter-grid > .counter {
