@@ -1,12 +1,8 @@
 import React from 'react';
-
 import { connect } from 'react-redux';
-
 import PrivateMessageReceive from '../PrivateMessageReceive/PrivateMessageReceive';
 import PrivateMessageSend from '../PrivateMessageSend/PrivateMessageSend';
-
 import PrivateMessageHistory from '../PrivateMessageHistory/PrivateMessageHistory';
-
 import { closePrivateChat } from '../../actions/privateChatActions';
 
 class PrivateMessageContainer extends React.Component {
@@ -63,27 +59,8 @@ class PrivateMessageContainer extends React.Component {
     }
 };
 
-/*
-const ChatWithSocket = props => (
-    <SocketContext.Consumer>
-        {socket => <PrivateMessageContainer {...props} socket={socket} />}
-    </SocketContext.Consumer>
-)
-*/
 const mapStateToProps = ({ currentPrivateChat }) => {
-    //console.log('--- iceland weather to props ---');
     return { currentPrivateChat };
 }
 
-//export default Iceland;
 export default connect(mapStateToProps,{ closePrivateChat })(PrivateMessageContainer);
-
-/*
-PrivateMessage.propTypes = {
-    username: PropTypes.string
-};
-
-PrivateMessage.contextTypes = {
-    socket: PropTypes.object.isRequired
-};
-*/

@@ -1,20 +1,12 @@
-
 import React from 'react';
 import axios from "axios";
 import { connect } from 'react-redux';
 import { login } from '../../actions/logActions';
-//import { Link } from 'react-router-dom';
-//import { Redirect } from 'react-router';
-
 import SocketContext from '../../socket-context';
-
-//import Messages from '../Messages/Messages'
-//import Loading from '../Loading/Loading';
 import Logout from '../Logout/Logout';
 import Users from '../Users/Users';
 import ThisUser from '../ThisUser/ThisUser';
 import Rooms from '../Rooms/Rooms';
-//import socketIOClient from "socket.io-client";
 
 export class Register extends React.Component {
     constructor() {
@@ -66,16 +58,6 @@ export class Register extends React.Component {
                                         this.props.socket.emit('joinroom', newRoom, (available) => {
                                             if(available) {
                                                 console.log('join room success ');
-                                                //var room = newRoom.room;
-
-                                                //var obj = { currRoom: room };
-                                                // ATH
-                                                // þarf að breyta þessu ATHUGA userInRoom og opInRoom
-
-                                                // this.props.usersInRoom(username);
-                                                //this.props.currentRoom(obj);
-                                                //this.props.myRooms(room);
-
                                             } else {
                                                 console.log('join room fail');
                                             }
@@ -151,10 +133,6 @@ export class Register extends React.Component {
     }
 }
 
-
-
-//export default connect(mapStateToProps, { login })(Register);
-
 const ChatWithSocket = props => (
     <SocketContext.Consumer>
       {socket => <Register {...props} socket={socket} />}
@@ -162,9 +140,7 @@ const ChatWithSocket = props => (
 )
 
 const mapStateToProps = ({ log }) => {
-    //console.log('--- iceland weather to props ---');
     return { log };
 }
 
-  //export default Iceland;
 export default connect(mapStateToProps,{ login })(ChatWithSocket);

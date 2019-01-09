@@ -27,9 +27,6 @@ export class Logout extends React.Component {
 
     userLogout() {
         console.log('user logout');
-        // destroy session
-        // clear username in redux
-        // fireRedirect to home
 
         axios.get('/api/logout')
             .then(response => {

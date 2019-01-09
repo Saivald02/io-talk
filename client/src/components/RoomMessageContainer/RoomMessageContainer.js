@@ -18,30 +18,16 @@ class RoomMessageContainer extends React.Component {
     componentDidMount() {
 
     }
-    /*
-    constructor(props) {
-        super(props);
-        this.state = {
-            privatemsg: '',
-            //privateMsgHistory: [],
-            //receiver: ''
-        };
-    }
-    */
 
     closeRoomChatWindow = e => {
         e.stopPropagation();
         e.preventDefault();
-        //console.log(e.target.value);
-        //console.log('clicking ' + this.props.user);
-        //console.log('clikcing close chat');
         this.props.closeRoomChat(false);
     }
 
     render() {
-
         const { currentRoomChat } = this.props;
-        console.log(currentRoomChat);
+        //console.log(currentRoomChat);
         if(currentRoomChat !== false) {
             return (
                 <div className="private-chat-window">
@@ -60,12 +46,10 @@ class RoomMessageContainer extends React.Component {
                     <div className="private-chat-window-child scrollable">
                         <RoomMessageHistory />
                         <RoomMessageReceive />
-
                     </div>
                     <div className="private-chat-window-child">
                         <RoomMessageSend />
                     </div>
-
                 </div>
             );
         } else {
@@ -76,27 +60,8 @@ class RoomMessageContainer extends React.Component {
     }
 };
 
-/*
-const ChatWithSocket = props => (
-    <SocketContext.Consumer>
-        {socket => <PrivateMessageContainer {...props} socket={socket} />}
-    </SocketContext.Consumer>
-)
-*/
 const mapStateToProps = ({ currentRoomChat }) => {
-    //console.log('--- iceland weather to props ---');
     return { currentRoomChat };
 }
 
-//export default Iceland;
 export default connect(mapStateToProps,{ closeRoomChat })(RoomMessageContainer);
-
-/*
-PrivateMessage.propTypes = {
-    username: PropTypes.string
-};
-
-PrivateMessage.contextTypes = {
-    socket: PropTypes.object.isRequired
-};
-*/

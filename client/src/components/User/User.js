@@ -60,76 +60,51 @@ export class User extends React.Component {
 
           var sorted = response.data.data.sort((a, b) => a.date > b.date);
           console.log('sorted private messages from database');
-          //console.log(sorted);
           this.props.databasePrivateMessages(sorted);
           this.props.clearSocketPrivateMessages();
-          //this.props.
-          //this.setState({data: sorted});
-
-
-
       })
       .catch(function (error) {
         console.log(error);
       });
-
-
-
-
-
-      //
   }
-  render() {
-      var counter = 0;
-      const { user } = this.props;
-      console.log('--------------------------- render users ---------------------------');
-      console.log(this.props.unreadPrivateMsg);
-      //console.log(this.props.allUnreadPrivateMessages);
-      //if()
-      if(this.props.unreadPrivateMsg !== undefined) {
-            console.log('not undefined');
-            //console.log(this.props.unreadPrivateMsg.byHash.user);
-            console.log(this.props.unreadPrivateMsg.byHash[user]);
-            if(this.props.unreadPrivateMsg.byHash[user] !== undefined) {
-                console.log('not undefined 2');
-                console.log(this.props.unreadPrivateMsg.byHash[user].counter);
-                counter = this.props.unreadPrivateMsg.byHash[user].counter
-            }
-      }
-      if(counter === 0) {
-          return (
-              <div className="counter-container"
-                  onClick={ this.startPrivateChat }>
-                  <div
-                      className="counter-user"> { user }
-                  </div>
-              </div>
-          );
-      } else {
-          return (
-              <div
-                  className="counter-container"
-                  onClick={ this.startPrivateChat } >
-                  <div className="counter-grid">
-                      <div className="counter-user"> { user } </div>
-                      <div className="counter"> { counter } </div>
-                  </div>
-              </div>
-          );
-      }
-
+    render() {
+        var counter = 0;
+        const { user } = this.props;
+        console.log('--------------------------- render users ---------------------------');
+        if(this.props.unreadPrivateMsg !== undefined) {
+              console.log('not undefined');
+              console.log(this.props.unreadPrivateMsg.byHash[user]);
+              if(this.props.unreadPrivateMsg.byHash[user] !== undefined) {
+                  console.log('not undefined 2');
+                  console.log(this.props.unreadPrivateMsg.byHash[user].counter);
+                  counter = this.props.unreadPrivateMsg.byHash[user].counter
+              }
+        }
+        if(counter === 0) {
+            return (
+                <div className="counter-container"
+                    onClick={ this.startPrivateChat }>
+                    <div
+                        className="counter-user"> { user }
+                    </div>
+                </div>
+            );
+        } else {
+            return (
+                <div
+                    className="counter-container"
+                    onClick={ this.startPrivateChat } >
+                    <div className="counter-grid">
+                        <div className="counter-user"> { user } </div>
+                        <div className="counter"> { counter } </div>
+                    </div>
+                </div>
+            );
+        }
     }
-  }
+}
 
-/*
-const ChatWithSocket = props => (
-    <SocketContext.Consumer>
-        {socket => <User {...props} socket={socket} />}
-    </SocketContext.Consumer>
-)
-*/
 const mapStateToProps = ({ currentPrivateChat, log, unreadPrivateMsg }) => {
-    //console.log('--- iceland weather to props ---');
     return { currentPrivateChat, log, unreadPrivateMsg };
 }
 

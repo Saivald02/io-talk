@@ -20,22 +20,15 @@ class PrivateMessageReceive extends React.Component {
 
 
     componentDidUpdate() {
-        //const element = document.getElementById(this.state.media);
-        //this.props.
         const { currentPrivateChat } = this.props;
         const private_messages = this.props.allPrivateMessages.byHash[currentPrivateChat];
         if(private_messages !== undefined) {
             //console.log(private_messages.msg);
             if(private_messages.msg.length > 0) {
-                //scrollTo(room_messages.msg.length-1);
-                //console.log('--------------- scrolll sssssssssssssss');
                 const id = private_messages.msg.length-1;
                 this.itemRefs[id].scrollIntoView();
             }
-
-            //console.log(arr);
         }
-        //element.scrollIntoView({behavior: 'smooth'});
     }
 
     render() {
@@ -43,15 +36,11 @@ class PrivateMessageReceive extends React.Component {
         const { currentPrivateChat } = this.props;
         const private_messages = this.props.allPrivateMessages.byHash[currentPrivateChat];
         var arr = [];
-        //const { username } = this.props.log;
 
         if(private_messages !== undefined) {
-            //console.log(private_messages.msg);
             arr = private_messages.msg;
             console.log(arr);
         }
-
-        //return (null );
 
         if(arr.length <= 0) {
             return (
@@ -78,26 +67,10 @@ class PrivateMessageReceive extends React.Component {
               </div>
           );
         }
-        /*
-        if(arr.length !== 0) {
-            return (
-              <div className="private-chat-window-child-text">
-                { arr.map((u, i)=> <p key={ i } ref={el => (this.itemRefs[i] = el) }>{ u }</p>) }
-              </div>
-
-            );
-        } else {
-            return (
-              null
-            );
-        }
-        */
     }
-
 };
 
 const mapStateToProps = ({ allPrivateMessages, currentPrivateChat, log }) => {
-    //console.log('--- iceland weather to props ---');
     return { allPrivateMessages, currentPrivateChat, log };
 }
 

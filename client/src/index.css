@@ -282,6 +282,7 @@ nav ul li a:hover {
         padding: 20px;
         display: grid;
         grid-template-columns: auto auto;
+
     }
 
     .signup-child {
@@ -294,6 +295,7 @@ nav ul li a:hover {
         display: grid;
 
         justify-content: center;
+        
     }
 
     .signup-child-box {

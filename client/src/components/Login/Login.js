@@ -21,7 +21,6 @@ export class Login extends React.Component {
         };
     }
 
-
     componentDidMount() {
         console.log('mount login');
     }
@@ -29,7 +28,7 @@ export class Login extends React.Component {
     userLogin = e => {
         e.stopPropagation();
         e.preventDefault();
-        //preventDefault();
+
         const { username, password } = this.state;
         //console.log(this.state);
         axios.post("/api/login", {
@@ -61,15 +60,6 @@ export class Login extends React.Component {
                                       if(available) {
                                           console.log('join room success ');
 
-                                          //var room = newRoom.room;
-
-                                          //var obj = { currRoom: room };
-
-
-                                          // this.props.usersInRoom(username);
-                                          //this.props.currentRoom(obj);
-                                          //this.props.myRooms(room);
-
                                       } else {
                                           console.log('join room fail');
                                       }
@@ -90,8 +80,7 @@ export class Login extends React.Component {
 
     render() {
         const log = this.props.log;
-        //console.log('render register');
-        //console.log(log);
+
         if(log.log) {
             return (
                 <div className="chatwindow">
@@ -137,9 +126,7 @@ const ChatWithSocket = props => (
 )
 
 const mapStateToProps = ({ log }) => {
-    //console.log('--- iceland weather to props ---');
     return { log };
 }
 
-//export default Iceland;
 export default connect(mapStateToProps,{ login })(ChatWithSocket);

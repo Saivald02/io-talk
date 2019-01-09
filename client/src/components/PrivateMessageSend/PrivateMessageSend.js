@@ -16,53 +16,16 @@ class PrivateMessageSend extends React.Component {
     }
 
     componentDidMount() {
-        //const { socket } = this.context;
-        /*
-        this.props.socket.on('recv_privatemsg', (from, recievedMsg) => {
-            var msg = 'private message received from ' + from +
-                ': ' + recievedMsg;
-            //this.state.privateMsgHistory.push(msg);
-            //this.setState({}) // to render again
-        });
-        */
+
     }
 
     constructor(props) {
         super(props);
         this.state = {
             privatemsg: '',
-            //privateMsgHistory: [],
-            //receiver: ''
         };
     }
 
-    /*
-    sendPrivateMessage() {
-        //const { socket } = this.context;
-        const privatemsg = this.state.privatemsg;
-        //const username = this.props.info;
-        const receiver = this.state.receiver;
-        console.log('sending private message to ' + receiver + " the message: " + privatemsg);
-        //console.log();
-        if(privatemsg !== '' && receiver !== '') {
-            var data = {
-                nick: receiver,
-                message : privatemsg
-            };
-
-            this.props.socket.emit('privatemsg', data, (success) => {
-        		    if (success) {
-        			      console.log('--- private msg success ---');
-                    var msg = 'you sent private message to ' + data.nick + ': ' + data.message;
-                    //this.state.privateMsgHistory.push(msg);
-                    //this.setState({});
-        				} else {
-                    console.log('--- private msg fail ---');
-        				}
-			      });
-        }
-    }
-    */
     sendPrivateMessage = e => {
         e.stopPropagation();
         e.preventDefault();
@@ -90,21 +53,14 @@ class PrivateMessageSend extends React.Component {
                       if (!response.data.error) {
                           console.log('private message saved in database');
                           console.log(response.data);
-                          //this.setState({ fireRedirect: true });
-                          //var userInfo = { username: username, log: true };
-                          //this.props.login(userInfo);
 
                           this.props.socket.emit('privatemsg', data, (success) => {
                       		    if (success) {
                       			      console.log('--- private msg success ---');
                                   console.log(data);
 
-
-                                  //var msg = sender +': ' + data.message;
                                   this.props.addPrivateMessage(receiver, sender, data.message, 1);
-                                  //var msg = 'you sent private message to ' + data.nick + ': ' + data.message;
-                                  //this.state.privateMsgHistory.push(msg);
-                                  //this.setState({});
+
                       				} else {
                                   console.log('--- private msg fail ---');
                       				}
@@ -121,8 +77,6 @@ class PrivateMessageSend extends React.Component {
     }
 
     render() {
-        //let roomsList = null;
-        //let showList = null;
 
         return (
             <div className="send-message">
@@ -147,19 +101,7 @@ const ChatWithSocket = props => (
 )
 
 const mapStateToProps = ({ currentPrivateChat, log }) => {
-    //console.log('--- iceland weather to props ---');
     return { currentPrivateChat, log };
 }
 
-//export default Iceland;
 export default connect(mapStateToProps,{ addPrivateMessage })(ChatWithSocket);
-
-/*
-PrivateMessage.propTypes = {
-    username: PropTypes.string
-};
-
-PrivateMessage.contextTypes = {
-    socket: PropTypes.object.isRequired
-};
-*/
