@@ -18,7 +18,7 @@ export class Logout extends React.Component {
     }
 
     componentWillUnmount() {
-        console.log('i did unmuont -------------------');
+        //console.log('i did unmuont -------------------');
 
         this.props.socket.off('userlist');
 
@@ -49,10 +49,10 @@ export class Logout extends React.Component {
     }
 
     render() {
-        console.log(this.props);
+        //console.log(this.props);
         return (
               <div className="chatwindow-child chatwindow-child-logout">
-                    <button type="button" className="btn" onClick={() => this.userLogout()}>Logout</button>
+                    <button type="button" className="btn-small" onClick={() => this.userLogout()}>Logout</button>
               </div>
           );
       }

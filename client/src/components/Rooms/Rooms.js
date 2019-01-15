@@ -4,7 +4,9 @@ import React from 'react';
 
 import { allRooms } from '../../actions/allRoomsActions';
 
-import RoomMessageContainer from '../RoomMessageContainer/RoomMessageContainer';
+
+
+
 
 import SocketContext from '../../socket-context';
 import { connect } from 'react-redux';
@@ -33,8 +35,10 @@ export class Rooms extends React.Component {
         //console.log(rooms);
         return (
             <div className="chatwindow-child chatwindow-child-rooms">
-                { rooms.map((one, i) => (<Room key={i} room={one} />)) }
-                <RoomMessageContainer />
+                <div className="center-text"> Channels </div>
+                <div className="scroll">
+                    { rooms.map((one, i) => (<Room key={i} room={one} />)) }
+                </div>
             </div>
         );
     }

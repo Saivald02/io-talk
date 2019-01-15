@@ -5,7 +5,13 @@ import { connect } from 'react-redux';
 import Logout from '../Logout/Logout';
 import Users from '../Users/Users';
 import ThisUser from '../ThisUser/ThisUser';
+import AllUsers from '../AllUsers/AllUsers';
 import Rooms from '../Rooms/Rooms';
+import CreateRoom from '../CreateRoom/CreateRoom';
+import RoomMessageContainer from '../RoomMessageContainer/RoomMessageContainer';
+import PrivateMessageContainer from '../PrivateMessageContainer/PrivateMessageContainer';
+//import AllRooms from '../AllRooms/AllRooms';
+//<AllRooms />
 
 export class SignInUpContainer extends React.Component {
 
@@ -25,6 +31,9 @@ export class SignInUpContainer extends React.Component {
                     <Logout />
                     <Users />
                     <Rooms />
+                    <RoomMessageContainer />
+                    <PrivateMessageContainer />
+                    <CreateRoom />
                 </div>
             );
         } else {

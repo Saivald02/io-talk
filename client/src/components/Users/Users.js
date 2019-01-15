@@ -4,7 +4,7 @@ import React from 'react';
 
 import { allUsers } from '../../actions/allUsersActions';
 
-import PrivateMessageContainer from '../PrivateMessageContainer/PrivateMessageContainer';
+
 
 import SocketContext from '../../socket-context';
 import { connect } from 'react-redux';
@@ -36,8 +36,10 @@ export class Users extends React.Component {
         if(users.arr.length !== 0) {
             return (
                 <div className="chatwindow-child chatwindow-child-users">
-                    { users.arr.map((one, i) => (<User key={i} user={one} />)) }
-                    <PrivateMessageContainer />
+                    <div className="center-text"> Online users </div>
+                    <div className="scroll">
+                        { users.arr.map((one, i) => (<User key={i} user={one} />)) }
+                    </div>
                 </div>
             );
         } else {

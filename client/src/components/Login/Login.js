@@ -7,10 +7,13 @@ import SocketContext from '../../socket-context';
 import { login } from '../../actions/logActions';
 import axios from "axios";
 
+/*
 import Logout from '../Logout/Logout';
 import Users from '../Users/Users';
 import ThisUser from '../ThisUser/ThisUser';
 import Rooms from '../Rooms/Rooms';
+*/
+//import UsersFromDatabase from '../UsersFromDatabase/UsersFromDatabase';
 
 export class Login extends React.Component {
     constructor() {
@@ -79,43 +82,31 @@ export class Login extends React.Component {
     };
 
     render() {
-        const log = this.props.log;
-
-        if(log.log) {
-            return (
-                <div className="chatwindow">
-                    <ThisUser />
-                    <Logout />
-                    <Users />
-                    <Rooms />
-                </div>
-            );
-        } else {
-            return (
-                <div className="signup-child">
-                    <h2 className="signup-child-box">Login</h2>
-                    <div className="input-box">
-                        <div className="signup-child-box">
-                            <input
-                                type="text"
-                                className="input-box"
-                                onChange={e => this.setState({ username: e.target.value })}
-                                placeholder="username" />
-                        </div>
-                        <div className="signup-child-box">
-                            <input
-                                type="text"
-                                className="input-box"
-                                onChange={e => this.setState({ password: e.target.value })}
-                                placeholder="password" />
-                        </div>
-                        <div className="signup-child-box">
-                            <button type="button" className="btn" onClick={this.userLogin}>Login</button>
-                        </div>
+        //const log = this.props.log;
+        return (
+            <div className="signup-child">
+                <h2 className="signup-child-box">Login</h2>
+                <div className="input-box">
+                    <div className="signup-child-box">
+                        <input
+                            type="text"
+                            className="input-box"
+                            onChange={e => this.setState({ username: e.target.value })}
+                            placeholder="username" />
+                    </div>
+                    <div className="signup-child-box">
+                        <input
+                            type="text"
+                            className="input-box"
+                            onChange={e => this.setState({ password: e.target.value })}
+                            placeholder="password" />
+                    </div>
+                    <div className="signup-child-box">
+                        <button type="button" className="btn" onClick={this.userLogin}>Login</button>
                     </div>
                 </div>
-            );
-        }
+            </div>
+        );
     }
 }
 

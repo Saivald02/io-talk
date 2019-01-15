@@ -1,11 +1,11 @@
 
 const io = require('../app.js').io_chat
 //const axios = require("axios");
-
+/*
 const { VERIFY_USER, USER_CONNECTED, USER_DISCONNECTED,
 		LOGOUT, COMMUNITY_CHAT, MESSAGE_RECIEVED, MESSAGE_SENT,
 		TYPING  } = require('./Events')
-
+*/
 //const { createUser, createMessage, createChat } = require('./Factories')
 
 var users = {};
@@ -251,7 +251,8 @@ exports = module.exports = function (io) {
 			});
 
 			socket.on('sendmsg', function (data, fn) {
-					var userAllowed = false;
+
+          var userAllowed = false;
 
 					//Check if user is allowed to send message.
 

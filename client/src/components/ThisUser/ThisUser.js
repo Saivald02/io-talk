@@ -40,7 +40,9 @@ export class ThisUser extends React.Component {
         const user = this.props.log.username;
 
         return (
-            <div className="chatwindow-child chatwindow-child-userinfo"> { user } </div>
+            <div className="chatwindow-child chatwindow-child-userinfo">
+                <div> { user } </div>
+            </div>
         );
     }
 }

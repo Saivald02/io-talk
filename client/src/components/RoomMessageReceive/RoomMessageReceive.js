@@ -22,11 +22,12 @@ class RoomMessageReceive extends React.Component {
     }
 
     render() {
+        console.log(' --- render room message recieve ---');
         const { currentRoomChat } = this.props;
         const { username } = this.props.log;
         const room_messages = this.props.allRoomMessages.byHash[currentRoomChat];
         var arr = [];
-        console.log(room_messages);
+        //console.log(room_messages);
         if(room_messages !== undefined) {
             arr = room_messages.msg;
         }

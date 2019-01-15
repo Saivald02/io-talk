@@ -70,16 +70,17 @@ export class User extends React.Component {
     render() {
         var counter = 0;
         const { user } = this.props;
-        console.log('--------------------------- render users ---------------------------');
+        //console.log('--------------------------- render users ---------------------------');
         if(this.props.unreadPrivateMsg !== undefined) {
-              console.log('not undefined');
-              console.log(this.props.unreadPrivateMsg.byHash[user]);
+              //console.log('not undefined');
+              //console.log(this.props.unreadPrivateMsg.byHash[user]);
               if(this.props.unreadPrivateMsg.byHash[user] !== undefined) {
-                  console.log('not undefined 2');
-                  console.log(this.props.unreadPrivateMsg.byHash[user].counter);
+                  //console.log('not undefined 2');
+                  //console.log(this.props.unreadPrivateMsg.byHash[user].counter);
                   counter = this.props.unreadPrivateMsg.byHash[user].counter
               }
         }
+        
         if(counter === 0) {
             return (
                 <div className="counter-container"

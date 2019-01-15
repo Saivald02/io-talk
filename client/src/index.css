@@ -18,36 +18,6 @@ code {
     monospace;
 }
 
-/*
-nav {
-    padding: 10px;
-    background-color: #f9d5e5;
-}
-nav ul {
-    display: grid;
-
-    justify-content: center;
-    grid-template-columns: auto auto auto auto auto;
-    list-style-type: none;
-}
-
-
-nav ul li {
-  padding: 5px;
-}
-nav ul li a {
-  font-size: 20px;
-  color: grey;
-  text-decoration: none;
-}
-
-nav ul li a:hover {
-  text-decoration: none;
-
-  color: black;
-}
-*/
-
 .counter-container {
     -webkit-transition-duration: 0.4s; /* Safari */
     transition-duration: 0.4s;
@@ -55,15 +25,32 @@ nav ul li a:hover {
     border: none;
     border-radius: 5%;
     color: grey;
-    padding: 15px 32px;
+    padding: 10px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
     margin: 4px 2px;
     cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
+.center-text {
+    padding: 2px;
+    display: grid;
+    justify-content: center;
+}
+/*
+.chatwindow-child-allusers {
+    display: grid;
+    grid-template-columns: auto;
+    height: 20%;
+    overflow-y: auto;
+}
+*/
 
 .counter-container:hover {
     background-color: #fffcdc;
@@ -73,8 +60,14 @@ nav ul li a:hover {
 .counter-container > .counter-user {
   padding: 1px;
   height: 25px;
+  width: 50px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
   /*width: 25px; */
 }
+
 .counter-container > .counter-grid {
     display: flex;
     justify-content: space-between;
@@ -83,6 +76,7 @@ nav ul li a:hover {
 .counter-grid > .counter-user {
     padding: 1px;
     height: 25px;
+
     /*width: 25px; */
 }
 
@@ -94,6 +88,7 @@ nav ul li a:hover {
     height: 25px;
     width: 25px;
     border-radius: 25px;
+
 }
 
 .btn {
@@ -103,7 +98,7 @@ nav ul li a:hover {
     border: none;
     border-radius: 5%;
     color: grey;
-    padding: 15px 32px;
+    padding: 18px 32px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
@@ -112,7 +107,23 @@ nav ul li a:hover {
     cursor: pointer;
 }
 
-.btn:hover {
+.btn-small {
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    background-color: #f9d5e5;
+    border: none;
+    border-radius: 5%;
+    color: grey;
+    padding: 9px 16px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+.btn-small:hover {
     background-color: #fffcdc;
     color: black;
 }
@@ -120,11 +131,35 @@ nav ul li a:hover {
     padding: 5px;
 }
 
+.chatwindow-child.chatwindow-child-create {
+  grid-area: create;
+  background-color: white;
+  padding: 10px;
+  /*border: 3px solid #f1e3dd;*/
+  display: flex;
+  /*align-items: center;*/
+  justify-content: center;
+
+  font-size: 30px;
+}
+
+.chatwindow-child.chatwindow-child-create > .create-input {
+    padding-right: 5px;
+}
+
+.chatwindow-child.chatwindow-child-create > .create-input > .input-box {
+    flex: 0 0 100%;
+    width: 200px;
+}
+.chatwindow-child.chatwindow-child-create > .create-btn {
+    padding-left: 5px;
+}
+
 .chatwindow-child.chatwindow-child-userinfo {
     grid-area: user;
     background-color: white;
     padding: 10px;
-    border: 3px solid #f1e3dd;
+    /*border: 3px solid #f1e3dd;*/
     display: flex;
     align-items: center;
     justify-content: center;
@@ -135,7 +170,7 @@ nav ul li a:hover {
     grid-area: logout;
     background-color: white;
     padding: 10px;
-    border: 3px solid #f1e3dd;
+    /*border: 3px solid #f1e3dd;*/
     display: flex;
     justify-content: flex-end;
 
@@ -144,17 +179,86 @@ nav ul li a:hover {
 .chatwindow-child.chatwindow-child-users {
     grid-area: users;
     background-color: white;
-    padding: 10px;
+    display: grid;
+    justify-content: center;
+    grid-template-columns: 90%;
+    padding: 5px;
     border: 3px solid #f1e3dd;
+
+
 }
 
+.chatwindow-child.chatwindow-child-users > .scroll {
+    height: 390px;
+    overflow-y: auto;
+    padding: 5px;
+    display: grid;
+    justify-content: center;
+    background-color: #F5F6F7;
+}
 .chatwindow-child.chatwindow-child-rooms {
     grid-area: rooms;
     background-color: white;
-    padding: 10px;
+    display: grid;
+    justify-content: center;
+    grid-template-columns: 90%;
+    padding: 5px;
     border: 3px solid #f1e3dd;
+
+
 }
 
+.chatwindow-child.chatwindow-child-rooms > .scroll {
+    height: 390px;
+    overflow-y: auto;
+    padding: 5px;
+    display: grid;
+    justify-content: center;
+    background-color: #F5F6F7;
+}
+/*
+.chatwindow-child.chatwindow-child-allusers {
+    grid-area: allusers;
+    background-color: white;
+    padding: 10px;
+    border: 3px solid #f1e3dd;
+    height: 500px;
+    /*
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+
+}
+*/
+
+.chatwindow-child.chatwindow-child-private {
+    grid-area: chatprivate;
+    background-color: white;
+    padding: 10px;
+    border: 3px solid #f1e3dd;
+    /*
+    height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+    */
+}
+
+.chatwindow-child.chatwindow-child-room {
+    grid-area: chatroom;
+    background-color: white;
+    padding: 10px;
+    border: 3px solid #f1e3dd;
+    /*
+    height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+    */
+}
 .private-chat-window {
     border: 2px solid #f1e3dd;
 }
@@ -195,24 +299,24 @@ nav ul li a:hover {
     margin: 5px;
 }
 
-.private-chat-window > .private-chat-window-child > .chat-top {
+.chatwindow > .chatwindow-child > .private-chat-window-child > .chat-top {
     display: grid;
     grid-template-columns: auto auto;
     background: #fffcdc;  /* fallback for old browsers */
     background: -webkit-linear-gradient(to left, #d9a7c7, #fffcdc);  /* Chrome 10-25, Safari 5.1-6 */
     background: linear-gradient(to left, #d9a7c7, #fffcdc); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-    padding: 5px;
+    padding: 3px;
     border: 2px solid #f1e3dd;
 }
 
-.private-chat-window > .private-chat-window-child > .chat-top > .chat-top-right {
+.chatwindow > .chatwindow-child > .private-chat-window-child > .chat-top > .chat-top-right {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 30px;
+    font-size: 16px;
 }
 
-.private-chat-window > .private-chat-window-child > .chat-top > .chat-top-left {
+.chatwindow > .chatwindow-child > .private-chat-window-child > .chat-top > .chat-top-left {
     display: flex;
     align-items: center;
     justify-content: right;
@@ -222,7 +326,7 @@ nav ul li a:hover {
     display: flex;
     align-items: center;
     justify-content: right;
-    font-size: 30px;
+    font-size: 16px;
 }
 
 .private-chat-window-child > .private-chat-window-child-text > .sender {
@@ -245,7 +349,7 @@ nav ul li a:hover {
 .private-chat-window-child > .private-chat-window-child-text > p {
     margin: 0 auto;
     padding: 3px;
-    /* reaks long words */
+    /* breaks long words */
     overflow-wrap: break-word;
     word-wrap: break-word;
     -ms-word-break: break-all;
@@ -268,15 +372,20 @@ nav ul li a:hover {
 
     .chatwindow {
         /*background-color: black;*/
+
         margin: 10px;
+        /*
         padding: 20px;
+        */
         display: grid;
-        grid-template-columns: 50% 50%;
-        grid-template-rows: auto;
+        grid-template-columns: 15% 35% 35% 15%;
+        /*grid-template-rows: 100px auto;*/
+
         grid-template-areas:
-                  "user logout"
-                  "users rooms";
+                  "user create create logout"
+                  "users chatprivate chatroom rooms";
     }
+
 
     .signup {
         padding: 20px;
@@ -295,7 +404,7 @@ nav ul li a:hover {
         display: grid;
 
         justify-content: center;
-        
+
     }
 
     .signup-child-box {
@@ -326,6 +435,7 @@ nav ul li a:hover {
       grid-template-rows: auto;
       grid-template-areas:
                 "user logout"
+                "allusers allusers"
                 "users users"
                 "rooms rooms";
   }
@@ -375,6 +485,7 @@ nav ul li a:hover {
         grid-template-areas:
                   "logout"
                   "user"
+                  "allusers"
                   "users"
                   "rooms";
     }

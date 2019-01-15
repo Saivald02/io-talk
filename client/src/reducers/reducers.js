@@ -29,6 +29,8 @@ import allRoomMessages from './allRoomMessagesReducer';
 
 import databasePrivateMessages from './databasePrivateMessagesReducer';
 import databaseRoomMessages from './databaseRoomMessagesReducer';
+import databaseAllUsers from './databaseAllUsersReducer';
+import databaseAllRooms from './databaseAllRoomsReducer';
 
 import unreadPrivateMsg from './unreadPrivateMessagesReducer';
 import unreadRoomMsg from './unreadRoomMessagesReducer';
@@ -39,7 +41,8 @@ import rooms from './allRoomsReducer';
 export default combineReducers({
     hvolsvollur, selfoss, iceland, log, message,
     users, currentPrivateChat, allPrivateMessages, databasePrivateMessages, unreadPrivateMsg,
-    rooms, currentRoomChat, allRoomMessages, databaseRoomMessages, unreadRoomMsg
+    rooms, currentRoomChat, allRoomMessages, databaseRoomMessages, unreadRoomMsg, databaseAllUsers,
+    databaseAllRooms
 });
 /*
 export default combineReducers({

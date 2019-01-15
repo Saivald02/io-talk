@@ -3,10 +3,6 @@ import axios from "axios";
 import { connect } from 'react-redux';
 import { login } from '../../actions/logActions';
 import SocketContext from '../../socket-context';
-import Logout from '../Logout/Logout';
-import Users from '../Users/Users';
-import ThisUser from '../ThisUser/ThisUser';
-import Rooms from '../Rooms/Rooms';
 
 export class Register extends React.Component {
     constructor() {
@@ -77,59 +73,48 @@ export class Register extends React.Component {
     };
 
     render() {
-        const log = this.props.log;
+        //const log = this.props.log;
         console.log('render register');
         //console.log(log);
-        if(log.log) {
-            return (
-                <div className="chatwindow">
-                    <ThisUser />
-                    <Logout />
-                    <Users />
-                    <Rooms />
+        return (
+            <div className="signup-child">
+                <h2 className="signup-child-box">Register</h2>
+                <div className="signup-child-box">
+                    <input
+                        type="text"
+                        className="input-box"
+                        onChange={e => this.setState({ username: e.target.value })}
+                        placeholder="username"
+                    />
                 </div>
-            );
-        } else {
-            return (
-                <div className="signup-child">
-                    <h2 className="signup-child-box">Register</h2>
-                    <div className="signup-child-box">
-                        <input
-                            type="text"
-                            className="input-box"
-                            onChange={e => this.setState({ username: e.target.value })}
-                            placeholder="username"
-                        />
-                    </div>
-                    <div className="signup-child-box">
-                        <input
-                            type="text"
-                            className="input-box"
-                            onChange={e => this.setState({ password: e.target.value })}
-                            placeholder="password"
-                        />
-                    </div>
-                    <div className="signup-child-box">
-                        <input
-                            type="text"
-                            className="input-box"
-                            onChange={e => this.setState({ passwordConfirm: e.target.value })}
-                            placeholder="confirm password"
-                        />
-                    </div>
-                    <div className="signup-child-box">
-                        <button className="btn"
-                            onClick={() =>
-                                this.registerPost()
-                            }
-                        >
-                              register
-                        </button>
-                    </div>
+                <div className="signup-child-box">
+                    <input
+                        type="text"
+                        className="input-box"
+                        onChange={e => this.setState({ password: e.target.value })}
+                        placeholder="password"
+                    />
+                </div>
+                <div className="signup-child-box">
+                    <input
+                        type="text"
+                        className="input-box"
+                        onChange={e => this.setState({ passwordConfirm: e.target.value })}
+                        placeholder="confirm password"
+                    />
+                </div>
+                <div className="signup-child-box">
+                    <button className="btn"
+                        onClick={() =>
+                            this.registerPost()
+                        }
+                    >
+                          register
+                    </button>
+                </div>
 
-                </div>
-            );
-        }
+            </div>
+        );
     }
 }
 

@@ -13,7 +13,7 @@ const initialState = {
 
 //const initialState = [];
 
-const allPrivateMessagesReducer = ( state = initialState, action ) => {
+const allRoomMessagesReducer = ( state = initialState, action ) => {
 
     // búa til key/value object eða hash-table
     // key -> roomName
@@ -105,4 +105,4 @@ const allPrivateMessagesReducer = ( state = initialState, action ) => {
 
 };
 
-export default allPrivateMessagesReducer;
+export default allRoomMessagesReducer;

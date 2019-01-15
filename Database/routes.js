@@ -6,9 +6,83 @@ var User = require('./models/user');
 const Data = require("./data");
 const PrivateMessage = require("./models/private_messages");
 const RoomMessage = require("./models/room_messages");
+const Rooms = require("./models/rooms");
 
 
 // https://mongoosejs.com/docs/api.html#model_Model.find
+
+router.get("/getAllUsers", (req, res) => {
+  console.log('getting all users from database');
+  User.findById(req.session.userId)
+    .exec(function (error, user) {
+      if (error) {
+        return res.json({ error: error});
+      } else {
+        if (user === null) {
+          var err = new Error('Not authorized! Go back!');
+          err.status = 400;
+          return res.json({ error: err});
+          //return()
+        } else {
+
+          /*
+          let param = req.query;
+          const query = param.sender;
+          const room = param.room;
+          console.log('find room messages');
+          console.log(param);
+          */
+          User.find({}, {_id: 0, username: 1}, function(err, results){
+              if(err){
+                  console.log('---- get all users error -----');
+                  //console.log(results);
+                  return res.json({ data: err });
+              }
+
+              if(results.length == 0) {
+                  console.log("No record found")
+                  return res.json({ success: false });
+              }
+              //console.log(results);
+              return res.json({ data: results });
+          });
+        }
+      }
+    });
+});
+
+router.get("/getAllRooms", (req, res) => {
+  console.log('getting all rooms from database');
+  User.findById(req.session.userId)
+    .exec(function (error, user) {
+      if (error) {
+        return res.json({ error: error});
+      } else {
+        if (user === null) {
+          var err = new Error('Not authorized! Go back!');
+          err.status = 400;
+          return res.json({ error: err});
+          //return()
+        } else {
+
+          Rooms.find({}, {_id: 0, room: 1}, function(err, results){
+              if(err){
+                  console.log('---- get all rooms error -----');
+                  //console.log(results);
+                  return res.json({ data: err });
+              }
+
+              if(results.length == 0) {
+                  console.log("No record found")
+                  return res.json({ success: false });
+              }
+              //console.log(results);
+              return res.json({ data: results });
+          });
+        }
+      }
+    });
+});
 
 router.get("/getRoomMessageHistory", (req, res) => {
 
@@ -45,6 +119,47 @@ router.get("/getRoomMessageHistory", (req, res) => {
         }
       }
     });
+});
+
+router.post('/createRoom', function (req, res, next) {
+    console.log('create new room');
+    //console.log(req);
+    User.findById(req.session.userId)
+      .exec(function (error, user) {
+        if (error) {
+          return res.json({ error: error});
+        } else {
+          if (user === null) {
+            var err = new Error('Not authorized! Go back!');
+            err.status = 400;
+            return res.json({ error: err});
+          } else {
+            //console.log('found you');
+            let data = new Rooms();
+            const { room, creator } = req.body;
+            console.log(creator);
+            //console.log('cannot find req.body');
+            if (!creator && !room) {
+                return res.json({
+                    success: false,
+                    error: "INVALID INPUTS"
+                });
+            }
+
+            //console.log('here?');
+
+            data.room = room;
+            data.creator = creator;
+            //data.message = message;
+            data.save(err => {
+                if (err) return res.json({ success: false, error: err });
+                console.log('saving new channel to database');
+                return res.json({ success: true });
+            });
+
+          }
+        }
+      });
 });
 
 router.post('/roomMessageSend', function (req, res, next) {

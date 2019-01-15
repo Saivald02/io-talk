@@ -33,11 +33,17 @@ export class Room extends React.Component {
           }
       })
       .then((response) => {
-
-          var sorted = response.data.data.sort((a, b) => a.date > b.date);
-          console.log('sorted private messages from database');
-          this.props.databaseRoomMessages(sorted);
-          this.props.clearSocketRoomMessages();
+          //console.log('response ');
+          //console.log(response.success);
+          if(response.data.success === false) {
+                console.log('no room message history');
+                this.props.databaseRoomMessages([]);
+          } else {
+              var sorted = response.data.data.sort((a, b) => a.date > b.date);
+              console.log('sorted private messages from database');
+              this.props.databaseRoomMessages(sorted);
+              this.props.clearSocketRoomMessages();
+          }
       })
       .catch(function (error) {
         console.log(error);
@@ -48,24 +54,34 @@ export class Room extends React.Component {
         var counter = 0;
         const { room } = this.props;
 
+        if(this.props.unreadRoomMsg !== undefined) {
+              //console.log('not undefined');
+              //console.log(this.props.unreadPrivateMsg.byHash[user]);
+              if(this.props.unreadRoomMsg.byHash[room] !== undefined) {
+                  //console.log('not undefined 2');
+                  //console.log(this.props.unreadPrivateMsg.byHash[user].counter);
+                  counter = this.props.unreadRoomMsg.byHash[room].counter
+              }
+        }
+
         if(counter === 0) {
             return (
-                <div className="">
-                    <button
-                        type="button"
-                        className="btn"
-                        onClick={this.startRoomChat}>{ room }
-                    </button>
+                <div className="counter-container"
+                    onClick={ this.startRoomChat }>
+                    <div
+                        className="counter-user"> { room }
+                    </div>
                 </div>
             );
         } else {
             return (
-                <div className="">
-                    <button
-                        type="button"
-                        className=""
-                        onClick={this.startRoomChat}>{ room } { counter }
-                    </button>
+                <div
+                    className="counter-container"
+                    onClick={ this.startRoomChat } >
+                    <div className="counter-grid">
+                        <div className="counter-user"> { room } </div>
+                        <div className="counter"> { counter } </div>
+                    </div>
                 </div>
             );
         }
