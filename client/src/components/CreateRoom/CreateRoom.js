@@ -70,10 +70,10 @@ export class CreateRoom extends React.Component {
                         type="text"
                         className="input-box"
                         onChange={e => this.setState({ room: e.target.value })}
-                        placeholder="name of your new channel" />
+                        placeholder="your new channel" />
                 </div>
                 <div className="create-btn">
-                    <button type="button" className="btn-small" onClick={this.createRoom}>Create room</button>
+                    <button type="button" className="btn-small" onClick={this.createRoom}>Create channel</button>
                 </div>
             </div>
         );

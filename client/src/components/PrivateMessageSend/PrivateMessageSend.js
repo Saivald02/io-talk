@@ -87,7 +87,7 @@ class PrivateMessageSend extends React.Component {
                         onInput={(e) => this.setState({ privatemsg: e.target.value })} />
                 </div>
                 <div className="send-message-child-2">
-                    <button type="button" className="btn" onClick={this.sendPrivateMessage}>Send Private Message</button>
+                    <button type="button" className="btn" onClick={this.sendPrivateMessage}>Send</button>
                 </div>
             </div>
         );

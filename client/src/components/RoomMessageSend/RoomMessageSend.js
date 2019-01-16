@@ -79,7 +79,7 @@ class RoomMessageSend extends React.Component {
                         onInput={(e) => this.setState({ roommsg: e.target.value })} />
                 </div>
                 <div className="send-message-child-2">
-                    <button type="button" className="btn" onClick={ this.sendRoomMessage }>Send Room Message</button>
+                    <button type="button" className="btn" onClick={ this.sendRoomMessage }>Send</button>
                 </div>
             </div>
         );

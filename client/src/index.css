@@ -131,30 +131,6 @@ code {
     padding: 5px;
 }
 
-.chatwindow-child.chatwindow-child-create {
-  grid-area: create;
-  background-color: white;
-  padding: 10px;
-  /*border: 3px solid #f1e3dd;*/
-  display: flex;
-  /*align-items: center;*/
-  justify-content: center;
-
-  font-size: 30px;
-}
-
-.chatwindow-child.chatwindow-child-create > .create-input {
-    padding-right: 5px;
-}
-
-.chatwindow-child.chatwindow-child-create > .create-input > .input-box {
-    flex: 0 0 100%;
-    width: 200px;
-}
-.chatwindow-child.chatwindow-child-create > .create-btn {
-    padding-left: 5px;
-}
-
 .chatwindow-child.chatwindow-child-userinfo {
     grid-area: user;
     background-color: white;
@@ -291,6 +267,11 @@ code {
     flex: 0 0 100%;
 }
 
+.send-message > .send-message-child-2 > button:hover {
+    background-color: #fffcdc;
+    color: black;
+}
+
 .input:focus {
     outline:none;
 }
@@ -421,6 +402,29 @@ code {
         justify-content: center;
     }
 
+    .chatwindow-child.chatwindow-child-create {
+      grid-area: create;
+      background-color: white;
+      padding: 10px;
+      /*border: 3px solid #f1e3dd;*/
+      display: flex;
+      /*align-items: center;*/
+      justify-content: center;
+
+      font-size: 30px;
+    }
+
+    .chatwindow-child.chatwindow-child-create > .create-input {
+        padding-right: 5px;
+    }
+
+    .chatwindow-child.chatwindow-child-create > .create-input > .input-box {
+        flex: 0 0 100%;
+        width: 200px;
+    }
+    .chatwindow-child.chatwindow-child-create > .create-btn {
+        padding-left: 5px;
+    }
 }
 
 /* tablet */
@@ -434,10 +438,11 @@ code {
       grid-template-columns: 50% 50%;
       grid-template-rows: auto;
       grid-template-areas:
-                "user logout"
-                "allusers allusers"
-                "users users"
-                "rooms rooms";
+          "user logout"
+          "create create"
+          "users rooms"
+          "chatprivate chatprivate"
+          "chatroom chatroom";
   }
 
   .signup {
@@ -472,6 +477,30 @@ code {
       justify-content: center;
   }
 
+  .chatwindow-child.chatwindow-child-create {
+    grid-area: create;
+    background-color: white;
+    padding: 10px;
+    /*border: 3px solid #f1e3dd;*/
+    display: flex;
+    /*align-items: center;*/
+    justify-content: center;
+
+    font-size: 30px;
+  }
+
+  .chatwindow-child.chatwindow-child-create > .create-input {
+      padding-right: 5px;
+  }
+
+  .chatwindow-child.chatwindow-child-create > .create-input > .input-box {
+      flex: 0 0 100%;
+      width: 200px;
+  }
+  .chatwindow-child.chatwindow-child-create > .create-btn {
+      padding-left: 5px;
+  }
+
 }
 
 @media screen and (max-width: 350px) {
@@ -480,14 +509,15 @@ code {
         margin: 10px;
         padding: 20px;
         display: grid;
-        grid-template-columns: auto;
+        grid-template-columns: 50% 50%;
         grid-template-rows: auto;
         grid-template-areas:
-                  "logout"
-                  "user"
-                  "allusers"
-                  "users"
-                  "rooms";
+            "user logout"
+            "create create"
+            "users users"
+            "rooms rooms"
+            "chatprivate chatprivate"
+            "chatroom chatroom";
     }
 
     .signup {
@@ -522,5 +552,29 @@ code {
         display: grid;
 
         justify-content: center;
+    }
+
+    .chatwindow-child.chatwindow-child-create {
+      grid-area: create;
+      background-color: white;
+      padding: 10px;
+      /*border: 3px solid #f1e3dd;*/
+      display: flex;
+      /*align-items: center;*/
+      justify-content: center;
+
+      font-size: 30px;
+    }
+
+    .chatwindow-child.chatwindow-child-create > .create-input {
+        padding-right: 5px;
+    }
+
+    .chatwindow-child.chatwindow-child-create > .create-input > .input-box {
+        flex: 0 0 100%;
+        width: 100px;
+    }
+    .chatwindow-child.chatwindow-child-create > .create-btn {
+        padding-left: 5px;
     }
 }
